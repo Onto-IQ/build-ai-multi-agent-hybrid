@@ -18,8 +18,9 @@ workspace/tmp/
 
 .cursor/
 
-# ไฟล์ MCP ในเครื่องอาจมีของลับ
+# ไฟล์ MCP ในเครื่องอาจมีของลับ ชุดสาธิตของวิทยากรเก็บไว้ได้
 .mcp.json
+!solutions/w6/drop-in/.mcp.json
 
 node_modules/
 npm-debug.log*
