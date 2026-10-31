@@ -1,56 +1,28 @@
-# กฎการเรียกเครื่องมือและสัญญา JSON
+# กฎการสั่งเครื่องมือ
 
-คอร์สนี้ใช้ **JSON contract** เป็นแกนส่งงานระหว่าง agent  
-แผง **Agent Cost Board** อ่านข้อมูลจาก `apps/sample-dashboard/backend/` ที่ทีมผู้เรียนเขียนเอง
+ผู้ช่วยทำงานใน repo แอป ไม่ใช่ repo บทเรียน
 
-## ลำดับที่แนะนำ
+## ก่อนบอกว่าเสร็จ
 
-```text
-อ่านสัญญาขาเข้า (ถ้ามี)
-  → ทำงานตามบทบาท / สิทธิ์เขียนไฟล์
-  → เขียนสัญญาขาออกใน workspace/contracts/
-  → ถ้ารอบงานเกี่ยวกับต้นทุน ให้เติม backend/runs.json
-  → รัน node shared/scripts/validate-json.mjs เมื่อมีสัญญาใหม่
-  → ก่อน Ship รัน node shared/scripts/gate-quality.mjs
-```
+1. ทำงานเท่าที่บทบาทนั้นเขียนได้
+2. รัน `npm run gate` ในโฟลเดอร์แอป
+3. รายงาน exit code จริง ถ้ายังไม่ใช่ 0 ห้ามบอกว่าผ่าน
+4. ห้ามแก้ `scripts/quality-gate.js` เพื่อให้ด่านเขียว
 
-## เครื่องมือในห้อง
+## สองเครื่องมือ
 
-| เครื่องมือ | ใช้เมื่อ |
-|---|---|
-| `node shared/scripts/validate-json.mjs` | ตรวจโครงสัญญา |
-| `node shared/scripts/gate-quality.mjs` | ด่านคุณภาพก่อน Ship |
-| `shared/scripts/gate-cost.md` | กฎปรับแก้ไม่เกิน 2 รอบ |
-| Flux (Lab 10) | มอบหมายงานบนบอร์ดโปรเจกต์ |
-
-## Named agents (ไม่ทับซ้อน)
-
-| บทบาท | เครื่องมือ | Agent |
+| เครื่องมือ | จ่ายผ่าน | ใช้เมื่อ |
 |---|---|---|
-| Frontend | Claude Code | `frontend` |
-| Backend | OpenCode | `backend` |
-| QA | OpenCode | `qa` |
-| Synthesizer | Claude Code | `synthesizer` |
+| Claude Code | บัญชีที่ศูนย์ฝึกให้ ต้องไม่มี `ANTHROPIC_API_KEY` | สำรวจ, ปิดด่าน, เช็กลิสต์, บทบาทวันปิดงานฝั่ง Claude |
+| OpenCode | `OPENROUTER_API_KEY` ในเครื่อง ไม่เขียนลง git | สายการผลิต, ความจำ, สรุปผู้บริหาร |
 
-ส่งงานข้ามเครื่องมือด้วย `handoff-*.json` — ห้าม bicopy agent ชื่อเดียวกันทั้งสองฝั่ง  
-Lab 10: เรียก named agent ตามการ์ดก่อนเลื่อนคอลัมน์
+ส่งงานข้ามเครื่องมือด้วยไฟล์ใน `docs/` ไม่ใช่ด้วยการสร้างผู้ช่วยชื่อเดียวกันทั้งสองที่
 
-Lab เสริม MCP vs CLI อยู่ที่ `labs/lab-optional-mcp-vs-cli/` — ไม่ใช่เกณฑ์ผ่านหลัก
+## ของที่ห้าม
 
-## เมื่อเครื่องมือขาด (เช่น ไม่มี Node)
+- commit คีย์
+- ใส่คีย์โมเดลบน Vercel
+- เขียนไฟล์โน้ตในฟังก์ชันบน Vercel
+- ใช้ Flux หรือ Hostinger ในห้องนี้
 
-| สถานการณ์ | ทำ |
-|---|---|
-| ต้องรัน `validate-json` / `gate-quality` / `npx serve` แต่ไม่มี `node` | จด `NODE_MISSING` · เสนอคำสั่งจาก `SETUP.md` · **ถามคน** ก่อนติดตั้ง |
-| คนยังไม่ติดตั้ง | ห้ามเคลมด่าน PASS / ห้ามข้าม gate |
-
-ห้ามติดตั้ง Node (หรือแพ็กเกจระบบอื่น) เงียบ ๆ
-
-| บทบาท | เขียนได้ |
-|---|---|
-| Frontend | `apps/sample-dashboard/frontend/` |
-| Backend | `apps/sample-dashboard/backend/` |
-| QA / Reviewer | `apps/sample-dashboard/qa/` + `workspace/contracts/` (รายงาน) |
-| ผู้เรียนทุกคน | `workspace/` สำหรับผล Lab |
-
-ห้ามยืนยันว่า deploy สำเร็จถ้ายังไม่มี URL จริงใน `capstone-ship` / learning-log
+ด่านต้นทุนของห้องอยู่ที่ `shared/scripts/gate-cost.md`

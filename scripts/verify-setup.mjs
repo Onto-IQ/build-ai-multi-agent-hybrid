@@ -1,0 +1,340 @@
+#!/usr/bin/env node
+/**
+ * Readiness check for the hybrid class.
+ *
+ *   node scripts/verify-setup.mjs                 learner machine (homework)
+ *   node scripts/verify-setup.mjs --course-files  repo shape only (no tools)
+ *
+ * Flags: --skip-claude --skip-opencode --skip-openrouter --skip-workshop --course-files
+ *
+ * Never prints API key values.
+ */
+
+import { execFile, spawn } from 'node:child_process';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import http from 'node:http';
+import net from 'node:net';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
+
+const require = createRequire(import.meta.url);
+const { resolveWorkshopDir } = require('./workshop-dir.js');
+
+const exec = promisify(execFile);
+const repo = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const args = new Set(process.argv.slice(2));
+const courseFiles = args.has('--course-files');
+const skipClaude = courseFiles || args.has('--skip-claude');
+const skipOpencode = courseFiles || args.has('--skip-opencode');
+const skipOpenrouter = courseFiles || args.has('--skip-openrouter');
+const skipWorkshop = courseFiles || args.has('--skip-workshop');
+
+const problems = [];
+
+function note(message) {
+  console.log(`OK   | ${message}`);
+}
+
+function warn(message) {
+  console.log(`WARN | ${message}`);
+}
+
+function bad(message) {
+  problems.push(message);
+  console.log(`FAIL | ${message}`);
+}
+
+function parseVersion(text) {
+  const match = /(\d+)\.(\d+)\.(\d+)/.exec(text || '');
+  if (!match) return null;
+  return match.slice(1, 4).map(Number);
+}
+
+function atLeast(found, minimum) {
+  if (!found) return false;
+  for (let i = 0; i < minimum.length; i += 1) {
+    if (found[i] > minimum[i]) return true;
+    if (found[i] < minimum[i]) return false;
+  }
+  return true;
+}
+
+const LABS = [
+  ['lab-00-readiness', '00'],
+  ['lab-01-init', '01'],
+  ['lab-02-explore', '02'],
+  ['lab-03-specialty', '03'],
+  ['lab-04-permissions', '04'],
+  ['lab-05-sequential', '05'],
+  ['lab-06-fix-qa', '06'],
+  ['lab-07-guardrails', '07'],
+  ['lab-08-skills-memory', '08'],
+  ['lab-09-feature', '09'],
+  ['lab-10-capstone', '10'],
+  ['lab-11-vercel', '11'],
+];
+
+function readmeHas(dirName, phrases) {
+  const file = path.join(repo, 'labs', dirName, 'README.md');
+  if (!existsSync(file)) {
+    bad(`missing labs/${dirName}/README.md`);
+    return;
+  }
+  const text = readFileSync(file, 'utf8');
+  for (const phrase of phrases) {
+    if (!text.includes(phrase)) bad(`labs/${dirName}/README.md missing “${phrase}”`);
+  }
+  if (!/\d+\s*นาที/.test(text)) bad(`labs/${dirName}/README.md missing expected minutes`);
+  else note(`labs/${dirName} has purpose, minutes, pass line`);
+}
+
+function courseShape() {
+  for (const [dir] of LABS) {
+    const phrases = ['ทำไปเพื่ออะไร', 'ผ่านเมื่อ', 'แบบฝึกหัด'];
+    readmeHas(dir, phrases);
+  }
+  const feature = path.join(repo, 'labs', 'lab-09-feature', 'README.md');
+  if (existsSync(feature) && !readFileSync(feature, 'utf8').includes('ย่อได้')) {
+    bad('Lab 09 must be marked ย่อได้');
+  }
+  const demo = path.join(repo, 'labs', 'demo-mcp', 'README.md');
+  if (!existsSync(demo)) bad('missing labs/demo-mcp/README.md');
+  else if (!readFileSync(demo, 'utf8').includes('วิทยากร')) bad('MCP demo must say it is for the trainer');
+  else note('MCP demo is marked as a trainer demo');
+
+  const readme = existsSync(path.join(repo, 'README.md')) ? readFileSync(path.join(repo, 'README.md'), 'utf8') : '';
+  if (!readme.includes('https://github.com/Onto-IQ/build-ai-multi-agent-hybrid')) {
+    bad('README.md must link to build-ai-multi-agent-hybrid');
+  }
+  if (!readme.includes('https://github.com/Onto-IQ/multi-agent-workshop')) {
+    bad('README.md must link to multi-agent-workshop');
+  }
+  if (readme.includes('github.com/Onto-IQ/build-ai-multi-agent-lab')) {
+    bad('README.md still links to build-ai-multi-agent-lab');
+  } else if (readme) note('README repo links point at hybrid + workshop');
+
+  const csv = path.join(repo, 'solutions', 'data', 'dataset.clean.csv');
+  if (!existsSync(csv)) bad('missing solutions/data/dataset.clean.csv');
+  else {
+    const lines = readFileSync(csv, 'utf8').split(/\r?\n/).filter((line) => line.trim() !== '');
+    if (lines.length !== 16773) bad(`cleaned csv has ${lines.length} lines, want 16773`);
+    else note('cleaned catch-up csv has 16,772 data rows');
+  }
+
+  const gitignore = existsSync(path.join(repo, '.gitignore')) ? readFileSync(path.join(repo, '.gitignore'), 'utf8') : '';
+  if (!/(^|\n)\.env(\r?\n|$)/.test(gitignore)) bad('.gitignore must ignore .env');
+  else note('.gitignore ignores .env');
+}
+
+function walkSecrets(dir, hits) {
+  if (!existsSync(dir)) return;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === 'dataset.clean.csv') continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      walkSecrets(full, hits);
+      continue;
+    }
+    if (!/\.(md|js|mjs|json|ps1|sh|example|css|html|txt)$/.test(entry.name) && entry.name !== '.env.example') continue;
+    let text = '';
+    try {
+      if (statSync(full).size > 1_000_000) continue;
+      text = readFileSync(full, 'utf8');
+    } catch {
+      continue;
+    }
+    const markers = [
+      new RegExp(['sk-', 'ant-', '[A-Za-z0-9_-]{8,}'].join('')),
+      new RegExp(['sk-', 'or-v1-'].join('')),
+      new RegExp(['sk-', 'proj-'].join('')),
+    ];
+    if (markers.some((marker) => marker.test(text))) hits.push(path.relative(repo, full));
+  }
+}
+
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = net.createServer();
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const { port } = server.address();
+      server.close(() => resolve(port));
+    });
+  });
+}
+
+function portOpen(port) {
+  return new Promise((resolve) => {
+    const sock = net.connect({ host: '127.0.0.1', port });
+    const settle = (open) => {
+      sock.destroy();
+      resolve(open);
+    };
+    sock.setTimeout(400);
+    sock.once('connect', () => settle(true));
+    sock.once('error', () => settle(false));
+    sock.once('timeout', () => settle(false));
+  });
+}
+
+function get(port, route) {
+  return new Promise((resolve, reject) => {
+    const req = http.get({ host: '127.0.0.1', port, path: route, timeout: 4000 }, (res) => {
+      res.resume();
+      resolve(res.statusCode);
+    });
+    req.on('error', reject);
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+  });
+}
+
+function runNode(argsList, cwd, env) {
+  return new Promise((resolve) => {
+    const child = spawn(process.execPath, argsList, { cwd, env });
+    let stdout = '';
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk;
+    });
+    child.stderr.on('data', (chunk) => {
+      stdout += chunk;
+    });
+    child.on('close', (code) => resolve({ code, stdout }));
+  });
+}
+
+async function commandVersion(bin, binArgs) {
+  try {
+    const result = await exec(bin, binArgs, { windowsHide: true });
+    return `${result.stdout || ''}${result.stderr || ''}`.trim();
+  } catch {
+    return null;
+  }
+}
+
+async function workshopChecks() {
+  const { dir: workshop, source } = resolveWorkshopDir();
+  if (!existsSync(path.join(workshop, 'server.js'))) {
+    bad(`workshop not found at ${workshop} (from ${source}). Clone multi-agent-workshop or set WORKSHOP_DIR.`);
+    return;
+  }
+  note(`workshop project found at ${workshop}`);
+  const parquet = path.join(workshop, 'data', 'raw', 'dbd-2558.parquet');
+  const duck = path.join(workshop, 'data', 'warehouse.duckdb');
+  if (existsSync(parquet) && existsSync(duck)) note('workshop has the real dataset');
+  else bad('workshop data is incomplete (need data/raw/dbd-2558.parquet and data/warehouse.duckdb)');
+
+  if (await portOpen(3000)) warn('port 3000 is in use. Stop that process or set PORT before npm start');
+  else note('port 3000 is free');
+
+  const appPort = await freePort();
+  const server = spawn(process.execPath, ['server.js'], {
+    cwd: workshop,
+    env: { ...process.env, PORT: String(appPort) },
+    stdio: 'ignore',
+  });
+  try {
+    let status = 0;
+    const deadline = Date.now() + 8000;
+    while (Date.now() < deadline && status !== 200) {
+      try {
+        status = await get(appPort, '/');
+      } catch {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    }
+    if (status === 200) note(`app homepage responded on port ${appPort}`);
+    else bad('app server did not serve /');
+  } finally {
+    if (server.exitCode === null) server.kill('SIGKILL');
+  }
+
+  const gatePort = await freePort();
+  const gate = await runNode(['scripts/quality-gate.js'], workshop, { ...process.env, PORT: String(gatePort) });
+  if (gate.code === 2 && gate.stdout.includes('FAIL | data-quality')) {
+    note('starter quality gate exits 2 (intended starting state)');
+  } else bad(`starter quality gate expected exit 2, got ${gate.code}`);
+}
+
+async function main() {
+  console.log(`verify-setup (course) · ${repo}`);
+  console.log(courseFiles ? 'mode · course-files' : 'mode · learner machine');
+
+  courseShape();
+  const secretHits = [];
+  walkSecrets(repo, secretHits);
+  if (secretHits.length > 0) bad(`possible API key in ${secretHits.join(', ')}`);
+  else note('no Anthropic/OpenRouter key material in course text files');
+
+  if (courseFiles) {
+    if (problems.length > 0) {
+      console.log(`verify-setup: ${problems.length} problem(s)`);
+      process.exit(1);
+    }
+    console.log('verify-setup: passed (course-files)');
+    return;
+  }
+
+  const nodeVersion = parseVersion(process.version);
+  if (atLeast(nodeVersion, [20, 0, 0])) note(`node ${process.version}`);
+  else bad(`node ${process.version} is below 20`);
+
+  const gitText = await commandVersion('git', ['--version']);
+  if (gitText) note(gitText);
+  else bad('git is not on PATH');
+
+  if (skipClaude) warn('skipped Claude Code checks');
+  else {
+    const claudeText = await commandVersion('claude', ['--version']);
+    const claudeVersion = parseVersion(claudeText || '');
+    if (!claudeText) bad('claude is not on PATH. Install @anthropic-ai/claude-code and log in with the class account.');
+    else if (!atLeast(claudeVersion, [2, 1, 296])) bad(`${claudeText.split('\n')[0]} is below 2.1.296. Run: claude update`);
+    else note(claudeText.split('\n')[0]);
+  }
+
+  if (skipOpencode) warn('skipped OpenCode checks');
+  else {
+    const opencodeText = await commandVersion('opencode', ['--version']);
+    if (!opencodeText) bad('opencode is not on PATH. See SETUP.md');
+    else note(opencodeText.split('\n')[0]);
+  }
+
+  const anthropic = (process.env.ANTHROPIC_API_KEY || '').trim();
+  if (anthropic) bad('ANTHROPIC_API_KEY is set. Unset it so the class Claude login is used. Do not put this key on Vercel.');
+  else note('ANTHROPIC_API_KEY is empty');
+
+  if (skipOpenrouter) warn('skipped OpenRouter key check');
+  else {
+    const key = (process.env.OPENROUTER_API_KEY || '').trim();
+    if (!key) bad('OPENROUTER_API_KEY is empty. Set the key from the training center in your user environment. Never commit it.');
+    else if (/^sk-or-/.test(key) || key.length >= 20) note(`OPENROUTER_API_KEY is set (${key.length} characters, value hidden)`);
+    else bad('OPENROUTER_API_KEY looks too short. Paste the key from the training center again.');
+  }
+
+  const duckText = await commandVersion('duckdb', ['--version']);
+  if (duckText) note(`duckdb ${duckText.split('\n')[0]}`);
+  else warn('duckdb is not on PATH. Install it before Lab 05 (see SETUP.md). Until then this is a warning.');
+
+  const uvText = await commandVersion('uvx', ['--version']);
+  if (uvText) note(`uvx ${uvText.split('\n')[0]}`);
+  else warn('uvx is not on PATH. Only the trainer MCP demo needs it.');
+
+  const vercelText = await commandVersion('vercel', ['--version']);
+  if (vercelText && /\d+\.\d+/.test(vercelText)) note(`vercel ${vercelText.split('\n')[0]}`);
+  else warn('vercel is not on PATH yet. Day-1 homework can pass without it. Lab 11 uses npx vercel. Create a Vercel Hobby account before day 2.');
+
+  if (!skipWorkshop) await workshopChecks();
+  else warn('skipped workshop app checks');
+
+  if (problems.length > 0) {
+    console.log(`verify-setup: ${problems.length} problem(s)`);
+    process.exit(1);
+  }
+  console.log('verify-setup: passed');
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

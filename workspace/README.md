@@ -1,12 +1,7 @@
-# workspace — ผลงานผู้เรียน
+# พื้นที่บันทึกใน repo บทเรียน
 
-```text
-workspace/
-  contracts/       สัญญา JSON ของแต่ละ Lab (code-review, role-cards, audit-result, ...)
-  learning-log.md  บันทึกสั้น ๆ หลังแต่ละ Lab
-```
+การบ้านส่วนใหญ่เกิดใน repo แอป ไม่ใช่ที่นี่
 
-คัดลอกโครงจาก `shared/contracts/*.example.json`  
-ตรวจด้วย `node shared/scripts/validate-json.mjs`
+ถ้ารอบไหนส่งงานเป็น JSON ให้วางใน `contracts/` แล้วรัน `node shared/scripts/validate-json.mjs` จากราก repo บทเรียน ตัวอย่างโครงอยู่ที่ `shared/contracts/`
 
-อย่า commit ไฟล์สัญญาที่มีข้อมูลส่วนตัวหรือคีย์
+`learning-log.md` เป็นช่องจดสั้น ๆ ไม่ใช่เงื่อนไขผ่านแล็บ

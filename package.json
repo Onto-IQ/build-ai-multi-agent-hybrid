@@ -1,0 +1,17 @@
+{
+  "name": "build-ai-multi-agent-hybrid",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lessons for the 2-day hybrid Claude Code + OpenCode class. The Registry Insight app lives in multi-agent-workshop.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "verify": "node scripts/verify-setup.mjs",
+    "verify:course": "node scripts/verify-setup.mjs --course-files",
+    "check": "node scripts/check-solutions.mjs",
+    "gate": "node shared/scripts/gate-quality.mjs",
+    "validate": "node shared/scripts/validate-json.mjs"
+  }
+}

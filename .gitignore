@@ -1,37 +1,26 @@
 .DS_Store
 Thumbs.db
 .env
+.env.local
+.env.*
+!.env.example
 screenshots/
 
-# Learner workspace outputs (start from zero)
+# ผลงานผู้เรียนใน repo บทเรียน (แอปอยู่ที่อีก repo)
 workspace/contracts/*.json
 !workspace/contracts/.gitkeep
-workspace/e2e-reports/
 workspace/tmp/
-MEMORY.md
 
-# Lab 05+ named team agents (learner artifacts — create via CLI/TUI from shared/agent-starters/)
-.claude/agents/frontend.md
-.claude/agents/synthesizer.md
-.claude/agents/backend.md
-.claude/agents/qa.md
-.opencode/agents/frontend.md
-.opencode/agents/backend.md
-.opencode/agents/qa.md
-.opencode/agents/synthesizer.md
-
-# Local backups / editor junk
+# สำรองและขยะของเอดิเตอร์
 *.bak
 *.tmp
 *.swp
 
-# Cursor project rules / local AI config — do not publish
 .cursor/
 
-# Local MCP configs may contain API keys
+# ไฟล์ MCP ในเครื่องอาจมีของลับ
 .mcp.json
 
-# Node / OS (cross-platform)
 node_modules/
 npm-debug.log*
 .pnpm-store/

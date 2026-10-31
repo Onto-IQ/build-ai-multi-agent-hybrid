@@ -1,84 +1,47 @@
-# Agents — Agent Cost Board
+# Agents — คลาสไฮบริด Registry Insight
 
-ใช้ร่วมกับ Claude Code / OpenCode / เครื่องมือที่อ่าน `AGENTS.md`
+ใช้คู่กับ Claude Code และ OpenCode อ่านไฟล์นี้ใน repo บทเรียนเพื่อรู้ว่าใครทำอะไร ไม่ได้สั่งให้สร้างผู้ช่วยใน repo นี้
 
-## Agent identity ↔ tool ↔ Flux ↔ JSON (ไม่ทับซ้อน)
+ผู้ช่วยที่ผู้เรียนสร้าง อยู่ใน repo แอป (`multi-agent-workshop`) ใต้ `.claude/agents/` หรือ `.opencode/agents/`
 
-บทบาทหนึ่งอยู่**เครื่องมือเดียว** — ประสานงานผ่านสัญญา JSON + Flux ไม่สร้าง agent ชื่อเดียวกันทั้งสองฝั่ง
+## ใครใช้อะไร
 
-| บทบาท | เครื่องมือ | Agent file | การ์ด Flux (Lab 10) | สัญญาที่เกี่ยวข้อง |
-|---|---|---|---|---|
-| `code-reviewer` | Claude Code | `.claude/agents/code-reviewer.md` | — (Lab 01/06) | `code-review.json` |
-| `frontend` | Claude Code | `.claude/agents/frontend.md` | Frontend · tool=Claude Code | `role-cards`, `handoff-fe` |
-| `synthesizer` | Claude Code | `.claude/agents/synthesizer.md` | ไม่เป็นใบ WIP ที่ 4 | `synthesize-report` |
-| `specialist` | OpenCode | `.opencode/agents/specialist.md` | — (Lab 02 เท่านั้น) | learning-log เทียบเครื่องมือ |
-| `backend` | OpenCode | `.opencode/agents/backend.md` | Backend · tool=OpenCode | `handoff-be`, `runs.json` |
-| `qa` | OpenCode | `.opencode/agents/qa.md` | QA · tool=OpenCode | `audit-result` + gate |
+บทบาทที่ลงมือแก้ของ อยู่เครื่องมือเดียว ประสานด้วยไฟล์ในโฟลเดอร์แอป (`docs/`, `server.js`, ข้อมูล) ไม่สร้างคนทำงานชื่อเดียวกันทั้งสองฝั่ง
 
-**ห้ามมี:** `.opencode/agents/frontend.md`, `.claude/agents/backend.md`, `.claude/agents/qa.md`, `.opencode/agents/synthesizer.md`
+ข้อยกเว้นเดียวคือ `data-researcher` แบบอ่านอย่างเดียวใน Lab 03 เพื่อให้เทียบสองเครื่องมือได้ ทั้งคู่ห้ามแก้ไฟล์
 
-Starters (เทมเพลตใน repo): `shared/agent-starters/`  
-Artifacts (ผู้เรียนสร้างใน Lab 05 ผ่าน CLI/TUI): `.claude/agents/{frontend,synthesizer}.md`, `.opencode/agents/{backend,qa}.md`
+| บทบาท | เครื่องมือ | แล็บ | เขียนอะไร |
+|---|---|---|---|
+| explore (หลายคนพร้อมกัน) | Claude Code | 02 | `docs/EXPLORATION-REPORT.md` เท่านั้น |
+| `data-researcher` | Claude Code และ OpenCode คนละไฟล์ | 03 | ไม่เขียนไฟล์แอป อ้าง `ไฟล์:บรรทัด` |
+| เส้นสิทธิ์ | ทั้งคู่ | 04 | ไฟล์ตั้งค่าที่ห้าม `git push` และห้ามแก้ด่าน |
+| `planner` แล้ว `developer` ทีละสาย | OpenCode | 05 | แผน, SQL, ส่วนสรุปใน `server.js`, หน้าเว็บ |
+| `qa` แล้วคนแก้ | Claude Code | 06 | รายงาน QA และจุดที่ด่านยังแดง จนครบ 6/6 |
+| hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 07 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
+| `release-checklist` | Claude Code | 08 | skill |
+| ความจำข้ามรอบ | OpenCode | 08 | `docs/MEMORY.md` |
+| ฟีเจอร์ของตัวเอง | เลือกเอง | 09 ย่อได้ | ฟีเจอร์ 1 ชิ้น ด่านยังเขียว |
+| planner, data-researcher, developer, qa | Claude Code | 10 | ของปิดงาน |
+| `synthesizer` | OpenCode | 10 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ |
+| คนสั่ง Vercel CLI | เครื่องมือที่ถนัด | 11 | `vercel.json` และ `api/` ที่โน้ตอ่านอย่างเดียว |
 
-## บทบาทมาตรฐาน
+ไม่มีบทบาท Flux และไม่มีใบคัมบัง
 
-### code-reviewer
+## สิทธิ์ที่ทุกบทบาทต้องเคารพ
 
-- หน้าที่: รีวิวโค้ด หาจุดเสี่ยง เขียนรายงาน
-- เครื่องมือ: **Claude Code เท่านั้น**
-- เขียนได้: `workspace/contracts/code-review.json`
-- ห้าม: แก้ไฟล์ใน `apps/sample-dashboard/`
+- อ่านทั้งแอปได้
+- ห้ามแก้ `scripts/quality-gate.js`
+- ห้าม `git push` เอง เว้นแต่ผู้เรียนสั่งหลังดู diff แล้ว
+- ห้ามอ่านหรือคัดลอกค่าที่ขึ้นต้นด้วย `sk-`
+- ห้ามเพิ่ม dependency ของแอป
+- ก่อนบอกว่าเสร็จ รัน `npm run gate` แล้วรายงาน exit code จริง
+- บน Vercel ห้ามเขียนไฟล์โน้ต และห้ามตั้ง `ANTHROPIC_API_KEY` หรือ `OPENROUTER_API_KEY`
 
-### frontend
+## เมื่อไม่มี Node
 
-- หน้าที่: UI ของ Agent Cost Board
-- เครื่องมือ: **Claude Code เท่านั้น**
-- เขียนได้: `apps/sample-dashboard/frontend/`
-- อ่านได้: `backend/`, สัญญาใน `shared/` และ `workspace/`
+1. บันทึกว่า `NODE_MISSING`
+2. เสนอคำสั่งใน `SETUP.md`
+3. ถามคนก่อนติดตั้ง
+4. ติดตั้งแล้วค่อยรันสคริปต์ตรวจซ้ำ
 
-### backend
-
-- หน้าที่: `status.json`, `runs.json` และข้อมูลสถานะ
-- เครื่องมือ: **OpenCode เท่านั้น**
-- เขียนได้: `apps/sample-dashboard/backend/`
-- ห้าม: แก้ UI ใน `frontend/`
-
-### qa
-
-- หน้าที่: ตรวจเช็กลิสต์ + ด่านคุณภาพ/ต้นทุน
-- เครื่องมือ: **OpenCode เท่านั้น**
-- เขียนได้: `apps/sample-dashboard/qa/`, `workspace/contracts/audit-result.json` และรายงานที่เกี่ยวข้อง
-- อ่าน: ทั้งแอป
-- ห้าม: แก้โค้ดแอปเพื่อบังคับให้ผ่านโดยไม่ผ่านด่าน
-
-### synthesizer
-
-- หน้าที่: รวมผลให้เปิดแผงได้ และเขียน `synthesize-report.json`
-- เครื่องมือ: **Claude Code เท่านั้น**
-- เขียนได้: เฉพาะที่จำเป็นเพื่อเชื่อม FE/BE โดยไม่แย่ง ownership หลัก + `workspace/contracts/`
-- ไม่สร้างใบ WIP ที่ 4 บน Flux
-
-## Runtime / Node (นโยบาย)
-
-ด่านและ validator ใช้ **Node** (`node shared/scripts/*.mjs`, `npx serve`)
-
-เมื่อ `node` ไม่พร้อม:
-
-1. Agent ที่ต้องการด่าน (มักเป็น **qa**) ตรวจแล้วจด `NODE_MISSING` ใน learning-log / รายงาน  
-2. **เสนอ**คำสั่งติดตั้งตาม [`SETUP.md`](SETUP.md) (เช่น winget / ลิงก์ Node LTS)  
-3. **ถามคนก่อน** — ห้ามติดตั้งเงียบ / ห้ามรัน installer โดยไม่ได้รับอนุญาต  
-4. หลังคนติดตั้งแล้ว ค่อยรัน validator/gate ซ้ำ  
-
-ห้ามข้ามด่านเพราะไม่มี Node แล้วเคลม PASS
-
-- ส่งงานต่อด้วย `handoff-fe.json` / `handoff-be.json` (**สัญญา JSON = แหล่งความจริง**)
-- Lab 06 (Claude `frontend` + `code-reviewer`) เขียน `handoff-fe.json` → Lab 07 (OpenCode `backend` → `qa`) อ่านแล้วทำต่อ
-- มอบหมายงานบน Flux (Lab 10) — การ์ดต้องตรงแมป agent+tool ด้านบน (**Kanban = คิว/มอบหมาย ไม่แทน handoff**)
-- **Go-live:** การ์ด active หลัก 3 ใบ (FE/BE/QA) มี Assignee + Tool + ชื่อ agent ชัด; เลื่อนหลังทำงานจริงด้วย named agent บนเครื่องมือที่ถูกเท่านั้น — ห้าม POC
-
-### JSON vs Kanban
-
-| ชั้น | ใช้เมื่อ | ตัวอย่าง |
-|---|---|---|
-| สัญญา JSON | ตกลง ownership, ส่งงานต่อ, ผ่านด่าน, ship | `role-cards`, `handoff-fe/be`, `audit-result`, `synthesize-report`, `capstone-ship` |
-| Flux Kanban | ใครทำ / ขั้นไหน / มองเห็นคิวบน Interview→Ship | การ์ด Frontend / Backend / QA บนบอร์ด Agent Cost Board |
+ห้ามข้ามด่านแล้วบอกว่าผ่าน

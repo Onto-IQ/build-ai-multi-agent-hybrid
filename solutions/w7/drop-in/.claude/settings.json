@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push *)",
+      "Bash(git push)",
+      "Edit(scripts/quality-gate.js)",
+      "Write(scripts/quality-gate.js)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/block-dangerous-bash.js"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/task-completed-gate.js"
+          }
+        ]
+      }
+    ]
+  }
+}

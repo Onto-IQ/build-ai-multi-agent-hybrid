@@ -1,61 +1,40 @@
-# Agent Cost Board Lab
+# บทเรียน Hybrid — Registry Insight
 
-โปรเจกต์นี้คือ lab ของหลักสูตร **Build AI Multi-Agent with Claude Code**  
-ชื่อที่แสดงผลของแอป: **Agent Cost Board** (โฟลเดอร์ `apps/sample-dashboard/`)
+repo นี้คือบทเรียนของคลาส **Build AI Multi-Agent Using Claude Code and OpenCode** (12–13 พ.ย. 2026, 9Expert)
 
-## ลำดับงาน
+แอปที่ผู้เรียนสั่งผู้ช่วยอยู่ที่ https://github.com/Onto-IQ/multi-agent-workshop ไม่ใช่โฟลเดอร์นี้ โฟลเดอร์นี้มีเฉลยใน `solutions/` อย่าเปิด `claude` หรือ `opencode` ที่นี่เพื่อทำการบ้าน
 
-Interview → Plan → Build → Test → Ship
+## ลำดับสองวัน
 
-## สิทธิ์เขียนไฟล์
+เช็กเครื่อง → รู้จักแอป → สำรวจ → ผู้เชี่ยวชาญสองฝั่ง → ล็อกสิทธิ์ → สายการผลิตบน OpenCode → Claude ปิดด่าน 6/6 → กันความเสี่ยงและงบ → เช็กลิสต์กับความจำ → ฟีเจอร์ของตัวเอง (ย่อได้) → สรุปผู้บริหาร → Vercel
 
-| บทบาท | เขียนได้ | ห้ามเขียน |
-|---|---|---|
-| Frontend | `apps/sample-dashboard/frontend/` | `backend/`, `qa/` (ยกเว้นอ่าน) |
-| Backend | `apps/sample-dashboard/backend/` | `frontend/` |
-| QA / Reviewer | `apps/sample-dashboard/qa/`, `workspace/contracts/` (รายงาน) | โค้ด frontend/backend เพื่อข้ามด่าน |
-| ผู้เรียน | `workspace/` ทั้งก้อนสำหรับผล Lab | อย่า commit `.env` |
+## เครื่องมือ ไม่ทับงานกัน
 
-รายละเอียดบทบาท: ดู `AGENTS.md`
-
-## สัญญา JSON
-
-- ตัวอย่าง: `shared/contracts/*.example.json`
-- ผลงาน: `workspace/contracts/`
-- ตรวจ: `node shared/scripts/validate-json.mjs`
-- ด่านคุณภาพ: `node shared/scripts/gate-quality.mjs`
-- ด่านต้นทุน: `shared/scripts/gate-cost.md` (ปรับแก้ไม่เกิน 2 รอบ)
-
-## JSON vs Kanban (Flux)
-
-| เมื่อไหร่ | ใช้อะไร |
+| งาน | เครื่องมือ |
 |---|---|
-| ตกลง ownership / ส่งงานต่อ / ผ่านด่าน / ship | **สัญญา JSON** ใน `workspace/contracts/` |
-| มอบหมายใครทำ / ขั้นไหน / มองเห็นคิว | **Flux Kanban** (บังคับ Lab 10) |
+| สำรวจพร้อมกัน, ปิดด่าน 6/6, เช็กลิสต์ปล่อยของ, บทบาท planner / developer / qa ในวันปิดงาน | Claude Code บัญชีของศูนย์ฝึก |
+| สายการผลิตข้อมูล-หลังบ้าน-หน้าเว็บ, ความจำข้ามรอบ, สรุปผู้บริหาร | OpenCode ผ่าน OpenRouter |
+| สาธิต MCP | วิทยากรเท่านั้น |
 
-ห้าม: ใช้การ์ด Flux แทน `handoff-*.json`; ผ่าน Lab 10 ด้วย snapshot โดยไม่มีบอร์ดสด  
-ลำดับที่ต้องการใน Lab 10: แตกการ์ด → เรียก named agent ตามแมป (FE=Claude `frontend`, BE=OpenCode `backend`, QA=OpenCode `qa`) → เขียน/อัปเดต JSON → เลื่อนการ์ดตามสถานะจริง → ด่านผ่านแล้วค่อย Ship (Lab 11)
+รายละเอียดบทบาทอยู่ใน `AGENTS.md`
 
-**Named agents ไม่ทับซ้อน:** ดูตารางใน `AGENTS.md` — starters ที่ `shared/agent-starters/`; artifacts สร้างใน Lab 05 ผ่าน CLI/TUI
+## กติกา
 
-## กฎสำคัญ
+1. ห้าม commit `.env` หรือค่า `OPENROUTER_API_KEY` / `ANTHROPIC_API_KEY`
+2. `ANTHROPIC_API_KEY` ต้องว่างระหว่างเรียน เพื่อให้บัญชี Claude ของคลาสทำงาน
+3. ห้ามใส่คีย์โมเดลบน Vercel
+4. โน้ตบนเครื่องเขียนลงไฟล์เพื่อผ่านด่าน โน้ตบน Vercel เป็นอ่านอย่างเดียว เพราะดิสก์ serverless ไม่ถาวร
+5. ห้ามบอกว่า deploy สำเร็จถ้ายังไม่มี URL จริงที่ขึ้นต้นด้วย `http`
+6. ด่านของแอปคือ `npm run gate` ใน repo แอป ต้องไปให้ถึง 6/6 ห้ามแก้ `scripts/quality-gate.js`
+7. Runtime ของสคริปต์บทเรียนคือ Node 20 ขึ้นไป ถ้าไม่มี Node ให้เสนอคำสั่งใน `SETUP.md` แล้วถามคนก่อนติดตั้ง
+8. ไม่ใช้ Flux, Hostinger หรือ Coolify ในคลาสนี้
 
-1. มอนิเตอร์ทีม agent **ของตัวเอง** — บันทึกรอบลง `backend/runs.json` ไม่ดึงเทเลเมทรีคลาวด์จริง
-2. Flux (Lab 10) เป็นบอร์ดงานของโปรเจกต์นี้ ไม่แทนที่สัญญา JSON
-3. ห้ามยืนยันว่า deploy สำเร็จถ้ายังไม่มี URL จริง
-4. เริ่มที่ `SETUP.md` แล้วทำ Lab ตามลำดับบันไดความรู้
-5. **มาตรฐาน go-live ไม่ใช่ POC:** ผู้เรียนต้องนำสูตรกลับไปใช้ปิดงานจริงได้ — ห้ามผ่าน Lab ด้วยการสาธิต MCP / สร้างการ์ดเท็จ / เลื่อนการ์ดโดยไม่ทำงานตาม ownership
-6. **Runtime:** Node + git บน Windows/macOS/Linux — ไม่ใช้ Python venv ใน lab นี้; ดูแผงด้วย localhost (`npx serve apps/sample-dashboard`)  
-   ถ้า agent เจอว่าไม่มี Node: เสนอคำสั่งติดตั้งแล้วถามคน — ห้ามติดตั้งเงียบ (`AGENTS.md`)
+## สคริปต์
 
-## Go-live (บังคับทั้งคอร์ส)
+- การบ้าน: `scripts/readiness-check.ps1` หรือ `scripts/readiness-check.sh`
+- โครงบทเรียน: `node scripts/verify-setup.mjs --course-files`
+- ชุดอ้างอิง: `node scripts/check-solutions.mjs`
+- สัญญาตัวอย่าง: `node shared/scripts/validate-json.mjs`
+- รวมด่านบทเรียน: `node shared/scripts/gate-quality.mjs`
 
-| ผ่าน | ไม่ผ่าน |
-|---|---|
-| งานบนการ์ดทำจริง → อัปเดต JSON → เลื่อนคอลัมน์ตามสถานะ | สร้างการ์ดเพื่องานนับ / snapshot ปลอม / บอร์ดรกแล้วจบ Lab |
-| มอบหมายชัด: บทบาท + เครื่องมือบนการ์ด | ไม่รู้ว่าใครรับใบไหน |
-| Lab 11 มี `public_url` จริงขึ้นต้น `http` | URL ตัวอย่าง / ยังไม่ deploy แต่เคลม Ship |
-
-## พรอมต์ร่วม
-
-`shared/prompts/tool-calling-rules.md`
+ตามให้ทัน: `node scripts/catch-up.js <รหัสชุด>` จาก repo นี้ ปลายทางคือโฟลเดอร์แอป
