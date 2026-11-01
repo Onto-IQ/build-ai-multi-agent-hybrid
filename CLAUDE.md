@@ -2,7 +2,7 @@
 
 repo นี้คือบทเรียนของคลาส **Build AI Multi-Agent Using Claude Code and OpenCode** (12–13 พ.ย. 2026, 9Expert)
 
-แอปที่ผู้เรียนสั่งผู้ช่วยอยู่ที่ https://github.com/Onto-IQ/multi-agent-workshop ไม่ใช่โฟลเดอร์นี้ โฟลเดอร์นี้มีเฉลยใน `solutions/` อย่าเปิด `claude` หรือ `opencode` ที่นี่เพื่อทำการบ้าน
+แอปที่ผู้เรียนสั่งผู้ช่วยอยู่ที่ https://github.com/Onto-IQ/multi-agent-workshop-hybrid ไม่ใช่โฟลเดอร์นี้ โฟลเดอร์นี้มีเฉลยใน `solutions/` อย่าเปิด `claude` หรือ `opencode` ที่นี่เพื่อทำการบ้าน
 
 ## ลำดับสองวัน
 

@@ -23,3 +23,5 @@ Do not create the same agent name as a worker on both tools. A read-only `data-r
 - Before saying work is done, run `npm run gate` and report the real exit code.
 - Notes on your laptop are stored in `data/notes.json` so they survive a restart.
 - Notes on Vercel are read-only. Serverless disks do not keep file writes. Do not add `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` to Vercel.
+- OpenCode reads `OPENROUTER_API_KEY` from the environment. `ANTHROPIC_API_KEY` stays empty so the class Claude login is not replaced.
+- Do not add `vercel.json` or an `api/` folder before Lab 11. Learners build those during deploy.

@@ -29,7 +29,7 @@ console.log(`catch-up: target workshop = ${dest} (from ${source})`);
 
 if (!fs.existsSync(path.join(dest, 'server.js'))) {
   console.error(`catch-up: workshop project not found at ${dest}`);
-  console.error('Clone https://github.com/Onto-IQ/multi-agent-workshop into the class path, or set WORKSHOP_DIR.');
+  console.error('Clone https://github.com/Onto-IQ/multi-agent-workshop-hybrid into the class path, or set WORKSHOP_DIR.');
   process.exit(1);
 }
 

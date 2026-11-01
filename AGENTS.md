@@ -2,7 +2,7 @@
 
 ใช้คู่กับ Claude Code และ OpenCode อ่านไฟล์นี้ใน repo บทเรียนเพื่อรู้ว่าใครทำอะไร ไม่ได้สั่งให้สร้างผู้ช่วยใน repo นี้
 
-ผู้ช่วยที่ผู้เรียนสร้าง อยู่ใน repo แอป (`multi-agent-workshop`) ใต้ `.claude/agents/` หรือ `.opencode/agents/`
+ผู้ช่วยที่ผู้เรียนสร้าง อยู่ใน repo แอป (`multi-agent-workshop-hybrid`) ใต้ `.claude/agents/` หรือ `.opencode/agents/`
 
 ## ใครใช้อะไร
 

@@ -32,7 +32,7 @@ git --version
 mkdir C:\dev
 cd C:\dev
 git clone https://github.com/Onto-IQ/build-ai-multi-agent-hybrid.git
-git clone https://github.com/Onto-IQ/multi-agent-workshop.git
+git clone https://github.com/Onto-IQ/multi-agent-workshop-hybrid.git
 ```
 
 บน Mac:
@@ -41,10 +41,12 @@ git clone https://github.com/Onto-IQ/multi-agent-workshop.git
 mkdir -p ~/dev
 cd ~/dev
 git clone https://github.com/Onto-IQ/build-ai-multi-agent-hybrid.git
-git clone https://github.com/Onto-IQ/multi-agent-workshop.git
+git clone https://github.com/Onto-IQ/multi-agent-workshop-hybrid.git
 ```
 
 เปิดโฟลเดอร์บทเรียนใน VS Code หรือ Cursor เมื่อจะอ่านแล็บ เปิดโฟลเดอร์แอปเมื่อจะสั่ง `claude` หรือ `opencode`
+
+ชื่อโฟลเดอร์ต้องเป็น `multi-agent-workshop-hybrid` ถ้าโคลนมาแล้วมีแค่ README แปลว่าชุดแอปยังไม่เข้า `main` ของ repo นั้น ให้ถามวิทยากรก่อนทำแล็บ อย่าไปโคลน repo ชื่อเดิมที่ไม่มี `-hybrid`
 
 ถ้าเก็บแอปไว้คนละที่ ให้ก็อป `.env.example` เป็น `.env` ใน repo บทเรียน แล้วใส่บรรทัด `WORKSHOP_DIR=` ตาม path จริง ไฟล์ `.env` ถูก git ignore อยู่แล้ว
 
@@ -81,7 +83,7 @@ unset ANTHROPIC_API_KEY
 ทดลองครั้งเดียวหลังล็อกอิน:
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 claude -p "Reply with exactly: CLAUDE-OK"
 ```
 
@@ -147,7 +149,7 @@ Mac: `~/.config/opencode/opencode.json`
 เปิดครั้งหนึ่งจากโฟลเดอร์แอป:
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 opencode
 ```
 
@@ -158,7 +160,7 @@ opencode
 ที่โฟลเดอร์แอป ไม่ต้อง `npm install`
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 npm start
 ```
 

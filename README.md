@@ -5,7 +5,7 @@
 โจทย์คือแอป **Registry Insight** แดชบอร์ดธุรกิจจดทะเบียนใหม่จากข้อมูลจริงของ data.go.th เริ่มแดง **0/6** แล้วพาให้ผ่านด่านคุณภาพ **6/6** จากนั้นเปิดให้คนอื่นดูบน Vercel
 
 - บทเรียนอยู่ที่ repo นี้: https://github.com/Onto-IQ/build-ai-multi-agent-hybrid
-- แอปอยู่ที่อีก repo: https://github.com/Onto-IQ/multi-agent-workshop
+- แอปอยู่ที่อีก repo: https://github.com/Onto-IQ/multi-agent-workshop-hybrid
 
 เปิด Claude Code และ OpenCode ที่โฟลเดอร์แอปเท่านั้น โฟลเดอร์นี้มีเฉลย ผู้ช่วยจะเห็นคำตอบถ้าเปิดผิดที่
 
@@ -23,7 +23,7 @@
 | Repo | ใช้ทำอะไร |
 |---|---|
 | **hybrid** (repo นี้) | บทเรียน แบบฝึกหัด สคริปต์ตรวจ และชุดตามให้ทัน |
-| **multi-agent-workshop** | แอป Registry Insight ที่รัน `claude` และ `opencode` |
+| **multi-agent-workshop-hybrid** | แอป Registry Insight ที่รัน `claude` และ `opencode` |
 
 ## ตารางสองวัน (สอนประมาณ 6 ชั่วโมงต่อวัน)
 
@@ -87,4 +87,4 @@ node shared/scripts/gate-quality.mjs
 - DuckDB เตือนไว้ก่อน Lab 05 ไม่ทำให้การบ้านทั้งก้อนตก uv ใช้เฉพาะสาธิตของวิทยากร
 - โน้ตบน Vercel เป็นอ่านอย่างเดียว อธิบายไว้ใน Lab 11 ของบนเครื่องยังต้องเซฟลงไฟล์เพื่อผ่านด่าน 6/6
 
-รายการที่ควรแก้ใน repo แอป (ยังไม่แก้ในรอบนี้) อยู่ที่ [docs/workshop-followups.md](docs/workshop-followups.md)
+รายการที่ปิดแล้วใน repo แอปอยู่ที่ [docs/workshop-followups.md](docs/workshop-followups.md)

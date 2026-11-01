@@ -6,22 +6,22 @@
 |---|---|
 | **40 นาที** | Claude Code สร้างกติกา แล้ว OpenCode อ่านต่อ |
 
-เปิดเทอร์มินัลที่โฟลเดอร์แอป `multi-agent-workshop` ตลอดแล็บนี้
+เปิดเทอร์มินัลที่โฟลเดอร์แอป `multi-agent-workshop-hybrid` ตลอดแล็บนี้
 
 ## ก่อนเริ่ม
 
-แอปเปิดได้ และ `npm run gate` เป็น exit 2 มีไฟล์ `CLAUDE.md` มากับแอปแล้ว อย่าลบทิ้ง
+แอปเปิดได้ และ `npm run gate` เป็น exit 2 มี `CLAUDE.md`, `AGENTS.md` และ `opencode.json` มากับแอปแล้ว อย่าลบกติกาด่าน เรื่องโน้ต หรือเส้นห้าม `git push`
 
 ## แบบฝึกหัด
 
 ### 1. ให้ Claude อ่านของที่มี แล้วเติมกติกาที่ขาด
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 claude
 ```
 
-บน Mac ใช้ `cd ~/dev/multi-agent-workshop` แล้วคำสั่งเดียวกัน
+บน Mac ใช้ `cd ~/dev/multi-agent-workshop-hybrid` แล้วคำสั่งเดียวกัน
 
 พิมพ์ `/init` ถ้าเครื่องมือเสนอให้สร้างกติกา แล้ววางข้อความนี้:
 
@@ -33,20 +33,26 @@ claude
 
 ปิดหน้า Claude แล้วเปิดไฟล์ `CLAUDE.md` ด้วยตา ต้องยังมีคำว่า quality gate
 
-### 2. ให้ OpenCode เขียนแผนที่ว่าใครใช้อะไร
+### 2. ให้ OpenCode อ่านกติกาที่มี แล้วเติมเฉพาะที่ขาด
+
+แอปมี `AGENTS.md` อยู่แล้ว อย่าเขียนทับทั้งไฟล์
 
 เปิดเทอร์มินัลใหม่ที่โฟลเดอร์เดียวกัน แล้วรัน `opencode` วางข้อความนี้:
 
 ```text
-อ่าน CLAUDE.md แล้วเขียนไฟล์ AGENTS.md เป็นภาษาไทยแบบสั้น
-บอกว่าสำรวจและปิดด่านใช้ Claude Code, สายการผลิตและความจำใช้ OpenCode, คนสรุปผู้บริหารใช้ OpenCode
-ห้ามแก้ CLAUDE.md ห้ามแก้ server.js ห้ามใส่คีย์
+อ่าน CLAUDE.md กับ AGENTS.md ที่มีอยู่ แล้วเติม AGENTS.md เฉพาะบรรทัดที่ยังไม่ครบ
+ต้องยังอยู่: สำรวจและปิดด่านใช้ Claude Code, สายการผลิต ความจำ และสรุปผู้บริหารใช้ OpenCode
+OpenCode อ่านคีย์จากตัวแปร OPENROUTER_API_KEY เท่านั้น ห้ามวางค่าคีย์ลงไฟล์
+ANTHROPIC_API_KEY ต้องว่าง
+อย่าสร้าง vercel.json หรือโฟลเดอร์ api/ ในแล็บนี้ ผู้เรียนค่อยสร้างใน Lab 11
+ห้ามแก้ CLAUDE.md ห้ามแก้ opencode.json ห้ามแก้ server.js
 ```
 
 ## ผ่านเมื่อ
 
 - ในโฟลเดอร์แอปมี `CLAUDE.md` ที่ยังพูดถึง `quality gate` และห้ามแก้ `scripts/quality-gate.js`
-- มี `AGENTS.md` ที่บอกทั้ง Claude Code และ OpenCode
+- `AGENTS.md` ยังบอกทั้ง Claude Code และ OpenCode, ยังพูดถึง `OPENROUTER_API_KEY`, และยังบอกว่า `ANTHROPIC_API_KEY` ต้องว่าง
+- ยังไม่มี `vercel.json` และยังไม่มีโฟลเดอร์ `api/`
 - `git diff` ไม่แตะ `server.js` หรือไฟล์ใน `data/`
 
 ## ถ้าตามไม่ทัน

@@ -36,7 +36,7 @@ bash scripts/readiness-check.sh
 
 ### 3. เปิดแอปครั้งหนึ่ง
 
-ที่โฟลเดอร์ `multi-agent-workshop` รัน `npm start` เปิด http://127.0.0.1:3000 แล้วปิดด้วย Ctrl+C จากนั้น `npm run gate` ต้องจบด้วย exit 2
+ที่โฟลเดอร์ `multi-agent-workshop-hybrid` รัน `npm start` เปิด http://127.0.0.1:3000 แล้วปิดด้วย Ctrl+C จากนั้น `npm run gate` ต้องจบด้วย exit 2
 
 ## ผ่านเมื่อ
 

@@ -108,8 +108,8 @@ function courseShape() {
   if (!readme.includes('https://github.com/Onto-IQ/build-ai-multi-agent-hybrid')) {
     bad('README.md must link to build-ai-multi-agent-hybrid');
   }
-  if (!readme.includes('https://github.com/Onto-IQ/multi-agent-workshop')) {
-    bad('README.md must link to multi-agent-workshop');
+  if (!readme.includes('https://github.com/Onto-IQ/multi-agent-workshop-hybrid')) {
+    bad('README.md must link to multi-agent-workshop-hybrid');
   }
   if (readme.includes('github.com/Onto-IQ/build-ai-multi-agent-lab')) {
     bad('README.md still links to build-ai-multi-agent-lab');
@@ -216,7 +216,7 @@ async function commandVersion(bin, binArgs) {
 async function workshopChecks() {
   const { dir: workshop, source } = resolveWorkshopDir();
   if (!existsSync(path.join(workshop, 'server.js'))) {
-    bad(`workshop not found at ${workshop} (from ${source}). Clone multi-agent-workshop or set WORKSHOP_DIR.`);
+    bad(`workshop not found at ${workshop} (from ${source}). Clone multi-agent-workshop-hybrid or set WORKSHOP_DIR.`);
     return;
   }
   note(`workshop project found at ${workshop}`);

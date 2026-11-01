@@ -26,7 +26,7 @@
 เปิด `opencode` วาง:
 
 ```text
-เขียน opencode.json ที่รากโปรเจกต์นี้ โดยห้าม edit ที่ scripts/quality-gate.js และห้าม bash ที่ git push
+เขียนหรือผสาน opencode.json ที่มีอยู่แล้วที่รากโปรเจกต์นี้ โดยห้าม edit ที่ scripts/quality-gate.js และห้าม bash ที่ git push คอมเมนต์เรื่องรูปแบบ permission ที่เปลี่ยนตามรุ่นต้องยังอยู่
 คีย์ OpenRouter ต้องเป็น {env:OPENROUTER_API_KEY} เท่านั้น ห้ามวางค่าคีย์ลงไฟล์
 อย่าแก้ server.js
 ```
