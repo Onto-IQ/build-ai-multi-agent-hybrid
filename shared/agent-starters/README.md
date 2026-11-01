@@ -1,26 +1,12 @@
-# Agent starters (เทมเพลต) → artifacts ใน Lab 05
+# ไฟล์ตั้งต้นของผู้ช่วย
 
-| ชั้น | อยู่ที่ | ใครสร้าง |
-|---|---|---|
-| **Starter** | `shared/agent-starters/` (ใน repo) | คอร์ส — อ่านอย่างเดียว |
-| **Artifact** | `.claude/agents/` / `.opencode/agents/` | **ผู้เรียน** สร้างผ่าน CLI/TUI ใน Lab 05 |
+ของที่ใช้ในห้องอยู่กับชุดตามให้ทัน ไม่ได้อยู่เป็นคำตอบใน repo แอป
 
-Checkout ใหม่จะมีแค่ Lab 01–02:
+| บทบาท | ที่อยู่ |
+|---|---|
+| data-researcher ฝั่ง Claude และ OpenCode | `solutions/w2/drop-in/` |
+| planner และ developer ฝั่ง OpenCode | `solutions/w3/drop-in/.opencode/agents/` |
+| qa ฝั่ง Claude | `solutions/w4/drop-in/.claude/agents/qa.md` |
+| synthesizer ฝั่ง OpenCode | `solutions/w9/drop-in/.opencode/agents/synthesizer.md` |
 
-- `.claude/agents/code-reviewer.md`
-- `.opencode/agents/specialist.md`
-
-## สร้างใน Lab 05 (ไม่ทับซ้อน)
-
-| Starter | Artifact ที่ผู้เรียนสร้าง | ห้ามสร้างที่ |
-|---|---|---|
-| `claude/frontend.md` | `.claude/agents/frontend.md` | `.opencode/agents/` |
-| `claude/synthesizer.md` | `.claude/agents/synthesizer.md` | `.opencode/agents/` |
-| `opencode/backend.md` | `.opencode/agents/backend.md` | `.claude/agents/` |
-| `opencode/qa.md` | `.opencode/agents/qa.md` | `.claude/agents/` |
-
-ทำตาม [`labs/lab-05-solo-to-team-roles/prompts/00-create-agents.md`](../../labs/lab-05-solo-to-team-roles/prompts/00-create-agents.md)
-
-ไฟล์ artifact ทีมถูก gitignore — อย่า commit เข้า repo คอร์ส
-
-ดูแมปเต็มใน [`AGENTS.md`](../../AGENTS.md)
+ผู้เรียนควรสั่งให้เครื่องมือสร้างไฟล์เอง ชุดนี้มีไว้เมื่อไฟล์เพี้ยนและวิทยากรให้ดูเทียบ

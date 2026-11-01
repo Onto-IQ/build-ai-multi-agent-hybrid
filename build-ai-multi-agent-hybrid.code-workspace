@@ -1,0 +1,8 @@
+{
+  "folders": [
+    { "name": "lessons (hybrid)", "path": "." }
+  ],
+  "settings": {
+    "terminal.integrated.cwd": "${workspaceFolder}"
+  }
+}

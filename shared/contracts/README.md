@@ -1,32 +1,18 @@
-# JSON Contracts — Agent Cost Board
+# สัญญาตัวอย่าง
 
-สัญญาไฟล์เป็นแหล่งความจริงระหว่าง agent  
-ผลงานผู้เรียนเขียนที่ `workspace/contracts/` (คัดลอกโครงจาก `*.example.json` ที่นี่)
+ไฟล์ในนี้เป็นตัวอย่างโครง ไม่ใช่คำตอบของแอป ผู้เรียนส่วนใหญ่ส่งงานด้วยไฟล์ Markdown ใน repo แอป (`docs/EXPLORATION-REPORT.md`, `docs/QA-REPORT.md`, `docs/EXECUTIVE-SUMMARY.md`)
 
-ทุกไฟล์ต้องมี: `schema_version`, `project_id`, `generated_by`, `generated_at`, `source_mode`
-
-`source_mode` ที่อนุญาต: `mock` | `cache` | `hybrid` | `api` | `manual`
-
-| ไฟล์ตัวอย่าง | Lab | ความหมาย |
-|---|---|---|
-| `code-review.example.json` | 01 | รายงานรีวิว (Reviewer ไม่แก้โค้ด) |
-| `role-cards.example.json` | 05 | บทบาท Frontend / Backend / QA |
-| `handoff-fe.example.json` | 06–07 | ส่งงานต่อจาก Frontend |
-| `handoff-be.example.json` | 06–07 | ส่งงานต่อจาก Backend |
-| `audit-result.example.json` | 08 | ผลด่านคุณภาพ/ต้นทุน |
-| `synthesize-report.example.json` | 09 | รวมผลให้เปิดแผงได้ |
-| `kanban-snapshot.example.json` | 10 | สรุปบอร์ด Flux |
-| `capstone-ship.example.json` | 11 | URL สาธารณะ + บันทึกต้นทุน (ในห้อง: Hostinger `learnerNN.9expert.online`) |
-
-ตรวจสัญญา:
+ถ้ารอบไหนอยากส่งต่องานเป็น JSON ให้วางไฟล์ใน `workspace/contracts/` ของ repo บทเรียน แล้วรัน:
 
 ```bash
 node shared/scripts/validate-json.mjs
-node shared/scripts/validate-json.mjs workspace/contracts/code-review.json
 ```
 
-ด่านคุณภาพของแอป:
+| ไฟล์ | ใช้เมื่อ |
+|---|---|
+| `handoff.example.json` | ส่งจาก OpenCode (สายการผลิต) ไปให้ Claude (คนตรวจ) |
+| `audit-result.example.json` | ผลด่าน 6/6 และด่านงบ |
+| `synthesize-report.example.json` | สรุปผู้บริหารโดย OpenCode ไม่เกิน 400 คำ |
+| `capstone-ship.example.json` | URL จริงบน Vercel และโน้ตแบบอ่านอย่างเดียว |
 
-```bash
-node shared/scripts/gate-quality.mjs
-```
+ไม่มีสัญญาบอร์ดคัมบังในคลาสนี้

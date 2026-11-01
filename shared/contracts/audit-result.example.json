@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0.0",
-  "project_id": "agent-cost-board",
-  "generated_by": "auditor",
-  "generated_at": "2026-07-20T10:20:00+07:00",
-  "source_mode": "mock",
+  "project_id": "registry-insight",
+  "generated_by": "qa",
+  "generated_at": "2026-11-13T10:00:00+07:00",
+  "source_mode": "manual",
   "status": "PASS",
   "round": 1,
   "quality_check": "PASS",
@@ -11,6 +11,5 @@
   "violations": [],
   "recommended_action": "ship",
   "max_refinement_rounds": 2,
-  "budget_tokens_estimate": 12000,
-  "budget_tokens_limit": 50000
+  "gate_passed": "6/6"
 }

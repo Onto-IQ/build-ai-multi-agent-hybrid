@@ -1,106 +1,90 @@
-# Build AI Multi-Agent Lab
+# Build AI Multi-Agent — Claude Code + OpenCode
 
-Lab repo สำหรับหลักสูตร **Build AI Multi-Agent with Claude Code** (VIBE-CODE-L2)
+หลักสูตร 2 วันแบบไฮบริดสำหรับจงสถิตย์ **12–13 พฤศจิกายน 2026** (ลูกค้า 9Expert, ผู้เรียนในห้อง 11 คน ส่วนใหญ่ไม่ใช่สายไอที)
 
-GitHub: https://github.com/Onto-IQ/build-ai-multi-agent-lab
+โจทย์คือแอป **Registry Insight** แดชบอร์ดธุรกิจจดทะเบียนใหม่จากข้อมูลจริงของ data.go.th เริ่มแดง **0/6** แล้วพาให้ผ่านด่านคุณภาพ **6/6** จากนั้นเปิดให้คนอื่นดูบน Vercel
 
-โจทย์ทั้งคอร์ส: สร้าง **Agent Cost Board** (แผงต้นทุน/สถานะทีม AI ของตัวเอง)  
-โฟลเดอร์แอป: `apps/sample-dashboard/`
+- บทเรียนอยู่ที่ repo นี้: https://github.com/Onto-IQ/build-ai-multi-agent-hybrid
+- แอปอยู่ที่อีก repo: https://github.com/Onto-IQ/multi-agent-workshop
 
-## เริ่มต้น (Outline 2)
+เปิด Claude Code และ OpenCode ที่โฟลเดอร์แอปเท่านั้น โฟลเดอร์นี้มีเฉลย ผู้ช่วยจะเห็นคำตอบถ้าเปิดผิดที่
 
-1. อ่านและทำตาม [`SETUP.md`](SETUP.md)
-2. เปิด root ของ repo นี้ใน **VS Code**
-3. คัดลอก `.env.example` → `.env` (Task: `copy-env-example`)
-4. รัน Task: `env-checklist`
-5. เริ่ม [`labs/lab-01-code-reviewer/README.md`](labs/lab-01-code-reviewer/README.md)
+## ได้อะไรจากสองวันนี้
 
-อ่านกฎโปรเจกต์: [`CLAUDE.md`](CLAUDE.md) · [`AGENTS.md`](AGENTS.md)  
-Walkthrough ทดสอบทั้งคอร์ส (CLI/TUI เท่านั้น): [`docs/WALKTHROUGH-E2E.md`](docs/WALKTHROUGH-E2E.md)
+1. เครื่องพร้อมก่อนวันเรียน เข้าห้องแล้วเช็กประมาณ 15 นาที
+2. สั่งผู้ช่วยให้อ่านกติกาก่อนลงมือ แล้วสำรวจงานพร้อมกันโดยยังไม่ให้แก้ของ
+3. สร้างผู้เชี่ยวชาญบนทั้ง Claude Code และ OpenCode แล้วล็อกสิ่งที่ห้ามแตะ
+4. แบ่งงานเป็นสายการผลิตด้วย OpenCode จนข้อมูลสะอาด แล้วให้ Claude ตรวจและปิดด่าน 6/6
+5. กันคำสั่งอันตรายและงบ ทำเช็กลิสต์งานซ้ำ และจำข้อตกลงข้ามรอบ
+6. สรุปให้ผู้บริหารอ่านได้ไม่เกิน 400 คำ แล้วได้ลิงก์จริงบน Vercel โดยไม่ใส่คีย์โมเดลขึ้นไป
 
-**ข้ามแพลตฟอร์ม:** ใช้ Node + git (ไม่ใช้ Python venv)  
-**ดูแผง localhost:** `npx --yes serve apps/sample-dashboard -p 4173` → `/frontend/`
+## สอง repo
 
-## บันไดความรู้
-
-แต่ละ Lab **ได้รับมาจาก Lab ก่อน** แล้ว **ได้เพิ่ม** ทักษะใหม่ — ไม่รีเซ็ตโจทย์  
-จบ Lab 11 = ครบสูตร (specialist → สิทธิ์ → memory → ทีม → ด่าน → รวมผล → Flux → Ship)
-
-## ลำดับงาน
-
-```text
-Interview → Plan → Build → Test → Ship
-```
-
-Kanban (**Flux**) บังคับใน Lab 10 — เป็นบอร์ดงานของ Agent Cost Board
-
-## JSON vs Kanban
-
-| เมื่อไหร่ | ใช้อะไร |
+| Repo | ใช้ทำอะไร |
 |---|---|
-| ownership / ส่งงานต่อ / ด่าน / ship | สัญญา JSON ใน `workspace/contracts/` |
-| มอบหมายใครทำ / ขั้นไหน / มองเห็นคิว | Flux Kanban (Lab 10) |
+| **hybrid** (repo นี้) | บทเรียน แบบฝึกหัด สคริปต์ตรวจ และชุดตามให้ทัน |
+| **multi-agent-workshop** | แอป Registry Insight ที่รัน `claude` และ `opencode` |
 
-```text
-Lab 10 climax:
-  แตกการ์ดบน Flux (FE=Claude frontend · BE=OpenCode backend · QA=OpenCode qa)
-    → ลงมือด้วย named agent บนเครื่องมือที่ถูกตาม ownership
-    → เขียน/อัปเดตสัญญา JSON
-    → เลื่อนการ์ดตามสถานะจริง (หลังมีหลักฐานงาน)
-    → ด่านผ่านแล้วค่อย Ship (Lab 11)
-```
+## ตารางสองวัน (สอนประมาณ 6 ชั่วโมงต่อวัน)
 
-ห้ามผ่าน Lab 10 ด้วย `kanban-snapshot.json` โดยไม่มีบอร์ดสด
+วันที่ 1 — รู้จักงาน แล้วเดินสายการผลิต
 
-**Named agents ไม่ทับซ้อน:** Frontend + synthesizer อยู่ Claude เท่านั้น; Backend + QA อยู่ OpenCode เท่านั้น — ประสานผ่าน `handoff-*.json` (Lab 06→07) และ Flux (Lab 10)
-
-**มาตรฐานคอร์ส = go-live ไม่ใช่ POC:** การ์ดต้องมอบหมายชัด (บทบาท + เครื่องมือ + ชื่อ agent) ทำงานจริงแล้วค่อยเลื่อน — ห้ามสร้างการ์ดเพื่องานนับ validator หรือเลื่อนการ์ดโดยไม่ทำ ownership
-
-## ชั้น orchestration
-
-| ชั้น | เกณฑ์ผ่าน Lab |
-|---|---|
-| Specialist + สิทธิ์ + สัญญา + หยุด | บังคับ |
-| Claude Agent Teams | ลองได้ — ทางเลือก Subagents ยังผ่าน |
-| OpenCode plugins | pin ในห้อง — ทางเลือกลำดับมือยังผ่าน |
-| Kanban (Flux) | บังคับ Lab 10 |
-
-## Mapping Lab (ตรง Outline)
-
-| Lab | โฟลเดอร์ | โฟกัส |
+| ช่วง | นาที | เครื่องมือ |
 |---|---|---|
-| 1 | [lab-01-code-reviewer](labs/lab-01-code-reviewer/README.md) | Code Reviewer (Claude Code) |
-| 2 | [lab-02-opencode-specialist](labs/lab-02-opencode-specialist/README.md) | OpenCode + เทียบ |
-| 3 | [lab-03-permission-boundary](labs/lab-03-permission-boundary/README.md) | สิทธิ์ |
-| 4 | [lab-04-persistent-memory](labs/lab-04-persistent-memory/README.md) | Memory |
-| 5 | [lab-05-solo-to-team-roles](labs/lab-05-solo-to-team-roles/README.md) | สร้าง named agent artifacts (CLI/TUI) คนละเครื่องมือ + role-cards |
-| 6 | [lab-06-claude-multi-agent](labs/lab-06-claude-multi-agent/README.md) | Claude `frontend`+`code-reviewer` → `handoff-fe` |
-| 7 | [lab-07-opencode-sequential](labs/lab-07-opencode-sequential/README.md) | OpenCode `backend`→`qa` อ่าน handoff |
-| 8 | [lab-08-quality-cost-gate](labs/lab-08-quality-cost-gate/README.md) | ด่านคุณภาพ + ต้นทุน (`--agent qa`) |
-| 9 | [lab-09-synthesizer](labs/lab-09-synthesizer/README.md) | Claude `--agent synthesizer` รวมผล |
-| 10 | [lab-10-kanban-collab](labs/lab-10-kanban-collab/README.md) | Flux go-live: การ์ด↔named agent แล้วเลื่อนจากงานจริง |
-| 11 | [lab-11-capstone](labs/lab-11-capstone/README.md) | Capstone + Deploy |
-| เสริม | [lab-optional-mcp-vs-cli](labs/lab-optional-mcp-vs-cli/README.md) | MCP vs คำสั่งใน repo |
-| เสริม | [lab-optional-a2a](labs/lab-optional-a2a/README.md) | A2A vs สัญญาไฟล์ |
+| เช็กเครื่องในห้อง ([Lab 00](labs/lab-00-readiness/README.md)) | 15 | ทั้งคู่ |
+| บรรยายแนวคิดผู้ช่วยหลายคน และทำไมต้องใช้สองเครื่องมือ | 60 | วิทยากร |
+| [Lab 01 รู้จักแอป](labs/lab-01-init/README.md) | 40 | Claude แล้ว OpenCode อ่านต่อ |
+| [Lab 02 สำรวจพร้อมกัน](labs/lab-02-explore/README.md) | 50 | Claude Code |
+| [Lab 03 ผู้เชี่ยวชาญสองฝั่ง](labs/lab-03-specialty/README.md) | 50 | Claude Code + OpenCode |
+| [Lab 04 เส้นสิทธิ์](labs/lab-04-permissions/README.md) | 30 | ทั้งคู่ |
+| [Lab 05 สายการผลิต](labs/lab-05-sequential/README.md) | 60 | OpenCode |
+| สรุปวันและเวลาเผื่อ | 55 | — |
 
-## โครงสร้าง
+วันที่ 2 — ปิดด่าน สรุปผู้บริหาร แล้วส่งของจริง
 
-```text
-apps/sample-dashboard/   Agent Cost Board (frontend / backend / qa)
-labs/                    Lab 01–11 ตาม Outline
-shared/                  สัญญาตัวอย่าง, prompts, สคริปต์ด่าน, agent-starters
-workspace/               ผลงานผู้เรียน
-SETUP.md                 Outline 2
-CLAUDE.md / AGENTS.md    กฎโปรเจกต์และบทบาท (named agents ไม่ทับซ้อน)
-.env.example             → .env (อย่า commit)
-.vscode/                 settings, extensions, tasks
+| ช่วง | นาที | เครื่องมือ |
+|---|---|---|
+| ทบทวนของเมื่อวาน | 15 | — |
+| [Lab 06 แก้ปมและมีคนตรวจ](labs/lab-06-fix-qa/README.md) | 50 | Claude Code |
+| [Lab 07 กันความเสี่ยงและงบ](labs/lab-07-guardrails/README.md) | 45 | ทั้งคู่ |
+| [Lab 08 มาตรฐานงานซ้ำและความจำ](labs/lab-08-skills-memory/README.md) | 45 | Claude = เช็กลิสต์, OpenCode = ความจำ |
+| สาธิต MCP ([วิทยากรเท่านั้น](labs/demo-mcp/README.md)) | 15 | วิทยากร |
+| [Lab 09 ฟีเจอร์ของตัวเอง](labs/lab-09-feature/README.md) **ย่อได้** | 60 | เลือกเอง |
+| [Lab 10 ทีมปิดงาน](labs/lab-10-capstone/README.md) | 60 | Claude ทำของ, OpenCode สรุป |
+| [Lab 11 ขึ้น Vercel](labs/lab-11-vercel/README.md) | 40 | สั่ง CLI ผ่าน prompt |
+| ปิดห้อง | 30 | — |
+
+ถ้าห้องช้า ให้ย่อ Lab 09 เหลือ 30 นาทีหรือทำเป็นกลุ่ม ส่วนความจำใน Lab 08 ให้วิทยากรสาธิตได้
+
+ตัดออกจากห้องนี้: บอร์ด Flux, A2A, แล็บเลือกทำ MCP เทียบ CLI, Coolify และ Hostinger
+
+## ก่อนวันเรียน
+
+ทำ [SETUP.md](SETUP.md) ให้จบ แล้วรันสคริปต์ตรวจความพร้อม วันเรียนไม่ลงโปรแกรมทั้งห้อง
+
+## ถ้าตามไม่ทัน
+
+จาก repo บทเรียน:
+
+```bash
+node scripts/catch-up.js w1
 ```
 
-## แก้ปัญหาเบื้องต้น (ผู้ที่ไม่ใช่โปรแกรมเมอร์)
+รหัสชุดกับแล็บอยู่ที่ [solutions/README.md](solutions/README.md) ชุด `w7` และ `w9` จะวางไฟล์ข้อมูลที่สะอาดทับของเดิม
 
-1. อ่านข้อความ error ทั้งก้อน  
-2. คัดลอกใส่แชท AI  
-3. สั่งให้แก้ทีละจุด พร้อมบอกไฟล์ที่เกี่ยวข้อง  
-4. รันซ้ำ / ตรวจ QA checklist  
+ตรวจชุดอ้างอิงโดยไม่ต้องมีแอป:
 
-อย่าพิมพ์แค่ “แก้ให้หน่อย” แบบไม่มี error
+```bash
+node scripts/check-solutions.mjs
+node shared/scripts/gate-quality.mjs
+```
+
+## สิ่งที่ปรับจากแผนตั้งต้น
+
+- Lab 02 ผ่านเมื่อมีรายงานสำรวจ โหมดทีมของ Claude เป็นขั้นต่อยอด ไม่ใช่เงื่อนไขผ่าน
+- Lab 05 เป็นคิวไฟล์บน OpenCode ไม่ใช้โหมดเพื่อนร่วมทีมของ Claude
+- Lab 10 ใช้ 5 บทบาท ไม่ใช่ 6 คนบน Claude คนเดียว คนสรุปอยู่ที่ OpenCode
+- DuckDB เตือนไว้ก่อน Lab 05 ไม่ทำให้การบ้านทั้งก้อนตก uv ใช้เฉพาะสาธิตของวิทยากร
+- โน้ตบน Vercel เป็นอ่านอย่างเดียว อธิบายไว้ใน Lab 11 ของบนเครื่องยังต้องเซฟลงไฟล์เพื่อผ่านด่าน 6/6
+
+รายการที่ควรแก้ใน repo แอป (ยังไม่แก้ในรอบนี้) อยู่ที่ [docs/workshop-followups.md](docs/workshop-followups.md)

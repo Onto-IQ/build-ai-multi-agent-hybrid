@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "registry-insight",
+  "generated_by": "opencode-developer",
+  "generated_at": "2026-11-12T14:00:00+07:00",
+  "source_mode": "manual",
+  "from_role": "developer",
+  "from_tool": "OpenCode",
+  "to_role": "qa",
+  "to_tool": "Claude Code",
+  "status": "ready-for-qa",
+  "notes": "ข้อมูลสะอาดแล้ว เหลือปมโน้ต health และ JSON ให้ Claude ปิดใน Lab 06",
+  "files_touched": ["server.js", "data/dataset.csv", "docs/DESIGN.md"]
+}

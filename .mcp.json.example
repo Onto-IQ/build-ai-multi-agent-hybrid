@@ -1,11 +1,8 @@
 {
   "mcpServers": {
-    "flux": {
-      "type": "http",
-      "url": "https://flux.umin.ai/api/mcp",
-      "headers": {
-        "Authorization": "Bearer ${FLUX_API_KEY}"
-      }
+    "data-duckdb": {
+      "command": "uvx",
+      "args": ["--python", "3.12", "mcp-server-motherduck", "--db-path", "data/warehouse.duckdb"]
     }
   }
 }

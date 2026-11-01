@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "{env:OPENCODE_MODEL}",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      }
+    }
+  },
+  "permission": {
+    "edit": {
+      "*": "allow",
+      "scripts/quality-gate.js": "deny",
+      "data/raw/**": "deny"
+    },
+    "bash": {
+      "*": "ask",
+      "git push": "deny",
+      "git push*": "deny",
+      "rm -rf*": "deny"
+    }
+  }
+}

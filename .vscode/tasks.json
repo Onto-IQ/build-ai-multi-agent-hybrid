@@ -2,9 +2,16 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "copy-env-example",
+      "label": "readiness-check",
       "type": "shell",
-      "command": "if (!(Test-Path .env)) { Copy-Item .env.example .env; Write-Host 'Created .env from .env.example' } else { Write-Host '.env already exists' }",
+      "command": "node scripts/verify-setup.mjs",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "verify-course-files",
+      "type": "shell",
+      "command": "node scripts/verify-setup.mjs --course-files",
       "problemMatcher": [],
       "presentation": { "reveal": "always" }
     },
@@ -23,9 +30,9 @@
       "presentation": { "reveal": "always" }
     },
     {
-      "label": "env-checklist",
+      "label": "check-solutions",
       "type": "shell",
-      "command": "Write-Host 'node:' (node --version); Write-Host 'git:' (git --version); Write-Host 'claude:' (if (Get-Command claude -ErrorAction SilentlyContinue) { 'found' } else { 'missing' }); Write-Host 'opencode:' (if (Get-Command opencode -ErrorAction SilentlyContinue) { 'found' } else { 'missing' }); Write-Host '.env:' (Test-Path .env)",
+      "command": "node scripts/check-solutions.mjs",
       "problemMatcher": [],
       "presentation": { "reveal": "always" }
     }

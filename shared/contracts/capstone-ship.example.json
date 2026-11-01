@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
-  "project_id": "agent-cost-board",
+  "project_id": "registry-insight",
   "generated_by": "learner",
-  "generated_at": "2026-07-20T10:40:00+07:00",
-  "source_mode": "mock",
-  "public_url": "http://learner01.9expert.online/",
-  "deploy_target": "Hostinger classroom (learner01.9expert.online)",
+  "generated_at": "2026-11-13T16:00:00+07:00",
+  "source_mode": "manual",
+  "public_url": "https://registry-insight-example.vercel.app",
+  "deploy_target": "vercel-hobby",
   "gate_status": "PASS",
-  "kanban_column": "Ship",
-  "cost_note": "Used Subagents instead of Agent Teams for lower token cost.",
-  "shared_with_classmate": true
+  "notes_mode": "readonly",
+  "anthropic_key_on_vercel": false,
+  "cost_note": "ไม่ใส่คีย์โมเดลบน Vercel โน้ตบนของจริงเป็นอ่านอย่างเดียว"
 }
