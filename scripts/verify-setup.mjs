@@ -61,46 +61,69 @@ function atLeast(found, minimum) {
   return true;
 }
 
-const LABS = [
-  ['lab-00-readiness', '00'],
-  ['lab-01-init', '01'],
-  ['lab-02-explore', '02'],
-  ['lab-03-specialty', '03'],
-  ['lab-04-permissions', '04'],
-  ['lab-05-sequential', '05'],
-  ['lab-06-fix-qa', '06'],
-  ['lab-07-guardrails', '07'],
-  ['lab-08-skills-memory', '08'],
-  ['lab-09-feature', '09'],
-  ['lab-10-capstone', '10'],
-  ['lab-11-vercel', '11'],
+const HANDS_ON = [
+  'Lessons/01-environment-setup/LAB.md',
+  'Lessons/02-agent-foundations/LAB.md',
+  'Lessons/03-swarm/LAB.md',
+  'Lessons/04-specialty-agents/LAB.md',
+  'Lessons/04-specialty-agents/LAB-permissions.md',
+  'Lessons/05-sequential-orchestration/LAB.md',
+  'Lessons/06-fix-and-qa/LAB.md',
+  'Lessons/07-skills/LAB.md',
+  'Lessons/09-guardrails-hooks/LAB.md',
+  'Lessons/10-context-memory/LAB.md',
+  'Lessons/11-feature/LAB.md',
+  'Lessons/12-capstone/LAB.md',
+  'Lessons/13-deploy-preflight/LAB.md',
 ];
 
-function readmeHas(dirName, phrases) {
-  const file = path.join(repo, 'labs', dirName, 'README.md');
+const MODULES = [
+  '01-environment-setup',
+  '02-agent-foundations',
+  '03-swarm',
+  '04-specialty-agents',
+  '05-sequential-orchestration',
+  '06-fix-and-qa',
+  '07-skills',
+  '08-mcp',
+  '09-guardrails-hooks',
+  '10-context-memory',
+  '11-feature',
+  '12-capstone',
+  '13-deploy-preflight',
+];
+
+function handsOnHas(relPath) {
+  const file = path.join(repo, relPath);
   if (!existsSync(file)) {
-    bad(`missing labs/${dirName}/README.md`);
+    bad(`missing ${relPath}`);
     return;
   }
   const text = readFileSync(file, 'utf8');
-  for (const phrase of phrases) {
-    if (!text.includes(phrase)) bad(`labs/${dirName}/README.md missing “${phrase}”`);
+  for (const phrase of ['ทำไปเพื่ออะไร', 'ผ่านเมื่อ', 'แบบฝึกหัด']) {
+    if (!text.includes(phrase)) bad(`${relPath} missing “${phrase}”`);
   }
-  if (!/\d+\s*นาที/.test(text)) bad(`labs/${dirName}/README.md missing expected minutes`);
-  else note(`labs/${dirName} has purpose, minutes, pass line`);
+  if (!/\d+\s*นาที/.test(text)) bad(`${relPath} missing expected minutes`);
+  else note(`${relPath} has purpose, minutes, pass line`);
 }
 
 function courseShape() {
-  for (const [dir] of LABS) {
-    const phrases = ['ทำไปเพื่ออะไร', 'ผ่านเมื่อ', 'แบบฝึกหัด'];
-    readmeHas(dir, phrases);
+  for (const relPath of HANDS_ON) handsOnHas(relPath);
+  for (const dir of MODULES) {
+    const readme = path.join(repo, 'Lessons', dir, 'README.md');
+    const lab = path.join(repo, 'Lessons', dir, 'LAB.md');
+    if (!existsSync(readme)) bad(`missing Lessons/${dir}/README.md`);
+    if (!existsSync(lab)) bad(`missing Lessons/${dir}/LAB.md`);
   }
-  const feature = path.join(repo, 'labs', 'lab-09-feature', 'README.md');
+  if (MODULES.every((dir) => existsSync(path.join(repo, 'Lessons', dir, 'README.md')) && existsSync(path.join(repo, 'Lessons', dir, 'LAB.md')))) {
+    note('Lessons/01–13 each have README.md and LAB.md');
+  }
+  const feature = path.join(repo, 'Lessons', '11-feature', 'LAB.md');
   if (existsSync(feature) && !readFileSync(feature, 'utf8').includes('ย่อได้')) {
-    bad('Lab 09 must be marked ย่อได้');
+    bad('Module 11 must be marked ย่อได้');
   }
-  const demo = path.join(repo, 'labs', 'demo-mcp', 'README.md');
-  if (!existsSync(demo)) bad('missing labs/demo-mcp/README.md');
+  const demo = path.join(repo, 'Lessons', '08-mcp', 'LAB.md');
+  if (!existsSync(demo)) bad('missing Lessons/08-mcp/LAB.md');
   else if (!readFileSync(demo, 'utf8').includes('วิทยากร')) bad('MCP demo must say it is for the trainer');
   else note('MCP demo is marked as a trainer demo');
 
@@ -108,8 +131,8 @@ function courseShape() {
   if (!readme.includes('https://github.com/Onto-IQ/build-ai-multi-agent-hybrid')) {
     bad('README.md must link to build-ai-multi-agent-hybrid');
   }
-  if (!readme.includes('https://github.com/Onto-IQ/multi-agent-workshop')) {
-    bad('README.md must link to multi-agent-workshop');
+  if (!readme.includes('https://github.com/Onto-IQ/multi-agent-workshop-hybrid')) {
+    bad('README.md must link to multi-agent-workshop-hybrid');
   }
   if (readme.includes('github.com/Onto-IQ/build-ai-multi-agent-lab')) {
     bad('README.md still links to build-ai-multi-agent-lab');
@@ -216,7 +239,7 @@ async function commandVersion(bin, binArgs) {
 async function workshopChecks() {
   const { dir: workshop, source } = resolveWorkshopDir();
   if (!existsSync(path.join(workshop, 'server.js'))) {
-    bad(`workshop not found at ${workshop} (from ${source}). Clone multi-agent-workshop or set WORKSHOP_DIR.`);
+    bad(`workshop not found at ${workshop} (from ${source}). Clone multi-agent-workshop-hybrid or set WORKSHOP_DIR.`);
     return;
   }
   note(`workshop project found at ${workshop}`);

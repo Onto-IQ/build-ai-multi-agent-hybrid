@@ -1,6 +1,6 @@
 ---
 name: data-researcher
-description: Researches how the Registry Insight code and sales.csv behave. Use proactively for any "how does this work?" or data-quality question. Read-only.
+description: Researches how the Registry Insight code and dataset.csv behave. Use proactively for any "how does this work?" or data-quality question. Read-only.
 tools: Read, Grep, Glob
 model: sonnet
 ---

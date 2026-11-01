@@ -5,7 +5,7 @@
 โจทย์คือแอป **Registry Insight** แดชบอร์ดธุรกิจจดทะเบียนใหม่จากข้อมูลจริงของ data.go.th เริ่มแดง **0/6** แล้วพาให้ผ่านด่านคุณภาพ **6/6** จากนั้นเปิดให้คนอื่นดูบน Vercel
 
 - บทเรียนอยู่ที่ repo นี้: https://github.com/Onto-IQ/build-ai-multi-agent-hybrid
-- แอปอยู่ที่อีก repo: https://github.com/Onto-IQ/multi-agent-workshop
+- แอปอยู่ที่อีก repo: https://github.com/Onto-IQ/multi-agent-workshop-hybrid
 
 เปิด Claude Code และ OpenCode ที่โฟลเดอร์แอปเท่านั้น โฟลเดอร์นี้มีเฉลย ผู้ช่วยจะเห็นคำตอบถ้าเปิดผิดที่
 
@@ -23,21 +23,23 @@
 | Repo | ใช้ทำอะไร |
 |---|---|
 | **hybrid** (repo นี้) | บทเรียน แบบฝึกหัด สคริปต์ตรวจ และชุดตามให้ทัน |
-| **multi-agent-workshop** | แอป Registry Insight ที่รัน `claude` และ `opencode` |
+| **multi-agent-workshop-hybrid** | แอป Registry Insight ที่รัน `claude` และ `opencode` |
 
 ## ตารางสองวัน (สอนประมาณ 6 ชั่วโมงต่อวัน)
+
+ลำดับโฟลเดอร์อยู่ที่ `Lessons/01` ถึง `Lessons/13` แบบเดียวกับคอร์ส Claude อย่างเดียว เส้นสิทธิ์ของห้องไฮบริดอยู่ใน Module 04 ไฟล์ `LAB-permissions.md` ไม่ได้แทรกเป็นเลขโมดูลใหม่
 
 วันที่ 1 — รู้จักงาน แล้วเดินสายการผลิต
 
 | ช่วง | นาที | เครื่องมือ |
 |---|---|---|
-| เช็กเครื่องในห้อง ([Lab 00](labs/lab-00-readiness/README.md)) | 15 | ทั้งคู่ |
+| เช็กเครื่องในห้อง ([Module 01](Lessons/01-environment-setup/LAB.md)) | 15 | ทั้งคู่ |
 | บรรยายแนวคิดผู้ช่วยหลายคน และทำไมต้องใช้สองเครื่องมือ | 60 | วิทยากร |
-| [Lab 01 รู้จักแอป](labs/lab-01-init/README.md) | 40 | Claude แล้ว OpenCode อ่านต่อ |
-| [Lab 02 สำรวจพร้อมกัน](labs/lab-02-explore/README.md) | 50 | Claude Code |
-| [Lab 03 ผู้เชี่ยวชาญสองฝั่ง](labs/lab-03-specialty/README.md) | 50 | Claude Code + OpenCode |
-| [Lab 04 เส้นสิทธิ์](labs/lab-04-permissions/README.md) | 30 | ทั้งคู่ |
-| [Lab 05 สายการผลิต](labs/lab-05-sequential/README.md) | 60 | OpenCode |
+| [Module 02 รู้จักแอป](Lessons/02-agent-foundations/LAB.md) | 40 | Claude แล้ว OpenCode อ่านต่อ |
+| [Module 03 สำรวจพร้อมกัน](Lessons/03-swarm/LAB.md) | 50 | Claude Code |
+| [Module 04 ผู้เชี่ยวชาญสองฝั่ง](Lessons/04-specialty-agents/LAB.md) | 50 | Claude Code + OpenCode |
+| [เส้นสิทธิ์ใน Module 04](Lessons/04-specialty-agents/LAB-permissions.md) | 30 | ทั้งคู่ |
+| [Module 05 สายการผลิต](Lessons/05-sequential-orchestration/LAB.md) | 60 | OpenCode |
 | สรุปวันและเวลาเผื่อ | 55 | — |
 
 วันที่ 2 — ปิดด่าน สรุปผู้บริหาร แล้วส่งของจริง
@@ -45,16 +47,17 @@
 | ช่วง | นาที | เครื่องมือ |
 |---|---|---|
 | ทบทวนของเมื่อวาน | 15 | — |
-| [Lab 06 แก้ปมและมีคนตรวจ](labs/lab-06-fix-qa/README.md) | 50 | Claude Code |
-| [Lab 07 กันความเสี่ยงและงบ](labs/lab-07-guardrails/README.md) | 45 | ทั้งคู่ |
-| [Lab 08 มาตรฐานงานซ้ำและความจำ](labs/lab-08-skills-memory/README.md) | 45 | Claude = เช็กลิสต์, OpenCode = ความจำ |
-| สาธิต MCP ([วิทยากรเท่านั้น](labs/demo-mcp/README.md)) | 15 | วิทยากร |
-| [Lab 09 ฟีเจอร์ของตัวเอง](labs/lab-09-feature/README.md) **ย่อได้** | 60 | เลือกเอง |
-| [Lab 10 ทีมปิดงาน](labs/lab-10-capstone/README.md) | 60 | Claude ทำของ, OpenCode สรุป |
-| [Lab 11 ขึ้น Vercel](labs/lab-11-vercel/README.md) | 40 | สั่ง CLI ผ่าน prompt |
+| [Module 06 แก้ปมและมีคนตรวจ](Lessons/06-fix-and-qa/LAB.md) | 50 | Claude Code |
+| [Module 07 เช็กลิสต์ปล่อยของ](Lessons/07-skills/LAB.md) | 25 | Claude Code |
+| สาธิต MCP ([Module 08 วิทยากรเท่านั้น](Lessons/08-mcp/LAB.md)) | 15 | วิทยากร |
+| [Module 09 กันความเสี่ยงและงบ](Lessons/09-guardrails-hooks/LAB.md) | 45 | ทั้งคู่ |
+| [Module 10 ความจำข้ามรอบ](Lessons/10-context-memory/LAB.md) | 20 | OpenCode |
+| [Module 11 ฟีเจอร์ของตัวเอง](Lessons/11-feature/LAB.md) **ย่อได้** | 60 | เลือกเอง |
+| [Module 12 ทีมปิดงาน](Lessons/12-capstone/LAB.md) | 60 | Claude ทำของ, OpenCode สรุป |
+| [Module 13 ขึ้น Vercel](Lessons/13-deploy-preflight/LAB.md) | 40 | สั่ง CLI ผ่าน prompt |
 | ปิดห้อง | 30 | — |
 
-ถ้าห้องช้า ให้ย่อ Lab 09 เหลือ 30 นาทีหรือทำเป็นกลุ่ม ส่วนความจำใน Lab 08 ให้วิทยากรสาธิตได้
+ถ้าห้องช้า ให้ย่อ Module 11 เหลือ 30 นาทีหรือทำเป็นกลุ่ม ส่วนความจำใน Module 10 ให้วิทยากรสาธิตได้
 
 ตัดออกจากห้องนี้: บอร์ด Flux, A2A, แล็บเลือกทำ MCP เทียบ CLI, Coolify และ Hostinger
 
@@ -76,15 +79,15 @@ node scripts/catch-up.js w1
 
 ```bash
 node scripts/check-solutions.mjs
-node shared/scripts/gate-quality.mjs
+node scripts/gate-quality.mjs
 ```
 
 ## สิ่งที่ปรับจากแผนตั้งต้น
 
-- Lab 02 ผ่านเมื่อมีรายงานสำรวจ โหมดทีมของ Claude เป็นขั้นต่อยอด ไม่ใช่เงื่อนไขผ่าน
-- Lab 05 เป็นคิวไฟล์บน OpenCode ไม่ใช้โหมดเพื่อนร่วมทีมของ Claude
-- Lab 10 ใช้ 5 บทบาท ไม่ใช่ 6 คนบน Claude คนเดียว คนสรุปอยู่ที่ OpenCode
-- DuckDB เตือนไว้ก่อน Lab 05 ไม่ทำให้การบ้านทั้งก้อนตก uv ใช้เฉพาะสาธิตของวิทยากร
-- โน้ตบน Vercel เป็นอ่านอย่างเดียว อธิบายไว้ใน Lab 11 ของบนเครื่องยังต้องเซฟลงไฟล์เพื่อผ่านด่าน 6/6
+- Module 03 ผ่านเมื่อมีรายงานสำรวจ โหมดทีมของ Claude เป็นขั้นต่อยอด ไม่ใช่เงื่อนไขผ่าน
+- Module 05 เป็นคิวไฟล์บน OpenCode ไม่ใช้โหมดเพื่อนร่วมทีมของ Claude
+- Module 12 ใช้ 5 บทบาท ไม่ใช่ 6 คนบน Claude คนเดียว คนสรุปอยู่ที่ OpenCode
+- DuckDB เตือนไว้ก่อน Module 05 ไม่ทำให้การบ้านทั้งก้อนตก uv ใช้เฉพาะสาธิตของวิทยากร
+- โน้ตบน Vercel เป็นอ่านอย่างเดียว อธิบายไว้ใน Module 13 ของบนเครื่องยังต้องเซฟลงไฟล์เพื่อผ่านด่าน 6/6
 
-รายการที่ควรแก้ใน repo แอป (ยังไม่แก้ในรอบนี้) อยู่ที่ [docs/workshop-followups.md](docs/workshop-followups.md)
+รายการที่ปิดแล้วใน repo แอปอยู่ที่ [reference/workshop-followups.md](reference/workshop-followups.md)

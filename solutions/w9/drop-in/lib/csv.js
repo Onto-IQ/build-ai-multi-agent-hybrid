@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Small CSV reader for the sales sandbox.
+ * Small CSV reader for the Registry Insight dataset.
  * Supports quotes and commas inside quoted fields. No dependencies.
  */
 

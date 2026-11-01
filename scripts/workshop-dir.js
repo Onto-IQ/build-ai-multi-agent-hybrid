@@ -1,14 +1,14 @@
 'use strict';
 
 /**
- * Resolves the Registry Insight app folder (multi-agent-workshop).
+ * Resolves the Registry Insight app folder (multi-agent-workshop-hybrid).
  *
  * Precedence:
  *   1. process.env.WORKSHOP_DIR
  *   2. course-root .env.local
  *   3. course-root .env
- *   4. class default — Windows: C:\dev\multi-agent-workshop
- *      macOS/Linux: ~/dev/multi-agent-workshop
+ *   4. class default — Windows: C:\dev\multi-agent-workshop-hybrid
+ *      macOS/Linux: ~/dev/multi-agent-workshop-hybrid
  */
 
 const fs = require('fs');
@@ -18,8 +18,8 @@ const path = require('path');
 const courseRoot = path.join(__dirname, '..');
 
 function defaultWorkshopDir() {
-  if (process.platform === 'win32') return 'C:\\dev\\multi-agent-workshop';
-  return path.join(os.homedir(), 'dev', 'multi-agent-workshop');
+  if (process.platform === 'win32') return 'C:\\dev\\multi-agent-workshop-hybrid';
+  return path.join(os.homedir(), 'dev', 'multi-agent-workshop-hybrid');
 }
 
 function loadEnvFile(filePath) {

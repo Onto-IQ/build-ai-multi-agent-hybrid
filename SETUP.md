@@ -32,7 +32,7 @@ git --version
 mkdir C:\dev
 cd C:\dev
 git clone https://github.com/Onto-IQ/build-ai-multi-agent-hybrid.git
-git clone https://github.com/Onto-IQ/multi-agent-workshop.git
+git clone https://github.com/Onto-IQ/multi-agent-workshop-hybrid.git
 ```
 
 บน Mac:
@@ -41,10 +41,12 @@ git clone https://github.com/Onto-IQ/multi-agent-workshop.git
 mkdir -p ~/dev
 cd ~/dev
 git clone https://github.com/Onto-IQ/build-ai-multi-agent-hybrid.git
-git clone https://github.com/Onto-IQ/multi-agent-workshop.git
+git clone https://github.com/Onto-IQ/multi-agent-workshop-hybrid.git
 ```
 
 เปิดโฟลเดอร์บทเรียนใน VS Code หรือ Cursor เมื่อจะอ่านแล็บ เปิดโฟลเดอร์แอปเมื่อจะสั่ง `claude` หรือ `opencode`
+
+ชื่อโฟลเดอร์ต้องเป็น `multi-agent-workshop-hybrid` ถ้าโคลนมาแล้วมีแค่ README แปลว่าชุดแอปยังไม่เข้า `main` ของ repo นั้น ให้ถามวิทยากรก่อนทำแล็บ อย่าไปโคลน repo ชื่อเดิมที่ไม่มี `-hybrid`
 
 ถ้าเก็บแอปไว้คนละที่ ให้ก็อป `.env.example` เป็น `.env` ใน repo บทเรียน แล้วใส่บรรทัด `WORKSHOP_DIR=` ตาม path จริง ไฟล์ `.env` ถูก git ignore อยู่แล้ว
 
@@ -81,7 +83,7 @@ unset ANTHROPIC_API_KEY
 ทดลองครั้งเดียวหลังล็อกอิน:
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 claude -p "Reply with exactly: CLAUDE-OK"
 ```
 
@@ -147,7 +149,7 @@ Mac: `~/.config/opencode/opencode.json`
 เปิดครั้งหนึ่งจากโฟลเดอร์แอป:
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 opencode
 ```
 
@@ -158,7 +160,7 @@ opencode
 ที่โฟลเดอร์แอป ไม่ต้อง `npm install`
 
 ```powershell
-cd C:\dev\multi-agent-workshop
+cd C:\dev\multi-agent-workshop-hybrid
 npm start
 ```
 
@@ -171,9 +173,9 @@ echo $LASTEXITCODE
 
 บน Mac หลังคำสั่ง gate ให้ดูด้วย `echo $?` ต้องได้ **2** และมีบรรทัด `FAIL | data-quality` นี่คือจุดเริ่มที่ตั้งใจไว้ ไม่ใช่เครื่องพัง
 
-## 6. DuckDB ก่อน Lab 05 และบัญชี Vercel ก่อนวันที่ 2
+## 6. DuckDB ก่อน Module 05 และบัญชี Vercel ก่อนวันที่ 2
 
-DuckDB ใช้ตอนทำความสะอาดข้อมูลใน Lab 05 ยังไม่มีในวันนี้ได้ แต่ควรลงก่อนวันเรียน
+DuckDB ใช้ตอนทำความสะอาดข้อมูลใน Module 05 ยังไม่มีในวันนี้ได้ แต่ควรลงก่อนวันเรียน
 
 - ดาวน์โหลด CLI จาก https://duckdb.org/docs/installation/ แล้วให้คำสั่ง `duckdb --version` ใช้ได้
 - บัญชี Vercel แผน **Hobby** (ฟรี) สมัครที่ https://vercel.com/signup แนะนำสมัครด้วย GitHub อย่ากดแผน Pro
@@ -201,7 +203,7 @@ bash scripts/readiness-check.sh
 
 ผ่านเมื่อบรรทัดสุดท้ายเป็น `verify-setup: passed`
 
-คำเตือน `WARN` เรื่อง DuckDB หรือ Vercel CLI ยังเข้าห้องวันที่ 1 ได้ แต่ DuckDB ต้องมีก่อน Lab 05 และบัญชี Vercel ต้องมีก่อน Lab 11
+คำเตือน `WARN` เรื่อง DuckDB หรือ Vercel CLI ยังเข้าห้องวันที่ 1 ได้ แต่ DuckDB ต้องมีก่อน Module 05 และบัญชี Vercel ต้องมีก่อน Module 13
 
 ถ่ายรูปหรือก็อปเฉพาะบรรทัด `OK` / `WARN` / `FAIL` ส่งวิทยากรได้ ห้ามก็อปค่าคีย์
 
