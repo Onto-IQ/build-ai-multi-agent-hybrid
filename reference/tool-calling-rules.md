@@ -25,4 +25,4 @@
 - เขียนไฟล์โน้ตในฟังก์ชันบน Vercel
 - ใช้ Flux หรือ Hostinger ในห้องนี้
 
-ด่านต้นทุนของห้องอยู่ที่ `shared/scripts/gate-cost.md`
+ด่านต้นทุนของห้องอยู่ที่ `scripts/gate-cost.md`

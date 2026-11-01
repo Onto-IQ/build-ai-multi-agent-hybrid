@@ -173,9 +173,9 @@ echo $LASTEXITCODE
 
 บน Mac หลังคำสั่ง gate ให้ดูด้วย `echo $?` ต้องได้ **2** และมีบรรทัด `FAIL | data-quality` นี่คือจุดเริ่มที่ตั้งใจไว้ ไม่ใช่เครื่องพัง
 
-## 6. DuckDB ก่อน Lab 05 และบัญชี Vercel ก่อนวันที่ 2
+## 6. DuckDB ก่อน Module 05 และบัญชี Vercel ก่อนวันที่ 2
 
-DuckDB ใช้ตอนทำความสะอาดข้อมูลใน Lab 05 ยังไม่มีในวันนี้ได้ แต่ควรลงก่อนวันเรียน
+DuckDB ใช้ตอนทำความสะอาดข้อมูลใน Module 05 ยังไม่มีในวันนี้ได้ แต่ควรลงก่อนวันเรียน
 
 - ดาวน์โหลด CLI จาก https://duckdb.org/docs/installation/ แล้วให้คำสั่ง `duckdb --version` ใช้ได้
 - บัญชี Vercel แผน **Hobby** (ฟรี) สมัครที่ https://vercel.com/signup แนะนำสมัครด้วย GitHub อย่ากดแผน Pro
@@ -203,7 +203,7 @@ bash scripts/readiness-check.sh
 
 ผ่านเมื่อบรรทัดสุดท้ายเป็น `verify-setup: passed`
 
-คำเตือน `WARN` เรื่อง DuckDB หรือ Vercel CLI ยังเข้าห้องวันที่ 1 ได้ แต่ DuckDB ต้องมีก่อน Lab 05 และบัญชี Vercel ต้องมีก่อน Lab 11
+คำเตือน `WARN` เรื่อง DuckDB หรือ Vercel CLI ยังเข้าห้องวันที่ 1 ได้ แต่ DuckDB ต้องมีก่อน Module 05 และบัญชี Vercel ต้องมีก่อน Module 13
 
 ถ่ายรูปหรือก็อปเฉพาะบรรทัด `OK` / `WARN` / `FAIL` ส่งวิทยากรได้ ห้ามก็อปค่าคีย์
 

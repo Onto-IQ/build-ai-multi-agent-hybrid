@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(__dirname, '..', '..');
+const repoRoot = path.resolve(__dirname, '..');
 const requestedFiles = process.argv.slice(2);
 const jsonFiles = [];
 
@@ -79,7 +79,7 @@ if (requestedFiles.length > 0) {
     jsonFiles.push(full);
   }
 } else {
-  walk(path.join(repoRoot, 'shared', 'contracts'));
+  walk(path.join(repoRoot, 'reference', 'contracts'));
   walk(path.join(repoRoot, 'workspace', 'contracts'));
 }
 

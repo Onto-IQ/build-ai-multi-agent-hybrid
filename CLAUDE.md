@@ -6,7 +6,7 @@ repo นี้คือบทเรียนของคลาส **Build AI Mul
 
 ## ลำดับสองวัน
 
-เช็กเครื่อง → รู้จักแอป → สำรวจ → ผู้เชี่ยวชาญสองฝั่ง → ล็อกสิทธิ์ → สายการผลิตบน OpenCode → Claude ปิดด่าน 6/6 → กันความเสี่ยงและงบ → เช็กลิสต์กับความจำ → ฟีเจอร์ของตัวเอง (ย่อได้) → สรุปผู้บริหาร → Vercel
+Module 01 เช็กเครื่อง → 02 รู้จักแอป → 03 สำรวจ → 04 ผู้เชี่ยวชาญและเส้นสิทธิ์ → 05 สายการผลิตบน OpenCode → 06 ปิดด่าน 6/6 → 07 เช็กลิสต์ → 08 สาธิต MCP → 09 กันความเสี่ยงและงบ → 10 ความจำ → 11 ฟีเจอร์ (ย่อได้) → 12 สรุปผู้บริหาร → 13 Vercel
 
 ## เครื่องมือ ไม่ทับงานกัน
 
@@ -34,7 +34,7 @@ repo นี้คือบทเรียนของคลาส **Build AI Mul
 - การบ้าน: `scripts/readiness-check.ps1` หรือ `scripts/readiness-check.sh`
 - โครงบทเรียน: `node scripts/verify-setup.mjs --course-files`
 - ชุดอ้างอิง: `node scripts/check-solutions.mjs`
-- สัญญาตัวอย่าง: `node shared/scripts/validate-json.mjs`
-- รวมด่านบทเรียน: `node shared/scripts/gate-quality.mjs`
+- สัญญาตัวอย่าง: `node scripts/validate-json.mjs`
+- รวมด่านบทเรียน: `node scripts/gate-quality.mjs`
 
 ตามให้ทัน: `node scripts/catch-up.js <รหัสชุด>` จาก repo นี้ ปลายทางคือโฟลเดอร์แอป

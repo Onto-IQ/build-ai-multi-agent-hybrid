@@ -11,7 +11,7 @@
     "verify": "node scripts/verify-setup.mjs",
     "verify:course": "node scripts/verify-setup.mjs --course-files",
     "check": "node scripts/check-solutions.mjs",
-    "gate": "node shared/scripts/gate-quality.mjs",
-    "validate": "node shared/scripts/validate-json.mjs"
+    "gate": "node scripts/gate-quality.mjs",
+    "validate": "node scripts/validate-json.mjs"
   }
 }

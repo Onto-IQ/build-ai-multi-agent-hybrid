@@ -1,16 +1,16 @@
-# Lab 07 — กันคำสั่งอันตราย และกันงบบาน
+# Module 09 — กันคำสั่งอันตราย และกันงบบาน
 
 **ทำไปเพื่ออะไร:** ปล่อยให้ผู้ช่วยทำงานต่อได้ โดยยังมีรั้วกั้นคำสั่งลบของและเพดานค่าใช้จ่ายของห้อง
 
 | เวลา | เครื่องมือ |
 |---|---|
-| **45 นาที** | Claude Code วางรั้ว, OpenCode ใช้เส้นสิทธิ์จาก Lab 04, สคริปต์งบใช้ร่วมกัน |
+| **45 นาที** | Claude Code วางรั้ว, OpenCode ใช้เส้นสิทธิ์จาก Module 04, สคริปต์งบใช้ร่วมกัน |
 
-ทำในโฟลเดอร์แอป ด่านควรเป็น 6/6 อยู่แล้วจาก Lab 06
+ทำในโฟลเดอร์แอป ด่านควรเป็น 6/6 อยู่แล้วจาก Module 06
 
 ## ก่อนเริ่ม
 
-`npm run gate` ขึ้น 6/6 อ่านเพดานห้องที่ [shared/scripts/gate-cost.md](../../shared/scripts/gate-cost.md) ใน repo บทเรียน: ไม่เกิน 2 ดอลลาร์ และไม่เกิน 20,000 output tokens ต่อรอบที่บันทึก
+`npm run gate` ขึ้น 6/6 อ่านเพดานห้องที่ [scripts/gate-cost.md](../../scripts/gate-cost.md) ใน repo บทเรียน: ไม่เกิน 2 ดอลลาร์ และไม่เกิน 20,000 output tokens ต่อรอบที่บันทึก
 
 ## แบบฝึกหัด
 
@@ -23,7 +23,7 @@
 ให้บล็อก rm -rf, taskkill, Remove-Item แบบ Recurse และคำสั่งที่ pipe เข้า sh
 ให้ผ่าน node server.js และ node scripts/quality-gate.js
 สร้าง .claude/hooks/task-completed-gate.js ที่ exit 2 ถ้า qualityGatePassed ไม่ใช่ true
-ผสาน .claude/settings.json ให้เรียกสอง hook นี้ และยังคง deny การแก้ scripts/quality-gate.js กับ git push จาก Lab 04
+ผสาน .claude/settings.json ให้เรียกสอง hook นี้ และยังคง deny การแก้ scripts/quality-gate.js กับ git push จากแบบฝึกหัดเส้นสิทธิ์ใน Module 04
 ห้ามแก้ scripts/quality-gate.js
 จากนั้นรัน npm run gate อีกครั้ง ต้องยังเป็น 6/6
 ```
@@ -47,7 +47,7 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 
 ### 3. ฝั่ง OpenCode
 
-เปิด `opencode` แล้วขอให้ยืนยันว่า `opencode.json` ยังห้าม `git push` และห้ามแก้ด่าน ถ้า Lab 04 หลุด ให้ใส่กลับ ไม่ต้องสร้าง hook ซ้ำทั้งชุด
+เปิด `opencode` แล้วขอให้ยืนยันว่า `opencode.json` ยังห้าม `git push` และห้ามแก้ด่าน ถ้าเส้นสิทธิ์ใน Module 04 หลุด ให้ใส่กลับ ไม่ต้องสร้าง hook ซ้ำทั้งชุด
 
 ## ผ่านเมื่อ
 

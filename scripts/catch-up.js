@@ -56,16 +56,16 @@ if (pack === 'w7' || pack === 'w9') {
 }
 
 const lab = {
-  init: 'Lab 01',
-  w1: 'Lab 02',
-  w2: 'Lab 03',
-  perm: 'Lab 04',
-  w3: 'Lab 05',
-  w4: 'Lab 06',
-  w5: 'Lab 08',
-  w6: 'MCP demo (trainer)',
-  w7: 'Lab 07',
-  w8: 'Lab 09',
-  w9: 'Lab 10',
+  init: 'Module 02',
+  w1: 'Module 03',
+  w2: 'Module 04',
+  perm: 'Module 04 permissions',
+  w3: 'Module 05',
+  w4: 'Module 06',
+  w5: 'Module 07 and Module 10',
+  w6: 'Module 08 MCP demo (trainer)',
+  w7: 'Module 09',
+  w8: 'Module 11',
+  w9: 'Module 12 and Module 13',
 }[pack];
 console.log(`catch-up: this pack matches ${lab}. Read solutions/${pack}/SOLUTION.md`);

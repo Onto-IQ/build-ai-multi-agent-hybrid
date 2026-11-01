@@ -8,22 +8,23 @@
 
 บทบาทที่ลงมือแก้ของ อยู่เครื่องมือเดียว ประสานด้วยไฟล์ในโฟลเดอร์แอป (`docs/`, `server.js`, ข้อมูล) ไม่สร้างคนทำงานชื่อเดียวกันทั้งสองฝั่ง
 
-ข้อยกเว้นเดียวคือ `data-researcher` แบบอ่านอย่างเดียวใน Lab 03 เพื่อให้เทียบสองเครื่องมือได้ ทั้งคู่ห้ามแก้ไฟล์
+ข้อยกเว้นเดียวคือ `data-researcher` แบบอ่านอย่างเดียวใน Module 04 เพื่อให้เทียบสองเครื่องมือได้ ทั้งคู่ห้ามแก้ไฟล์
 
-| บทบาท | เครื่องมือ | แล็บ | เขียนอะไร |
+| บทบาท | เครื่องมือ | โมดูล | เขียนอะไร |
 |---|---|---|---|
-| explore (หลายคนพร้อมกัน) | Claude Code | 02 | `docs/EXPLORATION-REPORT.md` เท่านั้น |
-| `data-researcher` | Claude Code และ OpenCode คนละไฟล์ | 03 | ไม่เขียนไฟล์แอป อ้าง `ไฟล์:บรรทัด` |
-| เส้นสิทธิ์ | ทั้งคู่ | 04 | ไฟล์ตั้งค่าที่ห้าม `git push` และห้ามแก้ด่าน |
+| explore (หลายคนพร้อมกัน) | Claude Code | 03 | `docs/EXPLORATION-REPORT.md` เท่านั้น |
+| `data-researcher` | Claude Code และ OpenCode คนละไฟล์ | 04 | ไม่เขียนไฟล์แอป อ้าง `ไฟล์:บรรทัด` |
+| เส้นสิทธิ์ | ทั้งคู่ | 04 (`LAB-permissions.md`) | ไฟล์ตั้งค่าที่ห้าม `git push` และห้ามแก้ด่าน |
 | `planner` แล้ว `developer` ทีละสาย | OpenCode | 05 | แผน, SQL, ส่วนสรุปใน `server.js`, หน้าเว็บ |
 | `qa` แล้วคนแก้ | Claude Code | 06 | รายงาน QA และจุดที่ด่านยังแดง จนครบ 6/6 |
-| hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 07 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
-| `release-checklist` | Claude Code | 08 | skill |
-| ความจำข้ามรอบ | OpenCode | 08 | `docs/MEMORY.md` |
-| ฟีเจอร์ของตัวเอง | เลือกเอง | 09 ย่อได้ | ฟีเจอร์ 1 ชิ้น ด่านยังเขียว |
-| planner, data-researcher, developer, qa | Claude Code | 10 | ของปิดงาน |
-| `synthesizer` | OpenCode | 10 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ |
-| คนสั่ง Vercel CLI | เครื่องมือที่ถนัด | 11 | `vercel.json` และ `api/` ที่โน้ตอ่านอย่างเดียว |
+| `release-checklist` | Claude Code | 07 | skill |
+| สาธิต MCP | วิทยากร | 08 | ไม่ให้ผู้เรียนตั้งเอง |
+| hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 09 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
+| ความจำข้ามรอบ | OpenCode | 10 | `docs/MEMORY.md` |
+| ฟีเจอร์ของตัวเอง | เลือกเอง | 11 ย่อได้ | ฟีเจอร์ 1 ชิ้น ด่านยังเขียว |
+| planner, data-researcher, developer, qa | Claude Code | 12 | ของปิดงาน |
+| `synthesizer` | OpenCode | 12 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ |
+| คนสั่ง Vercel CLI | เครื่องมือที่ถนัด | 13 | `vercel.json` และ `api/` ที่โน้ตอ่านอย่างเดียว |
 
 ไม่มีบทบาท Flux และไม่มีใบคัมบัง
 

@@ -18,14 +18,14 @@
     {
       "label": "validate-json",
       "type": "shell",
-      "command": "node shared/scripts/validate-json.mjs",
+      "command": "node scripts/validate-json.mjs",
       "problemMatcher": [],
       "presentation": { "reveal": "always" }
     },
     {
       "label": "gate-quality",
       "type": "shell",
-      "command": "node shared/scripts/gate-quality.mjs",
+      "command": "node scripts/gate-quality.mjs",
       "problemMatcher": [],
       "presentation": { "reveal": "always" }
     },

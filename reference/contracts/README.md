@@ -5,7 +5,7 @@
 ถ้ารอบไหนอยากส่งต่องานเป็น JSON ให้วางไฟล์ใน `workspace/contracts/` ของ repo บทเรียน แล้วรัน:
 
 ```bash
-node shared/scripts/validate-json.mjs
+node scripts/validate-json.mjs
 ```
 
 | ไฟล์ | ใช้เมื่อ |
