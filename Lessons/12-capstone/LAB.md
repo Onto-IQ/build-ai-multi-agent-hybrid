@@ -21,7 +21,7 @@
 เปิด `claude` วาง:
 
 ```text
-ใช้สี่บทบาทใน .claude/agents ถ้าไฟล์ไหนยังไม่มีให้สร้าง: planner, data-researcher, developer, qa
+ใช้สี่บทบาทใน .claude/agents ถ้าไฟล์ไหนยังไม่มีให้สร้างด้วยเครื่องมือ Write จริง อย่าตอบเป็นข้อความอย่างเดียว: planner, data-researcher, developer, qa
 planner เขียน docs/PRODUCT-SPEC.md กับ docs/TASKS.md ให้ตรงกับแอปตอนนี้
 data-researcher อ่านอย่างเดียว
 developer แก้ได้เฉพาะเมื่อยอด /api/summary ไม่ตรง 16,772 และ 45341868784
@@ -35,7 +35,9 @@ qa รัน npm run gate และห้ามบอกผ่านถ้าไ
 เปิด `opencode` วาง:
 
 ```text
-สร้าง .opencode/agents/synthesizer.md ที่เขียนได้เฉพาะ docs/EXECUTIVE-SUMMARY.md
+สร้าง .opencode/agents/synthesizer.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
+frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
+เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/EXECUTIVE-SUMMARY.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง
 จากนั้นให้ synthesizer เขียนสรุปภาษาไทยไม่เกิน 400 คำ สำหรับคนที่ไม่เขียนโปรแกรม
 ต้องมียอด 16,772 และ 45,341,868,784
 ต้องมีชื่อกรุงเทพมหานครและคำว่ากลาง
@@ -43,7 +45,7 @@ qa รัน npm run gate และห้ามบอกผ่านถ้าไ
 ห้ามแต่งตัวเลขชุดใหม่ ห้ามแก้ server.js
 ```
 
-เปิดไฟล์สรุปด้วยตา นับคร่าว ๆ ว่าไม่ยาวเกินหนึ่งหน้าจอ
+เปิด `.opencode/agents/synthesizer.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนเรียกใช้ แล้วเปิดไฟล์สรุปด้วยตา นับคร่าว ๆ ว่าไม่ยาวเกินหนึ่งหน้าจอ
 
 ### 3. ตรวจด่านอีกรอบ
 
@@ -63,6 +65,7 @@ npm run gate
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w9
 ```
 

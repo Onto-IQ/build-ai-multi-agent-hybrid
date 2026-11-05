@@ -60,6 +60,7 @@
 แล็บนี้ไม่มีของสำเร็จรูปให้ก็อป เกณฑ์อยู่ที่ `solutions/w8/FEATURE-CRITERIA.md` ใน repo บทเรียน อ่านเกณฑ์แล้วทำชิ้นที่เล็กที่สุด
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w8
 ```
 

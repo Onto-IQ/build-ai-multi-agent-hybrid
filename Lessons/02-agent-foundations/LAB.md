@@ -60,6 +60,7 @@ ANTHROPIC_API_KEY ต้องว่าง
 จาก repo บทเรียน:
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js init
 ```
 

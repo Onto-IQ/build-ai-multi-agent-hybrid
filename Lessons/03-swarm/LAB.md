@@ -45,7 +45,7 @@ Include the paths server.js, data/dataset.csv, scripts/quality-gate.js, data/raw
 
 ### 2. เปิดไฟล์ด้วยตา
 
-อย่าเชื่อเฉพาะข้อความในแชท เปิด `docs/EXPLORATION-REPORT.md` แล้วหาสามหัวข้อ
+อย่าเชื่อเฉพาะข้อความในแชท เปิด `docs/EXPLORATION-REPORT.md` แล้วหาสามหัวข้อ ถ้าผู้ช่วยเล่าในแชทแต่ไม่มีไฟล์ ให้สั่งว่า "เขียนลง `docs/EXPLORATION-REPORT.md` ด้วยเครื่องมือ Write จริง"
 
 ## ผ่านเมื่อ
 
@@ -58,6 +58,7 @@ Include the paths server.js, data/dataset.csv, scripts/quality-gate.js, data/raw
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w1
 ```
 

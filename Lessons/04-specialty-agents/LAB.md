@@ -20,10 +20,13 @@
 
 ```text
 สร้าง .claude/agents/data-researcher.md
+เขียนไฟล์จริงด้วยเครื่องมือ Write อย่าตอบเป็นข้อความอย่างเดียว
 frontmatter: name เป็น data-researcher, description ขึ้นต้น Use proactively และบอกว่าอ่านอย่างเดียว, tools เป็น Read, Grep, Glob เท่านั้น, model เป็น sonnet
 เนื้อหาให้ตอบโดยอ้าง file:line และห้าม Edit, Write, Bash
 ห้ามแก้ server.js หรือ CSV
 ```
+
+ถ้าได้แต่คำอธิบายไม่มีไฟล์ ให้สั่งซ้ำว่า "สร้างไฟล์จริงด้วยเครื่องมือ Write เดี๋ยวนี้" แล้วตรวจว่ามี `.claude/agents/data-researcher.md` ก่อนไปต่อ
 
 ปิด Claude แล้วเปิดใหม่ ไฟล์ผู้ช่วยถูกอ่านตอนเปิดรอบใหม่เท่านั้น จากนั้นวาง:
 
@@ -47,7 +50,7 @@ permission:
 ห้ามแก้ server.js
 ```
 
-ปิดแล้วเปิด `opencode` ใหม่ แล้วถามคำถามเดียวกันเรื่อง `POST /api/notes`
+เปิด `.opencode/agents/data-researcher.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป ปิดแล้วเปิด `opencode` ใหม่ แล้วถามคำถามเดียวกันเรื่อง `POST /api/notes`
 
 ### 3. เทียบสั้น ๆ ในแชท
 
@@ -67,6 +70,7 @@ permission:
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w2
 ```
 

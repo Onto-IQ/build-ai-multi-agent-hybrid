@@ -43,6 +43,7 @@
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w5
 ```
 

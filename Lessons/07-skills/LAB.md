@@ -25,7 +25,10 @@
 description ภาษาอังกฤษ: Use before releasing the Registry Insight app
 เนื้อหาให้ตรวจสี่อย่างตามลำดับ: เซิร์ฟเวอร์เปิดได้, /api/health ไม่มี sk- โดยห้ามพิมพ์ค่า, ปิดเซิร์ฟเวอร์ก่อนรันด่าน, รัน npm run gate แล้วบันทึก exit code จริง
 จากนั้นสร้าง .claude/agents/release-manager.md ที่ใช้ skill นี้ และมี Bash ใน tools แต่ห้ามพิมพ์ค่า sk-
+เขียนสองไฟล์จริงด้วยเครื่องมือ Write อย่าตอบเป็นข้อความอย่างเดียว
 ```
+
+ถ้าได้แต่คำอธิบาย ให้สั่งว่า "สร้างสองไฟล์นี้จริงด้วยเครื่องมือ Write" แล้วตรวจว่ามีทั้ง `.claude/skills/release-checklist/SKILL.md` และ `.claude/agents/release-manager.md`
 
 ปิดแล้วเปิด `claude` ใหม่ แล้ววาง:
 
@@ -40,6 +43,7 @@ description ภาษาอังกฤษ: Use before releasing the Registry In
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w5
 ```
 

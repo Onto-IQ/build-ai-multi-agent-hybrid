@@ -107,6 +107,8 @@ export OPENROUTER_API_KEY="วางคีย์ที่ศูนย์ให�
 export OPENCODE_MODEL="openrouter/anthropic/claude-sonnet-4.5"
 ```
 
+OpenCode v2 ไม่อ่านตัวแปร `OPENCODE_MODEL` โดยตรง แต่ไฟล์ `opencode.json` ที่มากับแอปดึงค่านี้ผ่าน `{env:OPENCODE_MODEL}` ถ้าชื่อโมเดลบนกระดานต่างจากบรรทัดด้านบน ให้ใช้ชื่อบนกระดาน
+
 ตรวจว่าตั้งแล้ว โดยไม่พิมพ์ค่าคีย์ออกมา:
 
 ```powershell
@@ -120,7 +122,7 @@ if [ -n "$OPENROUTER_API_KEY" ]; then echo "OPENROUTER_API_KEY is set (${#OPENRO
 ติดตั้ง OpenCode อย่างใดอย่างหนึ่ง แล้วเปิดเทอร์มินัลใหม่:
 
 ```powershell
-npm install -g opencode-ai
+npm install -g @opencode/cli
 opencode --version
 ```
 
@@ -133,10 +135,11 @@ Mac: `~/.config/opencode/opencode.json`
 
 ```json
 {
+  "$schema": "https://opencode.ai/config.json",
   "model": "openrouter/anthropic/claude-sonnet-4.5",
-  "provider": {
+  "providers": {
     "openrouter": {
-      "options": {
+      "settings": {
         "apiKey": "{env:OPENROUTER_API_KEY}"
       }
     }
@@ -214,6 +217,11 @@ bash scripts/readiness-check.sh
 | `node` หรือ `claude` ไม่เจอหลังติดตั้ง | ปิดแล้วเปิดเทอร์มินัลใหม่ |
 | ล็อกอิน Claude แล้วโดนคิดเงินรายครั้ง | เอา `ANTHROPIC_API_KEY` ออก แล้วเปิด `claude` ใหม่ |
 | OpenCode ถามคีย์ทั้งที่ตั้งตัวแปรแล้ว | เปิดเทอร์มินัลใหม่หลังตั้งค่า แล้วตรวจความยาวคีย์ตามข้อ 4 |
+| ผู้ช่วยเล่าแผนแต่ไม่สร้างไฟล์ (ทั้ง Claude และ OpenCode) | สั่งซ้ำให้ "เขียนไฟล์จริงด้วยเครื่องมือเขียนไฟล์" แล้วเปิดไฟล์ตรวจด้วยตาก่อนขั้นถัดไป |
+| เปิด OpenCode แล้วเจอ `Error: Database is not empty and has no session table` | มีของ OpenCode รุ่นเก่ากับใหม่ปนกัน ปิด OpenCode ทุกหน้าต่าง ลบไฟล์ `opencode.db*` ใน `%USERPROFILE%\.local\share\opencode\` (Mac: `~/.local/share/opencode/`) แล้วตรวจ `opencode --version` ว่าเป็นรุ่นเดียว |
+| โมเดลตอบ `Insufficient balance` หรือ `Rate limit reached` | งบหรือโควตาของ provider หมดหรือแน่น ใช้ชื่อโมเดลบนกระดาน หรือรอแล้วลองใหม่ ห้ามสลับไปคีย์ส่วนตัว |
+| OpenCode สร้างไฟล์ผู้ช่วยผิดที่หรือไม่มี frontmatter | เปิดไฟล์ด้วยตา ย้าย/แก้เองตามแล็บ แล้วเปิด `opencode` ใหม่ ผู้ช่วยถูกอ่านตอนเปิดรอบใหม่ |
+| OpenCode ค้างหรือทำงานแปลกหลังปิด TUI | ตรวจ session ค้างด้วย `opencode session list` แล้วลบด้วย `opencode session delete <id>` แล้วเริ่มรอบใหม่ |
 | `verify-setup` หาแอปไม่เจอ | โคลน workshop ตามข้อ 2 หรือตั้ง `WORKSHOP_DIR` |
 | พอร์ต 3000 ถูกใช้อยู่ | ปิด `npm start` เก่า หรือรัน `$env:PORT = 3001; npm start` (Mac: `PORT=3001 npm start`) |
 | gate ไม่ได้ exit 2 | ต้องรันในโฟลเดอร์แอป และปิดเซิร์ฟเวอร์ก่อน |

@@ -19,9 +19,13 @@
 เปิด `opencode` วาง:
 
 ```text
-สร้าง .opencode/agents/planner.md ที่เขียนได้เฉพาะ docs/TASKS.md และห้ามเขียนโค้ด
+สร้าง .opencode/agents/planner.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
+frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
+เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/TASKS.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง
 จากนั้นปิดคำแนะนำนี้ไว้ก่อน: ให้ฉันเปิดรอบใหม่แล้วเรียก planner
 ```
+
+เปิด `.opencode/agents/planner.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป
 
 ปิดแล้วเปิด `opencode` ใหม่:
 
@@ -92,6 +96,7 @@ npm run gate
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w3
 ```
 

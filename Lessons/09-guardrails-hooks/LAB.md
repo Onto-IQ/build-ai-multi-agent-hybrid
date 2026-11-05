@@ -26,7 +26,10 @@
 ผสาน .claude/settings.json ให้เรียกสอง hook นี้ และยังคง deny การแก้ scripts/quality-gate.js กับ git push จากแบบฝึกหัดเส้นสิทธิ์ใน Module 04
 ห้ามแก้ scripts/quality-gate.js
 จากนั้นรัน npm run gate อีกครั้ง ต้องยังเป็น 6/6
+เขียนไฟล์ hook และแก้ settings.json จริง อย่าตอบเป็นข้อความอย่างเดียว
 ```
+
+ถ้าได้แต่คำอธิบาย ให้สั่งว่า "สร้างไฟล์ hook และแก้ settings.json จริง" แล้วตรวจว่ามีไฟล์จริงใน `.claude/hooks/` ก่อนทดลอง
 
 ทดลองในแชทด้วยคำขอ `rm -rf data` ต้องไม่เกิดการลบ
 
@@ -59,6 +62,7 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 ## ถ้าตามไม่ทัน
 
 ```bash
+รันจาก repo บทเรียน (build-ai-multi-agent-hybrid) ไม่ใช่จากโฟลเดอร์แอป:
 node scripts/catch-up.js w7
 ```
 
