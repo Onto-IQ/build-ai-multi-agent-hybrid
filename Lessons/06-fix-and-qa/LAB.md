@@ -50,6 +50,13 @@ echo $LASTEXITCODE
 
 บน Mac ใช้ `echo $?` ต้องได้ 0 และบรรทัด `quality gate: 6/6 passed`
 
+จากเครื่องทดสอบจริง (claude 2.1.319, 7 พฤศจิกายน 2026):
+
+- รอบ qa: ได้ทั้ง `.claude/agents/qa.md` และ `docs/QA-REPORT.md` ในคำสั่งเดียว รายงานยิงด่านจริงเอง (ระบุ exit 2, PASS 2/6) แล้วตารางรายเคสอ้าง `server.js:บรรทัด` ครบสามจุด ไม่แตะโค้ดในรอบนี้จริง
+- รอบแก้: server.js เปลี่ยน +45/−10 บรรทัด จบด้วย `npm run gate` **6/6 exit 0** ทุกเคส (`notes-persists` ยังเข้ม: survives-restart=yes จากไฟล์ `data/notes.json`)
+- หลังมันทดสอบเอง มักมี **ไฟล์ขยะชื่อ `nul`** ตกค้างที่รากโปรเจกต์ (จากคำสั่ง `... > nul` สไตล์ cmd ที่รันใน Git Bash) `git add -A` จะพังด้วย "short read while indexing nul" ให้ลบทิ้งก่อน commit
+- ปิด claude ทุกครั้งก่อนสลับไป opencode — รอบทดสอบพลาดพิมพ์คำสั่งตอน opencode ยังเปิด ทำให้พรอมต์ของ Claude หลุดเข้า session opencode เปล่า ๆ
+
 ## ผ่านเมื่อ
 
 - มี `docs/QA-REPORT.md` ที่ชี้สามจุดก่อนแก้
