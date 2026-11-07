@@ -59,6 +59,8 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 - `npm run gate` ยังเป็น 6/6
 - แก้แล้วตรวจซ้ำไม่เกิน 2 รอบ ถ้ายังพังให้เรียกวิทยากร
 
+จากเครื่องทดสอบจริง (7 พฤศจิกายน 2026): ได้ทั้งสอง hook และ `scripts/cost-gate.js` ต่อคำสั่ง ทดลอง `rm -rf data` → hook บล็อก `data/raw/dbd-2558.parquet` ยังอยู่ครบ cost-gate สามไฟล์: `under-budget.json` exit 0, `over-budget.json` exit 2 (3.5 > 2), `over-tokens.json` exit 2 (25,000 > 20,000) ฝั่ง opencode ยืนยัน deny 3 กฎ (`scripts/quality-gate.js`, `git push`, `git push *`) ยังอยู่ครบ ปิดท้าย gate **6/6 exit 0**
+
 ## ถ้าตามไม่ทัน
 
 ```bash
