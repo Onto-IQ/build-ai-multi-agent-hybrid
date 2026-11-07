@@ -107,6 +107,12 @@ api/notes.js เป็นอ่านอย่างเดียว: GET คื�
 - บน Vercel ไม่มีคีย์ Anthropic หรือ OpenRouter
 - ด่านบนเครื่องยังเป็น 6/6
 
+> ผลจากเครื่องทดสอบจริง (8 พฤศจิกายน 2026, บัญชี `phakkhaphong-5900` แผน Hobby): ขั้น 1 ผ่านครบ (gate 6/6, health บนพอร์ต 3001 สะอาด, env ว่าง) ขั้น 2 `npx vercel whoami` ตอบชื่อบัญชีทันที (ล็อกอินค้างจากเครื่องนี้อยู่แล้ว) ขั้น 3 สร้าง `vercel.json` + `api/*.js` ผ่านคำสั่งเดียว ไม่มี writeFile ใน api/ gate ยัง 6/6 แล้ว `npx vercel --prod` สำเร็จใน 8 วินาที
+>
+> **URL จริง**: https://multi-agent-workshop-hybrid-54svriymv-onto-iq.vercel.app — ตรวจผ่าน `vercel curl`: `/api/health` → `{"ok":true}` ไม่มี sk-, `/api/summary` → 16,772 / 45,341,868,784 ตรงเป๊ะ, POST `/api/notes` → 405 NOTES_READONLY, `vercel env ls` ว่างเปล่า (ไม่มีคีย์บน Vercel)
+>
+> **ข้อจำกัดที่ต้องอธิบายในห้อง**: URL ถูก **Vercel Deployment Protection** กันไว้ตามค่าเริ่มต้นของ Hobby — คนที่ไม่ล็อกอินบัญชีเจ้าของจะเจอ 302 ไปหน้า auth ถ้าจะให้คนอื่นเปิดได้จริง ให้ไป Vercel Dashboard → Settings → Deployment Protection แล้วปิด (การตัดสินใจของเจ้าของบัญชี ไม่ใช่ของผู้ช่วย) ระหว่างสอนสาธิตด้วย `vercel curl` ก็พอ เพราะเห็น JSON จริงจาก production
+
 ## ถ้าตามไม่ทัน
 
 ชุด `w9` มี `vercel.json` และ `api/` อ้างอิงอยู่แล้ว ถ้าตามทัน Module 12 ด้วย `catch-up w9` ให้ใช้ไฟล์นั้น แล้วทำขั้น whoami กับ `npx vercel --prod` เอง ในเอกสารแอปขั้นนี้อาจยังถูกเรียกว่า Lab 11
