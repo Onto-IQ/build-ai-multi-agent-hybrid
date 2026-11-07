@@ -43,6 +43,8 @@ Include the paths server.js, data/dataset.csv, scripts/quality-gate.js, data/raw
 ต้องมีชื่อ server.js, data/dataset.csv, scripts/quality-gate.js, data/raw/dbd-2558.parquet, /api/summary และ /api/notes
 ```
 
+จากเครื่องทดสอบจริง (claude 2.1.318): คำสั่งก้อนเดียวพอ มันปล่อยผู้ช่วยสำรวจสามคนทำงานขนานกันในรอบเดียวจบในประมาณ 4 นาที แล้วเขียนไฟล์รายงานเองทันที ไม่ต้องสั่งซ้ำ รายงานอาจตั้งหัวว่า "Lab 02" เพราะเอาเลขจากแผนที่คลาสใน `CLAUDE.md` ของแอป — ไม่เป็นไร ให้ดูที่สามหัวข้อกับประโยคปิดเป็นหลัก
+
 ### 2. เปิดไฟล์ด้วยตา
 
 อย่าเชื่อเฉพาะข้อความในแชท เปิด `docs/EXPLORATION-REPORT.md` แล้วหาสามหัวข้อ ถ้าผู้ช่วยเล่าในแชทแต่ไม่มีไฟล์ ให้สั่งว่า "เขียนลง `docs/EXPLORATION-REPORT.md` ด้วยเครื่องมือ Write จริง"
