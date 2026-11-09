@@ -10,10 +10,20 @@
 
 ### Part A — สองไฟล์ของโมดูลนี้ (จากเครื่องทดสอบจริง)
 
+แยกสองอย่างนี้ให้ชัดก่อนสร้าง:
+
+| | Subagent | Skill |
+|---|---|---|
+| เป็นใคร | คนทำงานคนละบทสนทนา | ขั้นตอนในบทสนทนาเดียวกัน |
+| ที่อยู่ | `.claude/agents/*.md` | `.claude/skills/<ชื่อ>/SKILL.md` |
+| ใช้เมื่อ | งานยาวที่ต้องแยกบริบท | งานซ้ำที่ต้องทำเหมือนเดิมทุกครั้ง |
+
 | ไฟล์ | หน้าที่ |
 |---|---|
 | `.claude/skills/release-checklist/SKILL.md` | frontmatter `name` + `description` ภาษาอังกฤษ (Use before releasing the Registry Insight app) เนื้อหาคือสี่ข้อตรวจตามลำดับ |
-| `.claude/agents/release-manager.md` | agent ที่มี Bash ใน tools และผูกกับ skill นี้ — คนที่ "ทำหน้าที่ปล่อยของ" |
+| `.claude/agents/release-manager.md` | agent ที่มี Bash ใน tools และผูกกับ skill นี้ผ่านบรรทัด `skills: release-checklist` — คนที่ "ทำหน้าที่ปล่อยของ" |
+
+จุดสอนที่ LAB ให้จด: ทดสอบด้วยประโยคความตั้งใจล้วน ("ฉันจะปล่อย Registry Insight ตอนนี้") โดยไม่เอ่ยชื่อ skill — ถูกหยิบเองหรือต้องเอ่ยชื่อ ให้จดผลของห้องตัวเองไว้ คู่มือบอกว่า `description` เป็นเกณฑ์จับคู่ แต่ผลจริงอาจต่างกันตามโมเดล
 
 ### Part B — สี่ข้อของเช็กลิสต์และผลจริง
 
