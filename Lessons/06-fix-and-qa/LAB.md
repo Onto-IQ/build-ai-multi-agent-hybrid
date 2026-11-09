@@ -6,7 +6,7 @@
 |---|---|
 | **50 นาที** | Claude Code |
 
-ทำในโฟลเดอร์แอป ต้องมีผล Module 05 แล้ว (ข้อมูลสะอาดและยอดสรุปเขียว)
+ทำในโฟลเดอร์แอป ต้องมีผล Module 05 แล้ว (ข้อมูลสะอาดและยอดสรุปเขียว) และมี `.claude/agents/developer.md` จาก Module 05 พร้อมใช้
 
 ## ก่อนเริ่ม
 
@@ -27,25 +27,27 @@ npm run gate
 เปิด `claude` วาง:
 
 ```text
-สร้าง .claude/agents/qa.md ที่รันคำสั่งได้ แต่อ่านอย่างเดียวตอนตรวจ
-ให้ qa ยิงแอปตามสคริปต์ด่าน แล้วเขียน docs/QA-REPORT.md เป็นภาษาไทย
-ต้องชี้สามจุด: POST ที่ไม่ใช่ JSON ทำให้โปรเซสล่ม, /api/health ปล่อยค่าตัวอย่างที่ขึ้นต้น sk-, โน้ตไม่ถูกเซฟลงไฟล์จึงหายเมื่อเปิดใหม่
+สร้าง .claude/agents/qa.md
+frontmatter: name เป็น qa, description ว่า Use when implementation claims to be done. Reproduces the bug, writes the QA report, and re-verifies after the fix, tools เป็น Read, Grep, Glob, Bash, model เป็น sonnet
+เนื้อหา: คุณคือ QA ต้องรีโปรดิวส์บั๊กด้วย HTTP request จริงก่อนเขียนอะไร ทุก finding ใน docs/QA-REPORT.md ต้องอ้าง server.js:บรรทัด พร้อมวิธีรีโปรดิวส์ หลังมีการแก้ ให้รันรีโปรดิวส์เดิมซ้ำแล้ว append ผล ห้ามแก้ server.js และ data/dataset.csv
+จากนั้นให้ qa ยิงแอปตามสคริปต์ด่าน แล้วเขียน docs/QA-REPORT.md เป็นภาษาไทย
+ต้องชี้สามจุด: POST ที่ไม่ใช่ JSON ทำให้โปรเซสล่ม, /api/health ปล่อยค่าตัวอย่างที่ขึ้นต้น sk- (ห้ามพิมพ์ค่า), โน้ตไม่ถูกเซฟลงไฟล์จึงหายเมื่อเปิดใหม่
 อ้างไฟล์และบรรทัด ห้ามแก้ server.js ในรอบนี้ ห้ามแก้ scripts/quality-gate.js
 ```
 
 เปิดรายงานด้วยตา ถ้าไม่มีสามจุด อย่าให้ใครแก้โค้ด ถ้าได้แต่คำอธิบายไม่มีไฟล์ ให้สั่งว่า "เขียน `docs/QA-REPORT.md` จริงด้วยเครื่องมือ Write"
 
-### 2. แก้ตามรายงานเท่านั้น
+### 2. ให้ developer แก้ตามรายงานเท่านั้น (เอเจนต์จาก Module 05)
 
 ปิด Claude แล้วเปิดใหม่ วาง:
 
 ```text
-อ่าน docs/QA-REPORT.md แล้วแก้ server.js เฉพาะจุดในรายงาน
-POST ที่ไม่ใช่ JSON ต้องตอบ 400 และโปรเซสไม่ตาย
-ถ้าไม่มี text ที่ใช้ได้ ต้องตอบ 400
-โน้ตที่ถูกต้องตอบ 201 และอยู่รอดหลังรีสตาร์ท โดยเขียนลง data/notes.json และมี GET /api/notes
-/api/health ตอบ ok แต่ไม่มี sk- และไม่มี sampleToken
-อย่าแตะ scripts/quality-gate.js อย่าทำยอดสรุปให้เพี้ยนจาก Module 05
+ใช้ agent developer อ่าน docs/QA-REPORT.md แล้วแก้ server.js เฉพาะจุดในรายงาน
+POST /api/notes ด้วยของที่ไม่ใช่ JSON หรือไม่ใช่ object ต้องตอบ 400 { error: 'INVALID_JSON' } และโปรเซสไม่ตาย
+ถ้า text ขาดหรือว่างต้องตอบ 400 { error: 'INVALID_TEXT' }
+โน้ตที่ถูกต้องตอบ 201 และเขียนลง data/notes.json และมี GET /api/notes คืนโน้ตที่เก็บไว้ จึงอยู่รอดหลังรีสตาร์ท
+/api/health ตอบแค่ { ok: true } ไม่มี sk- และไม่มี sampleToken
+อย่าเปลี่ยนอย่างอื่น อย่าแตะ scripts/quality-gate.js อย่าทำยอดสรุปให้เพี้ยนจาก Module 05
 เสร็จแล้วรัน npm run gate แล้วรายงาน exit code จริง
 ```
 
@@ -63,7 +65,7 @@ echo $LASTEXITCODE
 ปิด Claude แล้วเปิดใหม่ วาง:
 
 ```text
-รันสคริปต์ทดสอบใน docs/QA-REPORT.md ซ้ำกับ server.js ตัวที่แก้แล้ว แล้ว append ผลเข้าไฟล์เดิมในหัวข้อ Evidence after fix อ้างผลคำสั่งจริง ห้ามแก้ server.js ห้ามแก้ scripts/quality-gate.js
+ใช้ agent qa รันวิธีรีโปรดิวส์ใน docs/QA-REPORT.md ซ้ำกับ server.js ตัวที่แก้แล้ว แล้ว append ผลเข้าไฟล์เดิมในหัวข้อ Evidence after fix อ้างผลคำสั่งจริง ห้ามแก้ server.js ห้ามแก้ scripts/quality-gate.js
 ```
 
 📦 **Handoff ปิดวงจร:** รายงานเดียวมีทั้ง finding ก่อนแก้และหลักฐานหลังแก้ — ไฟล์นี้คือที่มาของหลักฐานก่อน deploy ใน Module 13
@@ -92,8 +94,8 @@ echo $LASTEXITCODE
 ## ผ่านเมื่อ
 
 - รันด่านเห็น FAIL สี่ชื่อก่อนแก้ (จดไว้)
-- มี `docs/QA-REPORT.md` ที่ชี้สามจุดก่อนแก้ พร้อม `server.js:บรรทัด`
-- POST ที่ไม่ใช่ JSON ได้ 400 และโปรเซสไม่ตาย / ไม่มี text ได้ 400 / health ตอบ ok ไม่มี `sk-`
+- มี `.claude/agents/qa.md` ที่ tools มี Bash และมี `docs/QA-REPORT.md` ที่ชี้สามจุดก่อนแก้ พร้อม `server.js:บรรทัด` และวิธีรีโปรดิวส์
+- POST ที่ไม่ใช่ JSON ได้ 400 `INVALID_JSON` และโปรเซสไม่ตาย / text ว่างได้ 400 `INVALID_TEXT` / health ตอบ `{ ok: true }` ไม่มี `sk-`
 - ด่านขึ้น 6/6 exit 0 โดยที่ `scripts/quality-gate.js` ไม่ถูกแก้
 - ลองโพสต์โน้ตแล้วรีสตาร์ทเซิร์ฟเวอร์ โน้ตยังอยู่ (ไฟล์ `data/notes.json`)
 - `docs/QA-REPORT.md` มีหัวข้อ Evidence after fix แล้ว
@@ -108,6 +110,8 @@ echo $LASTEXITCODE
 | `notes-persists` ยังแดง | เก็บโน้ตในตัวแปร ไม่ลงไฟล์ | ชี้ finding ที่สามแล้วสั่งแก้ต่อ |
 | ไฟล์ขยะชื่อ `nul` ติดมาที่รากโปรเจกต์ | คำสั่ง `... > nul` สไตล์ cmd ที่รันใน Git Bash | ลบทิ้งก่อน commit — `git add -A` จะพังด้วย short read ถ้าปล่อยไว้ |
 | `Agent type not found` | ยังไม่ปิดเปิดใหม่หลังสร้าง qa.md | ปิดแล้วเปิด `claude` ใหม่ |
+| รอบ B ประกาศผ่านก่อนมีผล gate | พรอมต์ไม่บังคับจุดหยุด | ย้ำ "หยุด แล้วบอกให้ฉันรัน npm run gate" แล้ววางผลเอง |
+| รอบ B เปิด Agent Teams เอง | สับสนกับ Module 03/05 | สั่งซ้ำ "specialty agent อย่างเดียว ห้ามเปิด Agent Teams" |
 | พรอมต์หลุดเข้า session ผิด | เปิด claude กับ opencode พร้อมกันสลับกันพิมพ์ | ปิดเครื่องมือที่ไม่ใช้ก่อนพิมพ์อีกตัว |
 
 ## ต่อยอด

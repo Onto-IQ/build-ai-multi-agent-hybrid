@@ -22,8 +22,8 @@ gate แดง 4 เคส (จดก่อนแก้)
 
 | รอบ | บทบาท | ของที่ได้ |
 |---|---|---|
-| 1. ตรวจ | `.claude/agents/qa.md` (รันคำสั่งได้ แต่อ่านอย่างเดียว) | `docs/QA-REPORT.md`: ยิง `npm run gate` เองได้ exit 2, ตารางรายเคส, สามจุดพังอ้าง `server.js:บรรทัด`, ปิดค่า `sk-***` ตามกฎ |
-| 2. แก้ | สั่งแก้ "เฉพาะจุดในรายงาน" | `server.js` +45/−10: JSON เพี้ยน→400 ไม่ล่ม, `{nope:1}`→400, โน้ต→201 + เขียน `data/notes.json` + GET `/api/notes`, health ไม่ปล่อย `sk-`/`sampleToken` → **6/6 exit 0** |
+| 1. ตรวจ | เรียก `@qa` (`.claude/agents/qa.md` — tools มี Bash ให้ยิง request ได้ แต่ห้ามแก้โค้ด) | `docs/QA-REPORT.md`: ยิง `npm run gate` เองได้ exit 2, ตารางรายเคส, สามจุดพังอ้าง `server.js:บรรทัด` พร้อมวิธีรีโปรดิวส์, ปิดค่า `sk-***` ตามกฎ |
+| 2. แก้ | เรียก `@developer` (เอเจนต์จาก Module 05) สั่งแก้ "เฉพาะจุดในรายงาน" | `server.js` +45/−10: JSON เพี้ยน→400 `INVALID_JSON` ไม่ล่ม, text ว่าง→400 `INVALID_TEXT`, โน้ต→201 + เขียน `data/notes.json` + GET `/api/notes`, health ตอบ `{ ok: true }` → **6/6 exit 0** |
 
 จุดที่ต้องเข้มที่สุดคือ `notes-persists`: ด่าน kill เซิร์ฟเวอร์จริงแล้วบูตใหม่ โน้ตต้องอยู่ (survives-restart=yes) — ทางลัดเก็บในหน่วยความจำโดนจับทันที
 
