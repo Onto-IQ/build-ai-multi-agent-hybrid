@@ -61,6 +61,8 @@ echo $env:ANTHROPIC_API_KEY
 
 Mac: `echo "$ANTHROPIC_API_KEY"` ต้องว่าง
 
+ถ้าทำ Module 07 มาแล้ว จะเรียก `@release-manager` รัน release checklist ซ้ำก่อนย้ายไปขั้น 2 ก็ได้ — ผลต้อง PASS ทุกข้อจึงมีสิทธิ์ deploy
+
 ### 2. ล็อกอิน CLI ยังไม่ deploy
 
 เปิด `claude` หรือ `opencode` ที่โฟลเดอร์แอป วาง:

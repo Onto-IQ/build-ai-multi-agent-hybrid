@@ -16,7 +16,7 @@
 | เส้นสิทธิ์ | ทั้งคู่ | 04 (พาร์ตรั้วท้าย LAB.md) | ไฟล์ตั้งค่าที่ห้าม `git push` และห้ามแก้ด่าน |
 | `developer` + teammates data/backend/frontend | Claude Code | 05 | `docs/DESIGN.md`, SQL, ส่วนสรุปใน `server.js`, หน้าเว็บ |
 | `qa` แล้วคนแก้ | Claude Code | 06 | รายงาน QA และจุดที่ด่านยังแดง จนครบ 6/6 |
-| `release-checklist` | Claude Code | 07 | skill |
+| `release-checklist` skill + `release-manager` | Claude Code | 07 | skill + เอเจนต์ที่ preload skill — ผล PASS/FAIL ส่งต่อ M13 |
 | สาธิต MCP | วิทยากร | 08 | ไม่ให้ผู้เรียนตั้งเอง |
 | hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 09 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
 | ความจำข้ามรอบ | OpenCode | 10 | `docs/MEMORY.md` |

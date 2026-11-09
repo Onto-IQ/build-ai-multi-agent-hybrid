@@ -16,9 +16,9 @@
 
 ## แบบฝึกหัด
 
-### 1. สร้าง skill + เอเจนต์ที่ preload skill นี้
+### 1. สร้าง skill และ release-manager (เอเจนต์ใหม่ที่มาพร้อม skill)
 
-เปิด `claude` วางแล้วกดอนุญาตเมื่อถามเขียนไฟล์:
+release-manager ไม่มีอยู่ก่อนหน้านี้ — ไฟล์นี้ถูกสร้างใหม่ในแล็บนี้เอง พรอมต์เดียวได้สองไฟล์ เปิด `claude` วางแล้วกดอนุญาตเมื่อถามเขียนไฟล์:
 
 ```text
 สร้าง .claude/skills/release-checklist/SKILL.md
@@ -64,7 +64,7 @@ Get-Content .claude/agents/data-researcher.md
 ## ผ่านเมื่อ
 
 - มี `.claude/skills/release-checklist/SKILL.md` ครบสี่ขั้น `description` อังกฤษ
-- `.claude/agents/` มี 5 ตัว: data-researcher, planner (ถ้าทำ M05 ฝั่ง Claude), qa, release-manager
+- `.claude/agents/` ครบ 4 ตัวตามที่แต่ละโมดูลสร้าง: `data-researcher` (M04), `developer` (M05), `qa` (M06), `release-manager` (M07)
 - จดแล้วว่า skill ถูกหยิบเองหรือต้องเอ่ยชื่อ
 - release-manager เดินเช็กลิสต์เองโดยไม่ต้องเอ่ยชื่อ skill และรายงาน exit code จริงของด่าน
 
