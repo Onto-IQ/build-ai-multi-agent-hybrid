@@ -156,7 +156,7 @@ cd C:\dev\multi-agent-workshop-hybrid
 opencode
 ```
 
-ถามสั้น ๆ ว่าตอบว่า `OPENCODE-OK` แล้วออก
+วาง prompt จากคอร์ส (`Reply with exactly: OC-OK` หรือ `ตอบกลับมาเป๊ะ ๆ ว่า: OC-OK`) — ต้องได้คำตอบ `OC-OK` เป๊ะ ๆ แล้วออก
 
 ## 5. เปิดแอปและด่านเริ่มต้น
 
