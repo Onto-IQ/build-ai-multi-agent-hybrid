@@ -54,7 +54,27 @@ claude
 
 > 📚 **รู้เพิ่ม:** สองคำตอบนี้คือสิ่งเดียวกับที่สคริปต์ตรวจข้อถัดไปยิงเองอัตโนมัติ (`claude -p` → `CLAUDE-OK`, `opencode run` → `OC-OK`) ลองด้วยมือครั้งนี้เพื่อรู้ว่าถ้าข้อนั้นแดง ต้องแก้ที่ตรงไหน
 
-### 3. รันสคริปต์ตรวจ
+### 3. รันสคริปต์ตรวจ — ที่ repo แอปก่อน แล้วครบสอง repo
+
+**ที่ repo แอป** (ตรวจเครื่อง + บูตแอป + ด่านเริ่มต้น):
+
+Windows:
+
+```powershell
+cd C:\dev\multi-agent-workshop-hybrid
+npm run verify
+```
+
+Mac:
+
+```bash
+cd ~/dev/multi-agent-workshop-hybrid
+npm run verify
+```
+
+ผลที่คาดหวัง: บรรทัด `OK | starter quality gate exits 2 (intended day-1 state)` และจบด้วย `verify-setup (workshop): passed`
+
+**ที่ repo บทเรียน** (ตรวจครบทั้งสอง repo):
 
 Windows:
 
@@ -76,7 +96,7 @@ bash scripts/readiness-check.sh
 - `WARN` ยังเข้าวันที่ 1 ได้ แต่อ่านให้จบ DuckDB ต้องมีก่อน Module 05 บัญชี Vercel ต้องมีก่อน Module 13
 - `FAIL` แก้ตามข้อความ แล้วรันใหม่ ยังไม่เข้าแล็บถัดไป
 
-> 📚 **รู้เพิ่ม:** สคริปต์ตรวจมีสองที่ — ที่ repo แอปใช้ `npm run verify` (ตรวจเครื่อง + บูตแอปเร็ว ๆ) ส่วน readiness-check ที่ repo บทเรียนตรวจครบถึง repo แอปด้วย รันจากโฟลเดอร์ไหนได้ผลของโฟลเดอร์นั้น
+> 📚 **รู้เพิ่ม:** รันจากโฟลเดอร์ไหนได้ผลของโฟลเดอร์นั้น — ที่ repo แอปตรวจเครื่องและบูตแอป ส่วน readiness-check ที่ repo บทเรียนตรวจครบและหา repo แอปเองตามลำดับ `WORKSHOP_DIR` → `.env` → พาธคลาส ถ้าเก็บ repo แอปไว้คนละที่ ตั้ง `WORKSHOP_DIR` แล้วรันใหม่
 
 ### 4. เปิดแอปครั้งหนึ่ง
 
@@ -95,7 +115,8 @@ bash scripts/readiness-check.sh
 - [ ] `claude --version` ≥ 2.1.296 และ `opencode --version` มีเลขรุ่น
 - [ ] `ANTHROPIC_API_KEY` ว่าง และ `OPENROUTER_API_KEY` มีค่า — ไม่เอาค่าคีย์ไปวางในแชทหรือใน git
 - [ ] TUI สองตัวเห็นบัญชีคลาส และตอบ `CLAUDE-OK` / `OC-OK` เป๊ะ ๆ
-- [ ] สคริปต์ขึ้น `verify-setup: passed`
+- [ ] `npm run verify` ที่ repo แอปขึ้น `verify-setup (workshop): passed`
+- [ ] สคริปต์ตรวจที่ repo บทเรียนขึ้น `verify-setup: passed`
 - [ ] หน้าเว็บเปิดได้ และปิดเซิร์ฟเวอร์ด้วย Ctrl+C แล้ว
 - [ ] ด่านเริ่มต้น exit 2 แดง 0/6 โดยไม่แก้ไฟล์ใดใน repo แอป
 
