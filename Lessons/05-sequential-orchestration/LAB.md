@@ -27,12 +27,23 @@
 
 เปิด `docs/TASKS.md` ด้วยตา ถ้ายังไม่มีสามสาย อย่าไปขั้นถัดไป ถ้ายังไม่มี `planner.md` ให้กลับไปขั้น 2 ของ Module 04 ก่อน
 
-### 2. ทำทีละสาย ห้ามข้าม
+### 2. สร้าง developer แล้วทำทีละสาย ห้ามข้าม
+
+สายส่งของแล็บนี้คือไฟล์ตัวตนของเอเจนต์: `planner.md` เขียน `docs/TASKS.md` แล้ว `developer.md` เป็นคนลงมือตามแผน เปิด `opencode` วาง:
+
+```text
+สร้าง .opencode/agents/developer.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
+frontmatter ต้องมี description ว่า Use proactively to implement one task from docs/TASKS.md, mode: subagent และ permission: bash: deny
+เนื้อหาในไฟล์: ทำงานเฉพาะ task ที่ได้รับมอบหมาย อ้างหมายเลข task ทุกครั้ง Node ล้วน ห้ามเพิ่ม dependency ห้ามแตะ scripts/quality-gate.js
+จากนั้นปิดคำแนะนำนี้ไว้ก่อน: ให้ฉันเปิดรอบใหม่แล้วเรียก developer ทีละสาย
+```
+
+ปิดเปิด `opencode` ใหม่ (ไฟล์บทบาทโหลดตอนเปิดรอบ) แล้วเรียก developer ทีละสาย
 
 สายข้อมูล:
 
 ```text
-ทำเฉพาะสาย data จาก docs/TASKS.md
+ใช้ agent developer ทำเฉพาะสาย data จาก docs/TASKS.md
 เขียน docs/DESIGN.md อธิบายการทิ้งแถวขยะ การแปลงวันที่ พ.ศ. เป็น ISO และการดึงจังหวัด
 เขียน scripts/clean-export.sql ของ DuckDB ที่อ่าน data/raw/dbd-2558.parquet แล้วส่งออก data/dataset.csv
 อย่าแก้ server.js
@@ -49,7 +60,7 @@ Mac ใช้คำสั่งเดียวกัน
 สายหลังบ้าน:
 
 ```text
-ทำเฉพาะสาย backend จาก docs/TASKS.md
+ใช้ agent developer ทำเฉพาะสาย backend จาก docs/TASKS.md
 แก้เฉพาะการคำนวณ /api/summary ใน server.js ให้ใช้ lib/csv.js
 นับเฉพาะแถวที่ผ่านกฎใน data/README.md
 ห้ามแก้การพังของ JSON, ห้ามเอา sample token ออกจาก /api/health, ห้ามทำให้โน้ตทนต่อการรีสตาร์ท
@@ -59,7 +70,7 @@ Mac ใช้คำสั่งเดียวกัน
 สายหน้าเว็บ:
 
 ```text
-ทำเฉพาะสาย frontend จาก docs/TASKS.md
+ใช้ agent developer ทำเฉพาะสาย frontend จาก docs/TASKS.md
 ปรับ web/ ให้โชว์จำนวนกิจการและทุนจาก /api/summary และมีข้อความบอกแหล่งข้อมูล
 ห้ามแก้ scripts/quality-gate.js
 ```
@@ -101,7 +112,7 @@ echo $LASTEXITCODE
 วางต่อใน `opencode` (หรือเปิดรอบใหม่ก็ได้):
 
 ```text
-เทียบ scripts/clean-export.sql กับ docs/DESIGN.md แล้วเขียน docs/REVIEW.md สรุปจุดต่าง อ้างบรรทัดทุกข้อ ห้ามแก้ของ
+ใช้ agent developer เทียบ scripts/clean-export.sql กับ docs/DESIGN.md แล้วเขียน docs/REVIEW.md สรุปจุดต่าง อ้างบรรทัดทุกข้อ ห้ามแก้ของ
 ```
 
 📦 **Handoff ต่อ:** `docs/REVIEW.md` คือของที่คนไล่บั๊กใน Module 06 อ่านต่อ
@@ -116,6 +127,7 @@ echo $LASTEXITCODE
 
 ## ผ่านเมื่อ
 
+- มี `.opencode/agents/planner.md` จาก Module 04 และ `.opencode/agents/developer.md` จากแล็บนี้ ที่ bash deny และฟิลด์เป็นอังกฤษ
 - มี `docs/TASKS.md`, `docs/DESIGN.md` และ `scripts/clean-export.sql`
 - SQL รันด้วยมือคุณเอง exit `0` และนับได้ ~16,773 บรรทัด วันที่ ISO ทุนเป็นตัวเลข
 - หน้าเว็บโชว์ยอดจริง 16,772 / 45,341,868,784 แล้วปิดเซิร์ฟเวอร์ก่อนรันด่านแล้ว
