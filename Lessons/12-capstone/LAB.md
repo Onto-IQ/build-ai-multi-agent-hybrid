@@ -40,8 +40,8 @@ qa รัน npm run gate และห้ามบอกผ่านถ้าไ
 ```text
 สร้าง .opencode/agents/synthesizer.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
 frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
-เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/EXECUTIVE-SUMMARY.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง
-จากนั้นให้ synthesizer เขียนสรุปภาษาไทยไม่เกิน 400 คำ สำหรับคนที่ไม่เขียนโปรแกรม
+เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/EXECUTIVE-SUMMARY.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง ยึดตัวเลขจากไฟล์ handoff เท่านั้น (docs/PRODUCT-SPEC.md · docs/QA-REPORT.md · docs/ANALYSIS.md และ docs/region-capital.csv ถ้ามี) ห้ามเดาตัวเลข
+จากนั้นให้ synthesizer อ่านไฟล์ handoff เหล่านั้นก่อน แล้วเขียนสรุปภาษาไทยไม่เกิน 400 คำ สำหรับคนที่ไม่เขียนโปรแกรม
 ต้องมียอด 16,772 และ 45,341,868,784
 ต้องมีชื่อกรุงเทพมหานครและคำว่ากลาง
 ต้องมีหัวข้อ ## ภาพรวมทุนจดทะเบียน และ ## ข้อเสนอแนะ
@@ -68,6 +68,22 @@ echo $LASTEXITCODE
 - ฟีเจอร์จาก Module 11 (ถ้ามี) ยังอยู่บนหน้าเว็บรอบ release
 - ด่านยังเป็น 6/6 exit 0 และ `scripts/quality-gate.js` ไม่ถูกแก้
 - คนสรุปเป็น OpenCode ตามไฟล์ `.opencode/agents/synthesizer.md`
+
+## ถ้าติดขัด
+
+| อาการ | สาเหตุ | แก้ |
+|---|---|---|
+| ทีมจบแต่ไฟล์ไม่เกิด | เป็นแผน ไม่ได้สั่งทำ | เติม "Execute, do not only plan" แล้วสั่งใหม่ |
+| หมดเทิร์นกลางสเปก | งานยาว | อยู่ใน TUI และสั่งว่าห้ามสำรวจซ้ำ |
+| feature หายจากหน้าเว็บหลังทีมทำงาน | ไม่ได้ใส่ไว้ใน TASKS | สั่ง developer "คืน feature จาก Module 11 ตาม docs/PRODUCT-SPEC.md" |
+| ยอดในสรุปไม่ตรง API | คนสรุปไม่ได้อ่าน handoff / ไม่เทียบ JSON | สั่ง qa เขียนยอดจาก `/api/summary` ลงไฟล์สั้น ๆ แล้วสั่ง synthesizer อ่านไฟล์นั้นใหม่ |
+| `Agent type not found: planner` | ยังไม่รีสตาร์ท / ยังไม่เปิด `/agents` ให้ระบบเห็นไฟล์ใหม่ | รีสตาร์ทหรือเปิด `/agents` แล้วเรียกใหม่ |
+| งบหมดกลางทาง | ทีมแพงประมาณ 15 เท่าของแชทเดี่ยว | ยุบเหลือ planner, developer, qa |
+| คิดเงินรายครั้ง | `ANTHROPIC_API_KEY` ค้าง | unset ก่อนเปิด TUI |
+
+## ต่อยอด
+
+สั่ง release-manager จาก Module 07 รัน release checklist กับฉบับนี้ — ผล PASS/FAIL เป็นของที่ Module 13 ใช้ต่อก่อน deploy
 
 ## ถ้าตามไม่ทัน
 

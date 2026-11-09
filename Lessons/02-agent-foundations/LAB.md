@@ -39,7 +39,7 @@ claude
 
 แอปมี `AGENTS.md` อยู่แล้ว อย่าเขียนทับทั้งไฟล์
 
-เปิดเทอร์มินัลใหม่ แล้วรัน (โมเดลตาม [SETUP.md](../../SETUP.md) เครื่องทดสอบใช้ `zai/glm-4.7-flash` ผ่านตัวแปร `OPENCODE_MODEL`):
+เปิดเทอร์มินัลใหม่ แล้วรัน (โมเดลตาม [SETUP.md](../../SETUP.md) เครื่องทดสอบใช้ โมเดลสาธิตของศูนย์ฝึก ผ่านตัวแปร `OPENCODE_MODEL`):
 
 ```powershell
 cd C:\dev\multi-agent-workshop-hybrid
