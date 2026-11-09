@@ -39,7 +39,7 @@
 | [Module 03 สำรวจพร้อมกัน](Lessons/03-swarm/LAB.md) | 50 | Claude Code |
 | [Module 04 ผู้เชี่ยวชาญคนละสายงาน](Lessons/04-specialty-agents/LAB.md) | 50 | Claude Code + OpenCode |
 | [พาร์ตรั้วเส้นสิทธิ์ (ขั้น 4 ของ Module 04)](Lessons/04-specialty-agents/LAB.md) | 30 | ทั้งคู่ |
-| [Module 05 สายการผลิต](Lessons/05-sequential-orchestration/LAB.md) | 60 | OpenCode |
+| [Module 05 สายการผลิต](Lessons/05-sequential-orchestration/LAB.md) | 70–80 | OpenCode วางแผน · Claude ทีมลงมือ |
 | สรุปวันและเวลาเผื่อ | 55 | — |
 
 วันที่ 2 — ปิดด่าน สรุปผู้บริหาร แล้วส่งของจริง
