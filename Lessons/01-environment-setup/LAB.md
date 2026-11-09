@@ -48,9 +48,21 @@ Mac ใช้ `echo $ANTHROPIC_API_KEY` กับ `echo $OPENROUTER_API_KEY` แ
 claude
 ```
 
-พิมพ์ `/status` — ต้องเห็นบัญชีของคลาส ไม่ใช่โหมด API key — แล้ววาง prompt จากหัวข้อ Prompt pattern ใน [README](README.md) ต้องได้คำตอบ `CLAUDE-OK` เป๊ะ ๆ จึงพิมพ์ `/exit`
+พิมพ์ `/status` — ต้องเห็นบัญชีของคลาส ไม่ใช่โหมด API key — แล้ววาง prompt นี้:
 
-เปิด `opencode` ที่โฟลเดอร์เดียวกัน รอจอพร้อม (โลโก้ + ช่องพิมพ์) แล้ววาง prompt เดียวกัน — ต้องได้ `OC-OK` เป๊ะ ๆ
+```text
+Reply with exactly: CLAUDE-OK
+```
+
+ต้องได้คำตอบ `CLAUDE-OK` เป๊ะ ๆ จึงพิมพ์ `/exit`
+
+เปิด `opencode` ที่โฟลเดอร์เดียวกัน:
+
+```powershell
+opencode
+```
+
+รอจอพร้อม (โลโก้ + ช่องพิมพ์) แล้ววาง prompt เดียวกัน — ต้องได้ `OC-OK` เป๊ะ ๆ
 
 > 📚 **รู้เพิ่ม:** สองคำตอบนี้คือสิ่งเดียวกับที่สคริปต์ตรวจข้อถัดไปยิงเองอัตโนมัติ (`claude -p` → `CLAUDE-OK`, `opencode run` → `OC-OK`) ลองด้วยมือครั้งนี้เพื่อรู้ว่าถ้าข้อนั้นแดง ต้องแก้ที่ตรงไหน
 
