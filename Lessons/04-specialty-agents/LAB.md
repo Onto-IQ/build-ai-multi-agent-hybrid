@@ -1,6 +1,6 @@
-# Module 04 — สร้างผู้เชี่ยวชาญทั้งสองฝั่ง
+# Module 04 — สร้างผู้เชี่ยวชาญคนละสายงาน
 
-**ทำไปเพื่ออะไร:** มีผู้ช่วยเฉพาะเรื่องที่อ่านอย่างเดียว แล้วเห็นว่าสองเครื่องมือเก็บไฟล์คนละที่
+**ทำไปเพื่ออะไร:** มีผู้ช่วยเฉพาะเรื่องคนละบทบาทตามสายงานของแต่ละเครื่องมือ จบโมดูลได้ทีมที่มีงานรอใช้จริง และเห็นว่าสองเครื่องมือเก็บไฟล์คนละที่
 
 | เวลา | เครื่องมือ |
 |---|---|
@@ -34,46 +34,45 @@ frontmatter: name เป็น data-researcher, description ขึ้นต้�
 @data-researcher อธิบายว่า POST /api/notes ทำอะไร ทุกข้ออ้างต้องมี server.js:บรรทัด ห้ามแก้ไฟล์
 ```
 
-### 2. สร้างฝั่ง OpenCode
+### 2. สร้างฝั่ง OpenCode — planner ของสายการผลิต
 
 เปิด `opencode` ที่โฟลเดอร์เดียวกัน วาง:
 
 ```text
-สร้าง .opencode/agents/data-researcher.md
-frontmatter แบบนี้
-description: Read-only researcher. Use proactively. Cite file:line.
-mode: subagent
-permission:
-  edit: deny
-  bash: deny
-เนื้อหา: อ่านอย่างเดียว ห้ามแก้ไฟล์ ห้ามรันคำสั่ง ตอบโดยอ้าง file:line
-ห้ามแก้ server.js
+สร้าง .opencode/agents/planner.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
+frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
+เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/TASKS.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง อ่าน docs/EXPLORATION-REPORT.md กับ data/README.md ก่อนเสมอ
+จากนั้นปิดคำแนะนำนี้ไว้ก่อน: ให้ฉันเปิดรอบใหม่แล้วเรียก planner
 ```
 
-เปิด `.opencode/agents/data-researcher.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป ปิดแล้วเปิด `opencode` ใหม่ แล้วถามคำถามเดียวกันเรื่อง `POST /api/notes`
+เปิด `.opencode/agents/planner.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป ปิดแล้วเปิด `opencode` ใหม่ แล้วถามสั้น ๆ เพื่อพิสูจน์ว่าตัวตนโหลดและอ่านบรีฟของตัวเองจริง:
 
-จากเครื่องทดสอบจริง (claude 2.1.319, opencode 2.2.5 โมเดล `zai/glm-4.7-flash`):
+```text
+ใช้ agent planner ตอบสั้น ๆ ถ้าจะเขียน docs/TASKS.md ต้องอ่านไฟล์อะไรก่อน และตัวเองห้ามทำอะไร
+```
 
-- ฝั่ง Claude: สั่งก้อนเดียวได้ไฟล์ทันที รอบทดสอบออกมาตรง frontmatter ทุกบรรทัด ปิดเปิดใหม่แล้วเรียกด้วย `@data-researcher` ทำงานเป็น subagent จริง ตอบใน 49 วินาที อ้าง `server.js:35/155/164/165–166` พร้อมตารางผูกกับด่าน
-- ฝั่ง OpenCode: ได้ไฟล์ frontmatter ถูกต้องเช่นกัน เวลาถามให้พิมพ์หัวว่า "ใช้ agent data-researcher" มันเรียก subagent โดยอ่านไฟล์จริง ตอบใน 40 วินาที อ้าง `server.js:130/154/155/156–159/164/165/166`
+การเขียน `docs/TASKS.md` จริงคือขั้นแรกของ [Module 05](../05-sequential-orchestration/LAB.md) — จบโมดูลนี้แค่ให้เห็นว่าเรียกตัวตนได้
+
+จากเครื่องทดสอบจริง — **สองรอบนี้รันตอนที่แล็บยังให้สองฝั่งสร้าง `data-researcher` ซ้ำกัน** (การเรียกใช้และเช็ก frontmatter ยังใช้ได้กับดีไซน์ปัจจุบัน ส่วนตัวที่สร้างฝั่ง OpenCode รอบใหม่คือ `planner` ต้องรันใหม่ตามจริง):
+
+- claude 2.1.319, opencode 2.2.5 โมเดล `zai/glm-4.7-flash`: ฝั่ง Claude สั่งก้อนเดียวได้ไฟล์ทันทีตรง frontmatter ทุกบรรทัด ปิดเปิดใหม่แล้วเรียก `@data-researcher` ตอบใน 49 วินาที อ้าง `server.js:35/155/164/165–166`; ฝั่ง OpenCode ถามหัวว่า "ใช้ agent data-researcher" เรียก subagent จากไฟล์จริง ตอบใน 40 วินาที อ้าง `server.js:130/154/155/156–159/164/165/166`
+- 9 พ.ย. 2026, opencode 2.2.6 โมเดล OntoIQ: เรียก subagent จากไฟล์จริงได้ ตอบใน 1m46s อ้าง `server.js:23–25/37–39/41–49/121–128/164/165/180–184/186` + `web/app.js:35/55–59` และปิดท้ายเองว่า "ไม่มีการแก้ไฟล์ใด ๆ ... exit code สรุปต้องรันโดย session หลัก"; ฝั่ง Claude มีหน้าถาม "Do you want to create data-researcher.md?" เลือกข้อ 2 (`Yes, and allow ... .claude folder for this session`) แล้วไม่โดนถามซ้ำ
 - **ระวังตอนวางข้อความใน opencode**: ถ้าวางตอน TUI ยังโหลดไม่เสร็จ ข้อความจะเพี้ยนเป็นตัวอักษรมั่วแล้วถูกส่งไปเลย ให้รอจนเห็นช่องพิมพ์พร้อม (โลโก้ + คำว่า Build โมเดล) แล้วค่อยวาง จะเห็นตัว `[Pasted ~N lines]` ในช่องก่อนกด Enter
-
-จากเครื่องทดสอบรอบหลัง (9 พ.ย. 2026, claude 2.1.319 + opencode 2.2.6 โมเดล OntoIQ): ผลยืนยันเดิมทุกข้อ รอบใหม่เพิ่มสามข้อจริง — (1) ฝั่ง Claude จะมีหน้าถาม "Do you want to create data-researcher.md?" ให้เลือกข้อ 2 (`Yes, and allow ... .claude folder for this session`) จะไม่โดนถามซ้ำตอนสร้างไฟล์ถัดไป (2) ฝั่ง OpenCode 2.2.6 เรียก subagent จากไฟล์จริงได้ ตอบใน 1m46s อ้าง `server.js:23–25/37–39/41–49/121–128/164/165/180–184/186` + `web/app.js:35/55–59` ละเอียดกว่ารอบเดิม และปิดท้ายเองว่า "ไม่มีการแก้ไฟล์ใด ๆ ... exit code สรุปต้องรันโดย session หลัก" (3) มันอ้างเลขแล็บจากไฟล์กติกาที่ยังพูดถึง Lab 11 — ประเด็นเดียวกับ Module 02 ให้ยืนยันเลขโมดูลกับห้อง
 
 ### 3. เทียบสั้น ๆ ในแชท
 
 เขียนสามบรรทัดลง `docs/TOOL-COMPARE.md` ด้วยตัวเองหรือสั่งผู้ช่วยให้เขียนเฉพาะไฟล์นี้
 
-- ไฟล์ผู้ช่วยของ Claude อยู่ที่ไหน ของ OpenCode อยู่ที่ไหน
-- อันไหนอ้างบรรทัดได้ชัดกว่า
-- อันไหนพยายามจะแก้ไฟล์หรือไม่
+- ไฟล์บทบาทของ Claude อยู่ที่ไหน ของ OpenCode อยู่ที่ไหน แต่ละตัวรับผิดชอบสายงานไหน (ตามผังใน `AGENTS.md`)
+- อันไหนอ้างบรรทัดได้ชัดกว่า (จากรอบถาม `data-researcher`)
+- กลไกล็อกสิทธิ์ต่างกันอย่างไร: `tools: Read, Grep, Glob` ใน frontmatter กับ `permission: bash: deny` + จำกัดไฟล์ที่เขียนได้
 
 ## ผ่านเมื่อ
 
 - มี `.claude/agents/data-researcher.md` ที่ tools ไม่มี Bash, Edit, Write
-- มี `.opencode/agents/data-researcher.md` ที่ห้าม edit และ bash
+- มี `.opencode/agents/planner.md` ที่ bash deny และเขียนได้เฉพาะ `docs/TASKS.md`
 - ฟิลด์ frontmatter เป็นภาษาอังกฤษ (`name`, `tools`, `model: sonnet`) — ค่า machine-readable ห้ามแปลไทย
-- คำตอบทั้งสองรอบมี `server.js:` อย่างน้อยหนึ่งจุด
+- คำตอบฝั่ง data-researcher มี `server.js:` อย่างน้อยหนึ่งจุด และฝั่ง planner เล่าข้อจำกัดของตัวเองได้
 - ไฟล์แอปไม่ถูกแก้ และยังไม่มี `.mcp.json`
 
 ## ถ้าติดขัด

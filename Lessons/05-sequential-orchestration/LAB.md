@@ -16,18 +16,7 @@
 
 ### 1. ให้คนวางแผนเขียนไฟล์เดียว
 
-เปิด `opencode` วาง:
-
-```text
-สร้าง .opencode/agents/planner.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
-frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
-เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/TASKS.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง
-จากนั้นปิดคำแนะนำนี้ไว้ก่อน: ให้ฉันเปิดรอบใหม่แล้วเรียก planner
-```
-
-เปิด `.opencode/agents/planner.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป
-
-ปิดแล้วเปิด `opencode` ใหม่:
+มี `.opencode/agents/planner.md` จาก Module 04 แล้ว ปิดเปิด `opencode` ใหม่เสมอ (ไฟล์บทบาทโหลดตอนเปิดรอบ) แล้ววาง:
 
 ```text
 ให้ planner อ่าน docs/EXPLORATION-REPORT.md กับ data/README.md แล้วเขียน docs/TASKS.md
@@ -36,7 +25,7 @@ frontmatter ต้องมี description, mode: subagent และ permission:
 ห้ามวางแผนไปแก้ /api/notes หรือ /api/health ในแล็บนี้
 ```
 
-เปิด `docs/TASKS.md` ด้วยตา ถ้ายังไม่มีสามสาย อย่าไปขั้นถัดไป
+เปิด `docs/TASKS.md` ด้วยตา ถ้ายังไม่มีสามสาย อย่าไปขั้นถัดไป ถ้ายังไม่มี `planner.md` ให้กลับไปขั้น 2 ของ Module 04 ก่อน
 
 ### 2. ทำทีละสาย ห้ามข้าม
 
@@ -119,7 +108,7 @@ echo $LASTEXITCODE
 
 จากเครื่องทดสอบจริง (opencode 2.2.5, `zai/glm-4.7-flash`, 7 พฤศจิกายน 2026):
 
-- **โมเดลสร้าง planner.md ลืม YAML frontmatter** — เขียน description/mode/permission เป็นหัวข้อ markdown ธรรมดา ต้องเติมบล็อก `---` เองตามขั้นตรวจด้วยตา ไฟล์ถึงจะถูกจับเป็น subagent
+- **planner.md ลืม YAML frontmatter** (เคสจากรอบที่ยังสร้างในโมดูลนี้ — ตอนนี้สร้างที่ Module 04) — เขียน description/mode/permission เป็นหัวข้อ markdown ธรรมดา ตรวจด้วยตาตั้งแต่ M04 ไฟล์ถึงจะถูกจับเป็น subagent ถ้าเจอไฟล์เสียให้เติมบล็อก `---` เองก่อนเรียก
 - **SQL วนแก้สามรอบยังไม่ผ่าน** — รอบแรกอ้างชื่อคอลัมน์ผิด (`reg_date` ทั้งที่ parquet มี `reg_date_raw`), รอบสองชนชนิดข้อมูลตอนลบ 543 ปี, รอบสามยังใช้ `REGEXP` เป็นตัวดำเนินการซึ่ง DuckDB ไม่มี สุดท้ายใช้ทาง "ถ้าตามไม่ทัน" คัดลอก SQL อ้างอิงจาก `node scripts/catch-up.js w3` มารันแล้วผ่านทันที — นี่คือเหตุผลที่เฉลยมีไว้
 - **วางข้อความคลิปบอร์ดภาษาไทยให้ opencode ต้องระวัง encoding** — ตั้งคลิปบอร์ดด้วย `Get-Content` โดยไม่ใส่ `-Encoding UTF8` แล้วข้อความไทยเพี้ยนเป็นตัวมั่วทั้งก้อนก่อนถูกส่ง (เคสจริง: ข้อความกลายเป็นเรื่อง A/B prefill ที่ไม่เกี่ยว) วิธีกัน: ตั้งคลิปบอร์ดแล้วกลับมาดูช่องพิมพ์ใน TUI ก่อนกด Enter เสมอ
 - **อย่าให้มันแตะ `lib/inspect-data.js`** — รอบทดสอบมัน refactor `parseRows` ในไฟล์กฎให้เรียก `parseCsv` แต่ลืม import ทำให้ด่าน abort ทั้งตัว (`parseCsv is not defined`) แก้ด้วย `git checkout -- lib/inspect-data.js` กฎอยู่ไฟล์ที่แชร์กับด่าน แตะเมื่อไรด่านเสี่ยงเมื่อนั้น
