@@ -1,6 +1,6 @@
 # Module 13 — ให้คนอื่นเปิดดูได้บน Vercel
 
-**ทำไปเพื่ออะไร:** เดินครบสี่ช่วง: สมัคร/ล็อกอินบัญชี → preflight ในเครื่อง → ล็อกอิน Vercel CLI ผ่าน prompt → deploy ผ่าน prompt แล้วเก็บหลักฐาน URL — **ไม่ใช้ Vercel MCP** ในแล็บนี้ (กันสถานะ `Needs authentication` และซ้ำกับ connector `claude.ai Vercel`)
+**ทำไปเพื่ออะไร:** เดินครบสี่ช่วง: สมัคร/ล็อกอินบัญชี → preflight ในเครื่อง → ล็อกอิน Vercel CLI ผ่าน prompt → deploy ผ่าน prompt แล้วเก็บหลักฐาน URL — **ไม่ใช้ Vercel MCP** ในแล็บนี้ (กันปัญหาสถานะ `Needs authentication` และ connector `claude.ai Vercel` ที่ซ้ำกัน)
 
 | เวลา | เครื่องมือ |
 |---|---|
@@ -46,7 +46,7 @@ echo $LASTEXITCODE
 
 ## 3) Preflight — `/api/health` ไม่มี `sk-` แล้วปิดเซิร์ฟเวอร์
 
-ใช้พอร์ต **3001** กันชนกับของที่อาจค้างที่ 3000 — แล็บนี้รันใน **PowerShell** (อย่าวาง `PORT=3001 npm start` นั่นคือ bash จะ error)
+ใช้พอร์ต **3001** กันชนกับของที่อาจค้างที่ 3000 — แล็บนี้รันใน **PowerShell** (อย่าวาง `PORT=3001 npm start` นั่นคือ bash จะขึ้น error)
 
 **เทอร์มินัล A — สตาร์ทเซิร์ฟเวอร์:**
 
@@ -62,7 +62,7 @@ $h | ConvertTo-Json -Compress
 ($h | ConvertTo-Json -Compress) -match 'sk-'
 ```
 
-ผลที่คาดหวัง: JSON ประมาณ `{"ok":true}` · บรรทัด `-match 'sk-'` เป็น `False` · แล้วกลับเทอร์มินัล A กด **Ctrl+C** ปิดเซิร์ฟเวอร์
+ผลที่คาดหวัง: JSON ประมาณ `{"ok":true}` · บรรทัด `-match 'sk-'` เป็น `False` · แล้วกลับไปเทอร์มินัล A กด **Ctrl+C** ปิดเซิร์ฟเวอร์
 
 > 📚 **รู้เพิ่ม:** พอร์ต 3001 คือการตรวจของใหม่โดยไม่ง้อเซิร์ฟเวอร์เก่า · บน Git Bash / macOS ใช้ `PORT=3001 npm start` กับ `curl -s http://127.0.0.1:3001/api/health | grep -c 'sk-' || true` (ต้องได้ 0)
 
@@ -76,7 +76,7 @@ Mac: `echo "$ANTHROPIC_API_KEY"` — ต้องว่าง คีย์โม
 
 ## 5) ล็อกอิน Vercel CLI ผ่าน Prompt (ยังไม่ deploy · ไม่ใช้ MCP)
 
-เปิด TUI จากโฟลเดอร์แอป (`claude` หรือ `opencode` ตามถนัด) วางอย่างใดอย่างหนึ่ง:
+เปิด TUI จากโฟลเดอร์แอป (`claude` หรือ `opencode` ตามถนัด) แล้ววางอย่างใดอย่างหนึ่ง:
 
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
@@ -147,11 +147,11 @@ Deploy แอป Registry Insight ขึ้น Vercel โดยใช้เฉ�
 
 เปิด production URL ในเบราว์เซอร์ เทียบยอดกับ `docs/EXECUTIVE-SUMMARY.md` — หน้าโหลดได้ · `/api/health` ไม่มี `sk-` · ยอดไม่เพี้ยน
 
-จากเครื่องทดสอบจริง (8 พฤศจิกายน 2026, บัญชี Hobby): ขั้น 1–4 ผ่านครบ ขั้น 5 `whoami` ตอบทันที ขั้น 6 สร้าง `vercel.json` + `api/summary.js / api/health.js / api/notes.js` ผ่าน prompt เดียว (ไม่มี writeFile ใน api/ — โน้ตเป็นอ่านอย่างเดียว POST ตอบ 405 `NOTES_READONLY`) gate ยัง 6/6 แล้ว `npx vercel --prod` สำเร็จใน 8 วินาที
+จากเครื่องทดสอบจริง (8 พฤศจิกายน 2026, บัญชี Hobby): ขั้น 1–4 ผ่านครบ ขั้น 5 `whoami` ตอบทันที ขั้น 6 สร้าง `vercel.json` กับ `api/summary.js / api/health.js / api/notes.js` ด้วย prompt เดียว (ไม่มี writeFile ใน api/ — โน้ตเป็นแบบอ่านอย่างเดียว POST ตอบ 405 `NOTES_READONLY`) gate ยัง 6/6 และ `npx vercel --prod` สำเร็จใน 8 วินาที
 
 **URL จริง**: https://multi-agent-workshop-hybrid-54svriymv-onto-iq.vercel.app — ตรวจผ่าน `vercel curl`: `/api/health` → `{"ok":true}` ไม่มี sk-, `/api/summary` → 16,772 / 45,341,868,784 ตรงเป๊ะ, POST `/api/notes` → 405 `NOTES_READONLY`, `vercel env ls` ว่างเปล่า (ไม่มีคีย์บน Vercel)
 
-> 📚 **ข้อจำกัดที่ต้องอธิบายในห้อง:** URL ถูก **Vercel Deployment Protection** กันไว้ตามค่าเริ่มต้นของ Hobby — คนที่ไม่ล็อกอินบัญชีเจ้าของจะเจอ 302 ไปหน้า auth ถ้าจะให้คนอื่นเปิดได้จริง ไป Vercel Dashboard → Settings → Deployment Protection แล้วปิด (การตัดสินใจของเจ้าของบัญชี ไม่ใช่ของผู้ช่วย) ระหว่างสอนสาธิตด้วย `vercel curl` ก็พอ เพราะเห็น JSON จริงจาก production
+> 📚 **ข้อจำกัดที่ต้องอธิบายในห้อง:** URL ถูก **Vercel Deployment Protection** กันไว้ตามค่าเริ่มต้นของ Hobby — คนที่ไม่ล็อกอินบัญชีเจ้าของจะเจอ 302 ไปหน้า auth — ถ้าจะให้คนอื่นเปิดได้จริง ไป Vercel Dashboard → Settings → Deployment Protection แล้วปิด (การตัดสินใจของเจ้าของบัญชี ไม่ใช่ของผู้ช่วย) ระหว่างสอน สาธิตด้วย `vercel curl` ก็พอ เพราะเห็น JSON จริงจาก production
 
 ## ผ่านเมื่อ
 
@@ -174,9 +174,9 @@ Deploy แอป Registry Insight ขึ้น Vercel โดยใช้เฉ�
 | เอเจนต์ไปเพิ่ม MCP / `Needs authentication` | ใช้ prompt รอบเก่าที่สั่ง MCP | `claude mcp remove vercel -s local` แล้วใช้ prompt ขั้น 5 ชุดใหม่ |
 | `vercel whoami` ไม่รู้จัก | ยังไม่ login | `npx vercel login` ในเบราว์เซอร์ด้วยบัญชีขั้น 1 |
 | headless ไม่ยอมเรียก vercel | Bash ถูกปฏิเสธ | ใช้ TUI หรือรัน `npx vercel --prod` เอง |
-| ได้คำว่า deployed แต่ไม่มี URL | ไม่มีหลักฐาน | อย่าเช็คผ่านข้อนี้ — ขอ URL กับ deployment id ใหม่ |
+| ได้คำว่า deployed แต่ไม่มี URL | ไม่มีหลักฐาน | ไม่นับเป็นข้อผ่าน — ขอ URL กับ deployment id ใหม่ |
 | เปิด URL เจอหน้าล็อกอิน Vercel | Deployment Protection ของ Hobby | ไม่ใช่ deploy พัง — ดูหมายเหตุขั้น 7 |
-| `.vercel/` จะถูก commit | โฟลเดอร์มี project id ฝัง | เพิ่ม `.gitignore` (รอบทดสอบเพิ่มให้เองแล้ว) |
+| `.vercel/` จะถูก commit | โฟลเดอร์มี project id ฝัง | เพิ่ม `.gitignore` (รอบทดสอบเพิ่มให้แล้ว) |
 | หมดเทิร์นกลางทาง | เพดานรอบต่ำ | อยู่ใน TUI |
 
 สคริปต์ตรวจใน repo บทเรียนไม่ได้เรียก Vercel — การผ่านสคริปต์ไม่แทน URL
@@ -188,7 +188,7 @@ Deploy แอป Registry Insight ขึ้น Vercel โดยใช้เฉ�
 node scripts/catch-up.js w9
 ```
 
-แล้วรัน `npm run gate` ในโฟลเดอร์แอปให้ได้ exit 0 — การได้ URL ยังเป็นขั้นที่คนทำ (ขั้น 5–7) ในเอกสารแอปขั้นนี้อาจยังถูกเรียกว่า Lab 11
+แล้วรัน `npm run gate` ในโฟลเดอร์แอปให้ได้ exit 0 — การได้ URL ยังเป็นขั้นที่คนทำ (ขั้น 5–7) — ในเอกสารแอป ขั้นนี้อาจยังถูกเรียกว่า Lab 11
 
 ## ต่อยอด
 
@@ -196,4 +196,4 @@ node scripts/catch-up.js w9
 
 ## รู้เพิ่ม
 
-ลิงก์คือหลักฐาน คำว่า deploy แล้วในแชทไม่นับ ทางขึ้นของจริงคือ `api/*.js` ไม่ใช่การเอา `server.js` ไปฟังพอร์ต และวิธีแนบ `data/dataset.csv` (~8 MB) ผ่าน `includeFiles` อยู่ที่ `reference/vercel/README.md` — อย่าคัดลอกไฟล์นั้นขึ้นรากโปรเจกต์ก่อนแล็บนี้
+ลิงก์คือหลักฐาน คำว่า "deploy แล้ว" ในแชทไม่นับ ทางขึ้นของจริงคือ `api/*.js` ไม่ใช่การเอา `server.js` ไปฟังพอร์ต และวิธีแนบ `data/dataset.csv` (~8 MB) ผ่าน `includeFiles` อยู่ที่ `reference/vercel/README.md` — อย่าคัดลอกไฟล์ในโฟลเดอร์นั้นขึ้นรากโปรเจกต์ก่อนแล็บนี้

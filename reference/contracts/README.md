@@ -15,4 +15,4 @@ node scripts/validate-json.mjs
 | `synthesize-report.example.json` | สรุปผู้บริหารโดย OpenCode ไม่เกิน 400 คำ |
 | `capstone-ship.example.json` | URL จริงบน Vercel และโน้ตแบบอ่านอย่างเดียว |
 
-ไม่มีสัญญาบอร์ดคัมบังในคลาสนี้
+ไม่มีสัญญาสำหรับบอร์ดคัมบังในคลาสนี้

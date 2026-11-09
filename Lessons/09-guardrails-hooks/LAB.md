@@ -1,6 +1,6 @@
 # Module 09 — กันคำสั่งอันตราย และกันงบบาน
 
-**ทำไปเพื่ออะไร:** ปล่อยให้ผู้ช่วยทำงานต่อได้ โดยยังมีรั้วกั้นคำสั่งลบของและเพดานค่าใช้จ่ายของห้อง
+**ทำไปเพื่ออะไร:** ปล่อยให้ผู้ช่วยทำงานต่อได้ โดยยังมีรั้วกั้นคำสั่งลบข้อมูลและเพดานค่าใช้จ่ายของห้อง
 
 | เวลา | เครื่องมือ |
 |---|---|
@@ -10,7 +10,7 @@
 
 ## ก่อนเริ่ม
 
-`npm run gate` ขึ้น 6/6 อ่านเพดานห้องที่ [scripts/gate-cost.md](../../scripts/gate-cost.md) ใน repo บทเรียน: ไม่เกิน 2 ดอลลาร์ และไม่เกิน 20,000 output tokens ต่อรอบที่บันทึก
+`npm run gate` ต้องขึ้น 6/6 แล้วอ่านเพดานของห้องจาก [scripts/gate-cost.md](../../scripts/gate-cost.md) ใน repo บทเรียน — ไม่เกิน 2 ดอลลาร์ และไม่เกิน 20,000 output tokens ต่อรอบที่บันทึก
 
 ## แบบฝึกหัด
 
@@ -46,7 +46,7 @@ Write the real hook files and edit settings.json for real — do not reply with 
 
 ถ้าได้แต่คำอธิบาย ให้สั่งว่า "สร้างไฟล์ hook และแก้ settings.json จริง" แล้วตรวจว่ามีไฟล์จริงใน `.claude/hooks/` ก่อนทดลอง
 
-**ทดสอบ hook ด้วยมือก่อนผ่านแชท** — เขียน payload เป็นไฟล์แบบไม่มี BOM แล้วป้อนเข้า stdin (`echo '...' | node hook.js` ใน PowerShell 5.1 ส่ง payload พังโดย hook จะ exit 0 เงียบ ๆ = ไม่ได้ทดสอบอะไรเลย; `Set-Content -Encoding UTF8` ใส่ BOM ทำ `JSON.parse` พัง):
+**ทดสอบ hook ด้วยมือก่อน แล้วค่อยผ่านแชท** — เขียน payload เป็นไฟล์แบบไม่มี BOM แล้วป้อนเข้า stdin (`echo '...' | node hook.js` ใน PowerShell 5.1 ส่ง payload พังโดย hook จะ exit 0 เงียบ ๆ = ไม่ได้ทดสอบอะไรเลย; `Set-Content -Encoding UTF8` ใส่ BOM ทำให้ `JSON.parse` พัง):
 
 ```powershell
 [IO.File]::WriteAllText("$pwd\payload-block.json", '{"tool_name":"Bash","tool_input":{"command":"rm -rf data"}}', (New-Object System.Text.UTF8Encoding($false)))
@@ -88,7 +88,7 @@ Test-Path hook-test-dummy
 
 ### 2. ลองเพดานงบด้วยไฟล์ตัวอย่าง
 
-ใน repo บทเรียนมีไฟล์ตัวอย่างใต้ `solutions/w7/fixtures/` ให้ก็อปสามไฟล์ไปที่โฟลเดอร์แอป หรือสั่งผู้ช่วยก็อปเฉพาะไฟล์เหล่านี้ แล้วรันสคริปต์ที่ผู้ช่วยสร้างชื่อ `scripts/cost-gate.js`
+ใน repo บทเรียนมีไฟล์ตัวอย่างใต้ `solutions/w7/fixtures/` ให้ก็อปสามไฟล์ไปที่โฟลเดอร์แอป หรือสั่งผู้ช่วยก็อปเฉพาะไฟล์เหล่านี้ แล้วรันสคริปต์ชื่อ `scripts/cost-gate.js` ที่ผู้ช่วยสร้าง
 
 วางให้ Claude หรือ OpenCode (เลือกอย่างใดอย่างหนึ่ง):
 
@@ -110,11 +110,11 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 ห้ามเรียกเน็ต ห้ามแก้ quality gate
 ```
 
-ทดลองกับไฟล์ที่ต่ำกว่างบ ต้อง exit 0 ไฟล์ที่เกินงบหรือเกินโทเคนต้อง exit 2 — ถ้าจะสร้าง `usage.json` ทดสอบเอง เขียนแบบไม่มี BOM ด้วย `UTF8Encoding($false)` เท่ากัน
+ทดลองกับไฟล์ที่ต่ำกว่างบ ต้อง exit 0 ไฟล์ที่เกินงบหรือเกินโทเคนต้อง exit 2 — ถ้าจะสร้าง `usage.json` ทดสอบเอง เขียนแบบไม่มี BOM ด้วย `UTF8Encoding($false)` เช่นเดียวกับขั้นที่ 1
 
 ### 3. ฝั่ง OpenCode — รั้วคนละกลไก ไม่ใช่ hook แบบเดียวกัน
 
-**คำตอบก่อนลงมือ:** hook ใน `.claude/hooks/` เป็นกลไกเฉพาะของ Claude Code OpenCode **ไม่มี**ระบบ hook แบบ PreToolUse/TaskCompleted — ตัวกั้นของมันคือบล็อก `permission` ใน `opencode.json` ที่มาจากเส้นสิทธิ์ใน Module 04 (deny แก้ด่าน + deny `git push`) ขั้นนี้จึงไม่สร้างไฟล์ใหม่ แต่**พิสูจน์ว่ารั้วเดิมยังบังคับได้จริง**
+**คำตอบก่อนลงมือ:** hook ใน `.claude/hooks/` เป็นกลไกเฉพาะของ Claude Code ส่วน OpenCode **ไม่มี**ระบบ hook แบบ PreToolUse/TaskCompleted — ตัวกั้นของมันคือส่วน `permission` ใน `opencode.json` ที่มาจากเส้นสิทธิ์ใน Module 04 (deny แก้ด่าน + deny `git push`) ขั้นนี้จึงไม่ได้สร้างไฟล์ใหม่ แต่**พิสูจน์ว่ารั้วเดิมยังบังคับได้จริง**
 
 เปิด `opencode` วาง (เลือกอย่างใดอย่างหนึ่ง):
 
@@ -140,7 +140,7 @@ Report one line per request whether it was denied, quoting the actual on-screen 
 รายงานผลข้อละบรรทัดว่าถูกปฏิเสธหรือไม่ พร้อมข้อความจริงบนหน้าจอ ห้ามแก้ไฟล์ใด ๆ
 ```
 
-ผลที่คาดหวัง: ลิสต์กฎครบ + คำขอแก้ด่านโดนตัดที่ชั้น config แสดง **"Permission denied: edit"** และคำขอ push ถูกปฏิเสธอ้างกติกาโปรเจกต์ (รอบทดสอบเคยติด โมเดล overload ~4 นาที ให้รอ ผลไม่เปลี่ยน) ถ้าเส้นสิทธิ์หลุดไป ให้ใส่กลับตาม Module 04 แล้วทดลอบซ้ำ — **อย่า**สร้าง hook ซ้ำทั้งชุดให้ฝั่งนี้
+ผลที่คาดหวัง: ลิสต์กฎครบ + คำขอแก้ด่านโดนตัดที่ชั้น config และแสดง **"Permission denied: edit"** ส่วนคำขอ push ถูกปฏิเสธอ้างกติกาโปรเจกต์ (รอบทดสอบเคยติดโมเดล overload นานราว 4 นาที — รอไปเรื่อย ๆ ผลไม่เปลี่ยน) ถ้าเส้นสิทธิ์หลุดไป ให้ใส่กลับตาม Module 04 แล้วทดลองซ้ำ — **อย่า**สร้าง hook ซ้ำทั้งชุดให้ฝั่งนี้
 
 ## ผ่านเมื่อ
 
@@ -149,7 +149,7 @@ Report one line per request whether it was denied, quoting the actual on-screen 
 - `npm run gate` ยังเป็น 6/6
 - แก้แล้วตรวจซ้ำไม่เกิน 2 รอบ ถ้ายังพังให้เรียกวิทยากร
 
-จากเครื่องทดสอบจริง (7 พฤศจิกายน 2026): ได้ทั้งสอง hook และ `scripts/cost-gate.js` ต่อคำสั่ง ทดลอง `rm -rf data` → hook บล็อก `data/raw/dbd-2558.parquet` ยังอยู่ครบ cost-gate สามไฟล์: `under-budget.json` exit 0, `over-budget.json` exit 2 (3.5 > 2), `over-tokens.json` exit 2 (25,000 > 20,000) ฝั่ง opencode ยืนยัน deny 3 กฎ (`scripts/quality-gate.js`, `git push`, `git push *`) ยังอยู่ครบ ปิดท้าย gate **6/6 exit 0**
+จากเครื่องทดสอบจริง (7 พฤศจิกายน 2026): ได้ทั้งสอง hook และ `scripts/cost-gate.js` ตามคำสั่ง ทดลอง `rm -rf data` → hook บล็อก, ไฟล์ `data/raw/dbd-2558.parquet` ยังอยู่ครบ cost-gate สามไฟล์: `under-budget.json` exit 0, `over-budget.json` exit 2 (3.5 > 2), `over-tokens.json` exit 2 (25,000 > 20,000) ฝั่ง opencode ยืนยันว่า deny 3 กฎ (`scripts/quality-gate.js`, `git push`, `git push *`) ยังอยู่ครบ ปิดท้าย gate **6/6 exit 0**
 
 ## ถ้าติดขัด
 
