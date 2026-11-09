@@ -27,7 +27,7 @@
 
 ## ตารางสองวัน (สอนประมาณ 6 ชั่วโมงต่อวัน)
 
-ลำดับโฟลเดอร์อยู่ที่ `Lessons/01` ถึง `Lessons/13` แบบเดียวกับคอร์ส Claude อย่างเดียว เส้นสิทธิ์ของห้องไฮบริดอยู่ใน Module 04 ไฟล์ `LAB-permissions.md` ไม่ได้แทรกเป็นเลขโมดูลใหม่
+ลำดับโฟลเดอร์อยู่ที่ `Lessons/01` ถึง `Lessons/13` แบบเดียวกับคอร์ส Claude อย่างเดียว เส้นสิทธิ์ของห้องไฮบริดเป็นพาร์ตท้ายของ Module 04 ใน `LAB.md` เดียวกัน
 
 วันที่ 1 — รู้จักงาน แล้วเดินสายการผลิต
 
@@ -37,8 +37,8 @@
 | บรรยายแนวคิดผู้ช่วยหลายคน และทำไมต้องใช้สองเครื่องมือ | 60 | วิทยากร |
 | [Module 02 รู้จักแอป](Lessons/02-agent-foundations/LAB.md) | 40 | Claude แล้ว OpenCode อ่านต่อ |
 | [Module 03 สำรวจพร้อมกัน](Lessons/03-swarm/LAB.md) | 50 | Claude Code |
-| [Module 04 ผู้เชี่ยวชาญสองฝั่ง](Lessons/04-specialty-agents/LAB.md) | 50 | Claude Code + OpenCode |
-| [เส้นสิทธิ์ใน Module 04](Lessons/04-specialty-agents/LAB-permissions.md) | 30 | ทั้งคู่ |
+| [Module 04 ผู้เชี่ยวชาญคนละสายงาน](Lessons/04-specialty-agents/LAB.md) | 50 | Claude Code + OpenCode |
+| [พาร์ตรั้วเส้นสิทธิ์ (ขั้น 4 ของ Module 04)](Lessons/04-specialty-agents/LAB.md) | 30 | ทั้งคู่ |
 | [Module 05 สายการผลิต](Lessons/05-sequential-orchestration/LAB.md) | 60 | OpenCode |
 | สรุปวันและเวลาเผื่อ | 55 | — |
 
