@@ -83,7 +83,8 @@ echo $LASTEXITCODE
 
 ## ต่อยอด
 
-สั่ง release-manager จาก Module 07 รัน release checklist กับฉบับนี้ — ผล PASS/FAIL เป็นของที่ Module 13 ใช้ต่อก่อน deploy
+- สั่ง release-manager จาก Module 07 รัน release checklist กับฉบับนี้ — ผล PASS/FAIL เป็นของที่ Module 13 ใช้ต่อก่อน deploy
+- **สร้าง `writer.md` ฝั่ง Claude** (tools เป็น Read, Grep, Glob, Write, Bash — ต่างจาก synthesizer ตรงที่เรียก API สดได้) แล้วสั่งให้เขียนสรุปฉบับของตัวเอง เมื่อเซิร์ฟเวอร์เปิดอยู่ให้ตรวจยอดเองด้วย `powershell -NoProfile -Command "Invoke-RestMethod http://127.0.0.1:3000/api/summary | ConvertTo-Json -Compress"` จากนั้นเปิดสรุปสองฉบับ (synthesizer vs writer) เทียบกัน — คนละโมเดลคนละเครื่องมือ แต่**ยอดต้องตรงกันเป๊ะ** ถ้าไม่ตรง คือของเสียที่ต้องจับ
 
 ## ถ้าตามไม่ทัน
 
