@@ -98,15 +98,31 @@ bash scripts/readiness-check.sh
 
 > 📚 **รู้เพิ่ม:** รันจากโฟลเดอร์ไหนได้ผลของโฟลเดอร์นั้น — ที่ repo แอปตรวจเครื่องและบูตแอป ส่วน readiness-check ที่ repo บทเรียนตรวจครบและหา repo แอปเองตามลำดับ `WORKSHOP_DIR` → `.env` → พาธคลาส ถ้าเก็บ repo แอปไว้คนละที่ ตั้ง `WORKSHOP_DIR` แล้วรันใหม่
 
-### 4. เปิดแอปครั้งหนึ่ง
+### 4. เปิดแอปครั้งหนึ่ง — คนละเทอร์มินัลกับขั้นถัดไป
 
-ที่โฟลเดอร์ `multi-agent-workshop-hybrid` รัน `npm start` เปิด http://127.0.0.1:3000 แล้วปิดด้วย Ctrl+C
+ที่โฟลเดอร์แอป:
+
+Windows:
+
+```powershell
+cd C:\dev\multi-agent-workshop-hybrid
+npm start
+```
+
+Mac:
+
+```bash
+cd ~/dev/multi-agent-workshop-hybrid
+npm start
+```
+
+เปิด http://127.0.0.1:3000 ในเบราว์เซอร์ แล้วกลับมาหยุดด้วย Ctrl+C ในเทอร์มินัลที่รันเอง
 
 ผลที่คาดหวัง: หน้าเว็บ**ยังไม่พร้อม** และ**ไม่มีตัวเลขสรุปที่ใช้ได้** — นี่คือสถานะเริ่มต้นตามดีไซน์ ไม่ใช่เครื่องพัง
 
 ### 5. รันด่าน
 
-จากโฟลเดอร์เดียวกัน (เซิร์ฟเวอร์ปิดแล้วเท่านั้น) รัน `npm run gate` — ต้องจบด้วย exit 2 กับแดง **0/6** ชื่อพอดีหกชื่อ: `data-quality`, `bad-json-does-not-crash`, `summary-matches-valid-rows`, `health-no-secrets`, `notes-validation`, `notes-persists`
+กลับที่เทอร์มินัลเดิม (เซิร์ฟเวอร์ปิดด้วย Ctrl+C แล้วเท่านั้น) รัน `npm run gate` — ต้องจบด้วย exit 2 กับแดง **0/6** ชื่อพอดีหกชื่อ: `data-quality`, `bad-json-does-not-crash`, `summary-matches-valid-rows`, `health-no-secrets`, `notes-validation`, `notes-persists`
 
 > 📚 **รู้เพิ่ม:** อย่าพยายามทำให้ด่านเขียวในแล็บนี้ เส้นทางของคอร์สคือ แดง 0/6 → **2/6 หลัง Module 05** → **6/6 หลัง Module 06** และห้ามแก้ `scripts/quality-gate.js` หรือเอาข้อมูลสะอาดมาทับเอง — ไฟล์ดิบกับบั๊กใน `server.js` ถูกปลูกไว้ให้แดงครบหกเคสตั้งแต่ clone
 
