@@ -29,12 +29,13 @@
 
 ## ลำดับในห้อง (ภาพรวม)
 
-1. ตรวจบนเครื่อง: gate 6/6 + health พอร์ต 3001 ไม่มี sk- + `ANTHROPIC_API_KEY` ว่าง
-2. `npx vercel whoami` ต้องเห็นชื่อบัญชี (ยังไม่ deploy)
-3. สั่งสร้าง `vercel.json` + `api/` ผ่าน prompt → gate ยัง 6/6 → `npx vercel --prod` → ได้ URL จริง
-4. ตรวจ URL ด้วยเบราว์เซอร์/curl: health สะอาด, โน้ต 405, ยอดตรง
+1. **บัญชี** — สมัคร/ล็อกอิน Vercel แผน Hobby ในเบราว์เซอร์ (ก่อนวันเรียนดีสุด)
+2. **preflight** — gate 6/6 exit 0 (หรือ `@release-manager` จาก M07 ตรวจซ้ำ) → health พอร์ต 3001 ไม่มี `sk-` → `ANTHROPIC_API_KEY` ว่าง → ปิดเซิร์ฟเวอร์
+3. **ล็อกอิน CLI ผ่าน prompt** — `npx vercel whoami` ต้องเห็นชื่อบัญชี (ยังไม่ deploy · ไม่แตะ MCP)
+4. **deploy ผ่าน prompt** — gate ก่อนเสมอ → `npx vercel --prod` → ได้ URL + commit/deployment id
+5. **ยืนยัน** — เปิด URL: แดชบอร์ดขึ้นจริง, health สะอาด, โน้ต 405, ยอดตรงกับ `EXECUTIVE-SUMMARY.md`
 
-แบบฝึกหัดเต็มอยู่ที่ [LAB.md](LAB.md) ประมาณ 40 นาที ต้องมีบัญชี Vercel Hobby และ URL จริงที่ขึ้นต้นด้วย `https://`
+แบบฝึกหัดเต็มอยู่ที่ [LAB.md](LAB.md) ประมาณ 40 นาที ต้องมีบัญชี Vercel Hobby สมัครไว้ก่อน และ URL จริงที่ขึ้นต้นด้วย `https://` คือหลักฐานปิดคอร์ส — ห้องไหนผู้สอนสั่งหยุดก่อนขึ้นของจริง ให้จบหลัง preflight พร้อมผล gate และบันทึกไว้ว่าขั้น 5–7 เป็นของคนทำต่อ
 
 ## Common pitfalls / กับดัก (จากเครื่องทดสอบจริง)
 
