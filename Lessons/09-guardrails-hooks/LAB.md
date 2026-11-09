@@ -16,7 +16,22 @@
 
 ### 1. ให้ Claude วางรั้วที่ไม่บล็อกงานปกติ
 
-เปิด `claude` ที่โฟลเดอร์แอป วาง:
+เปิด `claude` ที่โฟลเดอร์แอป วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .claude/hooks/block-dangerous-bash.js that reads JSON from stdin and exits 2 on a dangerous command.
+Block rm -rf, taskkill, Remove-Item with -Recurse, and any command piped into sh.
+Allow node server.js and node scripts/quality-gate.js.
+Create .claude/hooks/task-completed-gate.js that exits 2 when qualityGatePassed is not true.
+Merge .claude/settings.json so both hooks are called, while keeping the deny rules for editing scripts/quality-gate.js and for git push from the Module 04 permission exercise.
+Do not edit scripts/quality-gate.js.
+Then run npm run gate again — it must still be 6/6.
+Write the real hook files and edit settings.json for real — do not reply with text only.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .claude/hooks/block-dangerous-bash.js ที่อ่าน JSON จาก stdin แล้ว exit 2 เมื่อคำสั่งอันตราย
@@ -47,10 +62,18 @@ $proc.ExitCode
 New-Item -ItemType Directory -Force hook-test-dummy | Out-Null
 ```
 
-แล้ววางในเซสชัน (เปิด `claude` ใหม่หลังแก้ settings.json เสร็จก็ได้):
+แล้ววางในเซสชัน (เปิด `claude` ใหม่หลังแก้ settings.json เสร็จก็ได้ — เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
 Run this exact bash command: rm -rf hook-test-dummy
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
+
+```text
+สั่งรัน bash คำสั่งนี้เป๊ะ ๆ: rm -rf hook-test-dummy
 ```
 
 ถ้ามีกล่องขออนุญาตรันคำสั่ง ให้กดอนุญาต — ตัวที่บล็อกต่อจากนั้นต้องเป็น hook ไม่ใช่คุณ ผลที่คาดหวัง: Claude รายงานว่าคำสั่งถูกบล็อกพร้อมเหตุผลที่อ่านได้ (`blocked dangerous command: rm -rf hook-test-dummy`) แล้วยืนยันด้วยมือ:
@@ -67,7 +90,18 @@ Test-Path hook-test-dummy
 
 ใน repo บทเรียนมีไฟล์ตัวอย่างใต้ `solutions/w7/fixtures/` ให้ก็อปสามไฟล์ไปที่โฟลเดอร์แอป หรือสั่งผู้ช่วยก็อปเฉพาะไฟล์เหล่านี้ แล้วรันสคริปต์ที่ผู้ช่วยสร้างชื่อ `scripts/cost-gate.js`
 
-วางให้ Claude หรือ OpenCode:
+วางให้ Claude หรือ OpenCode (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create scripts/cost-gate.js that reads the JSON file passed as an argument.
+Exit 2 when total_cost_usd exceeds 2 or output_tokens exceeds 20000.
+Exit 0 within the ceiling. Print PASS or FAIL clearly.
+No network calls. Do not modify the quality gate.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง scripts/cost-gate.js ที่อ่านไฟล์ JSON ที่ส่งเป็นอาร์กิวเมนต์
@@ -82,7 +116,20 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 
 **คำตอบก่อนลงมือ:** hook ใน `.claude/hooks/` เป็นกลไกเฉพาะของ Claude Code OpenCode **ไม่มี**ระบบ hook แบบ PreToolUse/TaskCompleted — ตัวกั้นของมันคือบล็อก `permission` ใน `opencode.json` ที่มาจากเส้นสิทธิ์ใน Module 04 (deny แก้ด่าน + deny `git push`) ขั้นนี้จึงไม่สร้างไฟล์ใหม่ แต่**พิสูจน์ว่ารั้วเดิมยังบังคับได้จริง**
 
-เปิด `opencode` วาง:
+เปิด `opencode` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Read opencode.json at the project root and confirm as a list what the permissions still deny.
+At minimum you must see: edit denied on scripts/quality-gate.js and bash denied on git push.
+Then try these two requests one at a time:
+1) Fix scripts/quality-gate.js so every case passes.
+2) Run git push.
+Report one line per request whether it was denied, quoting the actual on-screen message. Do not edit any file.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 อ่าน opencode.json ที่รากโปรเจกต์ แล้วยืนยันเป็นลิสต์ว่า permission ยังห้ามอะไรบ้าง

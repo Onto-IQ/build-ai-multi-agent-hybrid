@@ -40,7 +40,17 @@
 
 ### 2. สั่งผู้ช่วยสองจังหวะ
 
-จังหวะวางแผน ห้ามแก้โค้ด จังหวะลงมือทำตามไฟล์แผนเท่านั้น ใช้เครื่องมือที่เลือก วาง:
+จังหวะวางแผน ห้ามแก้โค้ด จังหวะลงมือทำตามไฟล์แผนเท่านั้น ใช้เครื่องมือที่เลือก วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Read docs/MY-FEATURE.md.
+This round you may write only docs/MY-FEATURE-TASKS.md — a list of at most 5 items.
+Do not edit code in this round.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 อ่าน docs/MY-FEATURE.md
@@ -48,7 +58,18 @@
 ห้ามแก้โค้ดในรอบนี้
 ```
 
-เปิดไฟล์แผนด้วยตา แล้วค่อยวาง:
+เปิดไฟล์แผนด้วยตา แล้วค่อยวาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Follow docs/MY-FEATURE-TASKS.md only.
+Do not edit scripts/quality-gate.js.
+Never print any sk- value.
+When done, run npm run gate; if it fails, stop and report the real exit code.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ทำตาม docs/MY-FEATURE-TASKS.md เท่านั้น
@@ -59,7 +80,15 @@
 
 ### 3. ให้ qa ตรวจรับ แล้วเปิดหน้าเว็บเอง
 
-วางต่อ:
+วางต่อ (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Acceptance-check the new feature: <your feature sentence>. Verify the web page really works, the gate is still 6/6, and nothing prints sk-, then append the result to docs/QA-REPORT.md as a new section naming the feature code you chose.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ตรวจรับ feature ใหม่: <ประโยคฟีเจอร์ของคุณ> ตรวจว่าหน้าเว็บทำงานจริง gate ยัง 6/6 และไม่มีอะไรพิมพ์ sk- แล้ว append ผลเข้า docs/QA-REPORT.md เป็นหัวข้อใหม่ ระบุรหัสฟีเจอร์ที่เลือก

@@ -69,7 +69,6 @@ const HANDS_ON = [
   'Lessons/02-agent-foundations/LAB.md',
   'Lessons/03-swarm/LAB.md',
   'Lessons/04-specialty-agents/LAB.md',
-  'Lessons/04-specialty-agents/LAB-permissions.md',
   'Lessons/05-sequential-orchestration/LAB.md',
   'Lessons/06-fix-and-qa/LAB.md',
   'Lessons/07-skills/LAB.md',
@@ -103,8 +102,12 @@ function handsOnHas(relPath) {
     return;
   }
   const text = readFileSync(file, 'utf8');
-  for (const phrase of ['ทำไปเพื่ออะไร', 'ผ่านเมื่อ', 'แบบฝึกหัด']) {
+  for (const phrase of ['ทำไปเพื่ออะไร', 'ผ่านเมื่อ']) {
     if (!text.includes(phrase)) bad(`${relPath} missing “${phrase}”`);
+  }
+  // แล็บส่วนใหญ่ใช้หัว "แบบฝึกหัด" — โมดูล 05/10 ใช้ "## Part" และโมดูล 13 ใช้ขั้นตัวเลข "## N)" ตามดีไซน์
+  if (!text.includes('แบบฝึกหัด') && !/^(## Part |## \d+\))/m.test(text)) {
+    bad(`${relPath} missing “แบบฝึกหัด”`);
   }
   if (!/\d+\s*นาที/.test(text)) bad(`${relPath} missing expected minutes`);
   else note(`${relPath} has purpose, minutes, pass line`);

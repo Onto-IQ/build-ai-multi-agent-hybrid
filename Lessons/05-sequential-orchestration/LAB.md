@@ -16,7 +16,18 @@
 
 ### 1. ให้คนวางแผนเขียนไฟล์เดียว
 
-มี `.opencode/agents/planner.md` จาก Module 04 แล้ว ปิดเปิด `opencode` ใหม่เสมอ (ไฟล์บทบาทโหลดตอนเปิดรอบ) แล้ววาง:
+มี `.opencode/agents/planner.md` จาก Module 04 แล้ว ปิดเปิด `opencode` ใหม่เสมอ (ไฟล์บทบาทโหลดตอนเปิดรอบ) แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Have planner read docs/EXPLORATION-REPORT.md and data/README.md, then write docs/TASKS.md.
+Organize it as three tracks — data, backend, frontend — and state who owns each file.
+State clearly that scripts/quality-gate.js must never be edited.
+Do not plan any change to /api/notes or /api/health in this lab.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ให้ planner อ่าน docs/EXPLORATION-REPORT.md กับ data/README.md แล้วเขียน docs/TASKS.md
@@ -33,7 +44,19 @@
 
 ### 2. สร้าง developer ฝั่ง Claude
 
-ปิด `opencode` แล้วเปิด `claude` ที่โฟลเดอร์แอป วาง แล้วยอมให้เขียนไฟล์:
+ปิด `opencode` แล้วเปิด `claude` ที่โฟลเดอร์แอป วาง (เลือกอย่างใดอย่างหนึ่ง) แล้วยอมให้เขียนไฟล์:
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .claude/agents/developer.md.
+Write the real file with the Write tool — do not reply with text only.
+Frontmatter: name developer; description "Use proactively to implement one task from docs/TASKS.md"; tools Read, Grep, Glob, Write, Edit, Bash; model sonnet.
+Body: you are the developer. Implement exactly the tasks assigned to you, citing the task numbers. Node only, no dependencies. Never touch scripts/quality-gate.js.
+Do not edit server.js during this file-creation step.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .claude/agents/developer.md
@@ -65,7 +88,24 @@ frontmatter: name เป็น developer, description ว่า Use proactively 
 
 ### 4. สั่ง developer ตั้งทีมแล้วลงมือสามสายพร้อมกัน
 
-วางทั้งก้อน:
+วางทั้งก้อน (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@developer Act as team lead. Read docs/TASKS.md.
+Use Agent Teams (not Explore). Spawn exactly 3 named teammates:
+- data — write docs/DESIGN.md (the cleaning contract: drop the junk header row, Buddhist-era to ISO dates, strip comma-formatted capitals, extract the province from the address) and scripts/clean-export.sql (DuckDB SQL reading data/raw/dbd-2558.parquet, exporting data/dataset.csv)
+- backend — change ONLY the /api/summary computation in server.js to parse with lib/csv.js instead of naive comma splitting, and count only rows the data dictionary accepts (reg_no 13 digits, reg_date ISO, capital numeric). Do not touch /api/notes or /api/health, and do not add try/catch around JSON.parse — those bugs are reserved for Module 06.
+- frontend — update web/app.js so the dashboard shows company count and total capital from /api/summary plus a small line naming the data source
+
+Use a shared task list. Teammates data, backend, and frontend must message each other at least 5 times before you synthesize.
+Do not touch scripts/quality-gate.js. Do not "helpfully" fix notes / health / broken JSON — those four cases belong to Module 06.
+Report which task numbers you completed.
+When finished, ask each teammate by name to shut down (message data, then backend, then frontend). Do not call Stop Task using the names data/backend/frontend as task IDs — those are teammate names, not task IDs.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @developer ทำหน้าที่หัวหน้าทีม อ่าน docs/TASKS.md
@@ -122,7 +162,15 @@ echo $LASTEXITCODE
 
 ### 7. รอบรีวิว: อีกตาหนึ่งดู SQL กับสัญญา
 
-เปิด `claude` ใหม่ (**ไม่มี** `settings.local.json` แล้ว) วาง:
+เปิด `claude` ใหม่ (**ไม่มี** `settings.local.json` แล้ว) วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Use the agent developer. Compare scripts/clean-export.sql against docs/DESIGN.md and write docs/REVIEW.md with the differences, citing lines for every point. Fix nothing.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ใช้ agent developer เทียบ scripts/clean-export.sql กับ docs/DESIGN.md แล้วเขียน docs/REVIEW.md สรุปจุดต่าง อ้างบรรทัดทุกข้อ ห้ามแก้ของ

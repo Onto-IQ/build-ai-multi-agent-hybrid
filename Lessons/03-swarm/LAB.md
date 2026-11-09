@@ -16,7 +16,9 @@
 
 ### 1. สั่งสำรวจ แล้วให้รวมเป็นรายงานเดียว (Part A)
 
-เปิด `claude` ที่โฟลเดอร์แอป วางทั้งก้อน:
+เปิด `claude` ที่โฟลเดอร์แอป วางทั้งก้อน (เลือกอย่างใดอย่างหนึ่ง — รายงานที่ได้เป็นภาษาไทยเท่ากันทั้งสองฉบับ):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
 Explore this Registry Insight repo with three parallel read-only explorers. Do not edit files.
@@ -31,7 +33,7 @@ End with the sentence: ห้ามแก้ไฟล์ในรอบสำร
 Include the paths server.js, data/dataset.csv, scripts/quality-gate.js, data/raw/dbd-2558.parquet, and the endpoints /api/summary and /api/notes.
 ```
 
-ถนัดไทย ให้วางก้อนนี้แทนได้ คำสั่งเดียวกัน:
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สำรวจ repo นี้ด้วยผู้ช่วยอ่านอย่างเดียวสามคนพร้อมกัน ห้ามแก้ไฟล์

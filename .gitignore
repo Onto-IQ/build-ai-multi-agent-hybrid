@@ -29,3 +29,6 @@ npm-debug.log*
 venv/
 __pycache__/
 *.pyc
+
+# ของเครื่องมือ ZCode ในเครื่อง
+.zcode/

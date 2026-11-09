@@ -23,7 +23,17 @@ claude
 
 บน Mac ใช้ `cd ~/dev/multi-agent-workshop-hybrid` แล้วคำสั่งเดียวกัน
 
-พิมพ์ `/init` แล้ววางข้อความนี้ (ครั้งแรกจะมีหน้าถามความไว้ใจโฟลเดอร์ เลือก `Yes, I trust this folder`):
+พิมพ์ `/init` แล้ววางข้อความด้านล่าง (เลือกอย่างใดอย่างหนึ่ง — ครั้งแรกจะมีหน้าถามความไว้ใจโฟลเดอร์ เลือก `Yes, I trust this folder`):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Read the existing CLAUDE.md. Do not delete these rules: the app is named Registry Insight, never add dependencies, never edit scripts/quality-gate.js, before claiming done run npm run gate and report the real exit code, never print any value that starts with sk-.
+If any of them went missing after /init, add them back in plain readable language.
+Then summarize for me in 5 lines what this app does and what state the quality gate is in now. Do not edit server.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 อ่าน CLAUDE.md ที่มีอยู่ อย่าลบกฎเหล่านี้: แอปชื่อ Registry Insight, ห้ามเพิ่ม dependency, ห้ามแก้ scripts/quality-gate.js, ก่อนบอกว่าเสร็จต้องรัน npm run gate แล้วรายงาน exit code จริง, ห้ามพิมพ์ค่าที่ขึ้นต้นด้วย sk-
@@ -48,7 +58,20 @@ opencode
 
 บน Mac ใช้ `cd ~/dev/multi-agent-workshop-hybrid` แล้วคำสั่งเดียวกัน
 
-พิมพ์ `/init` แล้ววางข้อความนี้:
+พิมพ์ `/init` แล้ววางข้อความด้านล่าง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Read the existing CLAUDE.md and AGENTS.md, then fill in AGENTS.md only where a line is still missing.
+Must remain: exploration and gate fixing on Claude Code; the production line, memory, and the executive summary on OpenCode.
+OpenCode reads the key from the OPENROUTER_API_KEY variable only — never paste a key value into a file.
+ANTHROPIC_API_KEY must stay empty.
+Do not create vercel.json or an api/ folder in this lab; learners create them in Module 13.
+Do not edit CLAUDE.md, opencode.json, or server.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 อ่าน CLAUDE.md กับ AGENTS.md ที่มีอยู่ แล้วเติม AGENTS.md เฉพาะบรรทัดที่ยังไม่ครบ

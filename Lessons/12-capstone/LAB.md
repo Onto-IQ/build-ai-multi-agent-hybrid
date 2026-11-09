@@ -20,7 +20,22 @@
 
 ### 1. ให้ Claude จัดของให้ตรงกัน
 
-เปิด `claude` วาง:
+เปิด `claude` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Use the four roles in .claude/agents — if any file is missing, create it with the Write tool for real; do not reply with text only: planner, data-researcher, developer, qa.
+Follow this order only: a task that consumes another agent's output must not run before that agent finishes.
+planner writes docs/PRODUCT-SPEC.md and docs/TASKS.md to match the app as it is now, and if there is a Module 11 feature, records that it must survive the release.
+data-researcher is read-only and delivers its figures as a short shared file for the team.
+developer may edit only when the /api/summary figures do not match 16,772 and 45341868784.
+qa runs npm run gate and must never claim a pass unless it is exit 0.
+Do not create the executive summary. Do not edit scripts/quality-gate.js.
+Never put in a key.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ใช้สี่บทบาทใน .claude/agents ถ้าไฟล์ไหนยังไม่มีให้สร้างด้วยเครื่องมือ Write จริง อย่าตอบเป็นข้อความอย่างเดียว: planner, data-researcher, developer, qa
@@ -35,7 +50,22 @@ qa รัน npm run gate และห้ามบอกผ่านถ้าไ
 
 ### 2. ให้ OpenCode เขียนสรุป
 
-เปิด `opencode` วาง:
+เปิด `opencode` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .opencode/agents/synthesizer.md at exactly this path — not agents/ at the project root.
+The frontmatter must have description, mode: subagent, and permission: bash: deny.
+File body: you may write only docs/EXECUTIVE-SUMMARY.md — no code, no commands. Use only figures from the handoff files (docs/PRODUCT-SPEC.md · docs/QA-REPORT.md · docs/ANALYSIS.md and docs/region-capital.csv if present). Never guess a number.
+Then have synthesizer read those handoff files first, then write a Thai summary of at most 400 words for people who do not write code.
+It must contain the figures 16,772 and 45,341,868,784.
+It must name กรุงเทพมหานคร and the word กลาง.
+It must have the headings ## ภาพรวมทุนจดทะเบียน and ## ข้อเสนอแนะ.
+Never invent new figures. Do not edit server.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .opencode/agents/synthesizer.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์

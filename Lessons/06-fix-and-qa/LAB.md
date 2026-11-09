@@ -24,7 +24,20 @@ npm run gate
 
 ### 1. ให้คนตรวจเขียนรายงาน ไม่ให้แก้ของ
 
-เปิด `claude` วาง:
+เปิด `claude` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .claude/agents/qa.md.
+Frontmatter: name qa; description "Use when implementation claims to be done. Reproduces the bug, writes the QA report, and re-verifies after the fix"; tools Read, Grep, Glob, Bash; model sonnet.
+Body: you are QA. Reproduce bugs with a real HTTP request before writing anything. Every finding in docs/QA-REPORT.md must cite server.js:line with the exact reproduction. After a fix, re-run the same reproduction and append the result. Do not edit server.js or data/dataset.csv.
+Then have qa probe the app along the gate script and write docs/QA-REPORT.md in Thai.
+It must name three points: a POST with a non-JSON body crashes the process, /api/health leaks a sample value that starts with sk- (never print the value), and notes are not saved to a file so they vanish on restart.
+Cite file:line. Do not edit server.js in this round. Do not edit scripts/quality-gate.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .claude/agents/qa.md
@@ -39,7 +52,21 @@ frontmatter: name เป็น qa, description ว่า Use when implementation
 
 ### 2. ให้ developer แก้ตามรายงานเท่านั้น (เอเจนต์จาก Module 05)
 
-ปิด Claude แล้วเปิดใหม่ วาง:
+ปิด Claude แล้วเปิดใหม่ วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Use the agent developer. Read docs/QA-REPORT.md and edit server.js only for the points in the report.
+POST /api/notes with a non-JSON or non-object body must answer 400 { error: 'INVALID_JSON' } and must not crash the process.
+When text is missing or empty it must answer 400 { error: 'INVALID_TEXT' }.
+A valid note answers 201, is written to data/notes.json, and GET /api/notes returns the stored notes so they survive a restart.
+/api/health answers only { ok: true } with no sk- and no sampleToken.
+Change nothing else. Do not touch scripts/quality-gate.js. Do not break the Module 05 summary numbers.
+When done, run npm run gate and report the real exit code.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ใช้ agent developer อ่าน docs/QA-REPORT.md แล้วแก้ server.js เฉพาะจุดในรายงาน
@@ -62,7 +89,15 @@ echo $LASTEXITCODE
 
 ### 4. ปิดวงจร: ให้ qa ตรวจซ้ำกับของที่แก้แล้ว
 
-ปิด Claude แล้วเปิดใหม่ วาง:
+ปิด Claude แล้วเปิดใหม่ วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Use the agent qa. Re-run the reproduction steps in docs/QA-REPORT.md against the fixed server.js, then append the result to the same file under the heading Evidence after fix. Cite the real command output. Do not edit server.js. Do not edit scripts/quality-gate.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ใช้ agent qa รันวิธีรีโปรดิวส์ใน docs/QA-REPORT.md ซ้ำกับ server.js ตัวที่แก้แล้ว แล้ว append ผลเข้าไฟล์เดิมในหัวข้อ Evidence after fix อ้างผลคำสั่งจริง ห้ามแก้ server.js ห้ามแก้ scripts/quality-gate.js
@@ -72,7 +107,19 @@ echo $LASTEXITCODE
 
 ## รอบ B — encode สัญญาเดิมเป็น conductor prompt (ต่อยอดบังคับใจ)
 
-ทำหลังผ่านรอบ A แล้ว หรือใช้จับภาพห้องถัดไปหลัง catch-up — วางก้อนเดียวแล้วหยุดตามที่มันบอก:
+ทำหลังผ่านรอบ A แล้ว หรือใช้จับภาพห้องถัดไปหลัง catch-up — วางก้อนเดียวแล้วหยุดตามที่มันบอก (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Run the QA fix cycle using specialty agents only (do not enable Agent Teams).
+1) Invoke @qa — reproduce the four red cases (bad-json-does-not-crash, health-no-secrets, notes-validation, notes-persists); write docs/QA-REPORT.md with three findings citing server.js:line and the exact reproduction. Do not edit server.js or quality-gate.js.
+2) Invoke @developer — read that report and fix exactly those findings. Do not touch scripts/quality-gate.js.
+3) Stop. Tell me to run: npm run gate
+Do not claim the gate passed until I paste the gate output myself. After I confirm 6/6, invoke @qa to append the heading Evidence after fix to the same file.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 รันวงจรแก้ด้วย QA โดยใช้ specialty agent อย่างเดียว (ห้ามเปิด Agent Teams)

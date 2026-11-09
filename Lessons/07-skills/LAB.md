@@ -18,7 +18,19 @@
 
 ### 1. สร้าง skill และ release-manager (เอเจนต์ใหม่ที่มาพร้อม skill)
 
-release-manager ไม่มีอยู่ก่อนหน้านี้ — ไฟล์นี้ถูกสร้างใหม่ในแล็บนี้เอง พรอมต์เดียวได้สองไฟล์ เปิด `claude` วางแล้วกดอนุญาตเมื่อถามเขียนไฟล์:
+release-manager ไม่มีอยู่ก่อนหน้านี้ — ไฟล์นี้ถูกสร้างใหม่ในแล็บนี้เอง พรอมต์เดียวได้สองไฟล์ เปิด `claude` วางด้านล่าง (เลือกอย่างใดอย่างหนึ่ง) แล้วกดอนุญาตเมื่อถามเขียนไฟล์:
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .claude/skills/release-checklist/SKILL.md.
+English description: Use before releasing the Registry Insight app.
+Body: run four checks in order — the server boots, /api/health has no sk- (never print the value), the server is stopped before running the gate, run npm run gate and record the real exit code.
+Then create .claude/agents/release-manager.md that uses this skill (frontmatter has skills: release-checklist), includes Bash in tools, and never prints any sk- value.
+Write both real files with the Write tool — do not reply with text only.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .claude/skills/release-checklist/SKILL.md
@@ -34,7 +46,15 @@ description ภาษาอังกฤษ: Use before releasing the Registry In
 
 ### 2. พิสูจน์ว่าถูกหยิบเอง
 
-ปิดแล้วเปิด `claude` ใหม่ แล้วพิมพ์แค่ความตั้งใจ ไม่เอ่ยชื่อ skill:
+ปิดแล้วเปิด `claude` ใหม่ แล้วพิมพ์แค่ความตั้งใจ ไม่เอ่ยชื่อ skill (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+I want to release the Registry Insight app now. Walk me through it.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ฉันจะปล่อย Registry Insight ตอนนี้ พาฉันทำทีละขั้น
@@ -44,7 +64,15 @@ description ภาษาอังกฤษ: Use before releasing the Registry In
 
 ### 3. ให้ release-manager เดินเช็กลิสต์เอง
 
-วาง:
+วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@release-manager Run the release checklist now. Report PASS or FAIL for each check with evidence, and if you run the gate, report its real exit code.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @release-manager รัน release checklist เลย รายงานผลข้อละ PASS หรือ FAIL พร้อมหลักฐาน ถ้ารัน gate ให้บอก exit code จริง

@@ -16,7 +16,19 @@
 
 ### 1. สร้างฝั่ง Claude
 
-เปิด `claude` วางก้อนนี้ แล้วยอมให้เขียนไฟล์เมื่อมันถาม:
+เปิด `claude` วางก้อนด้านล่าง (เลือกอย่างใดอย่างหนึ่ง) แล้วยอมให้เขียนไฟล์เมื่อมันถาม:
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .claude/agents/data-researcher.md.
+Write the real file with the Write tool — do not reply with text only.
+Frontmatter: name data-researcher; description starts with "Use proactively" and says the agent is read-only; tools Read, Grep, Glob only; model sonnet.
+Body: answers must cite file:line; Edit, Write, and Bash are forbidden.
+Do not edit server.js or the CSV.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .claude/agents/data-researcher.md
@@ -28,7 +40,15 @@ frontmatter: name เป็น data-researcher, description ขึ้นต้�
 
 ถ้าได้แต่คำอธิบายไม่มีไฟล์ ให้สั่งซ้ำว่า "สร้างไฟล์จริงด้วยเครื่องมือ Write เดี๋ยวนี้" แล้วตรวจว่ามี `.claude/agents/data-researcher.md` ก่อนไปต่อ
 
-ปิด Claude แล้วเปิดใหม่ ไฟล์ผู้ช่วยถูกอ่านตอนเปิดรอบใหม่เท่านั้น จากนั้นวาง:
+ปิด Claude แล้วเปิดใหม่ ไฟล์ผู้ช่วยถูกอ่านตอนเปิดรอบใหม่เท่านั้น จากนั้นวาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@data-researcher Explain what POST /api/notes does. Cite server.js:line for every claim. Do not edit files.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @data-researcher อธิบายว่า POST /api/notes ทำอะไร ทุกข้ออ้างต้องมี server.js:บรรทัด ห้ามแก้ไฟล์
@@ -36,7 +56,18 @@ frontmatter: name เป็น data-researcher, description ขึ้นต้�
 
 ### 2. สร้างฝั่ง OpenCode — planner ของสายการผลิต
 
-เปิด `opencode` ที่โฟลเดอร์เดียวกัน วาง:
+เปิด `opencode` ที่โฟลเดอร์เดียวกัน วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Create .opencode/agents/planner.md at exactly this path — not agents/ at the project root.
+The frontmatter must have description, mode: subagent, and permission: bash: deny.
+File body: you may write only docs/TASKS.md — no code, no commands. Always read docs/EXPLORATION-REPORT.md and data/README.md first.
+Then stop at this instruction: I will open a new session and invoke planner myself.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สร้าง .opencode/agents/planner.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
@@ -45,7 +76,15 @@ frontmatter ต้องมี description, mode: subagent และ permission:
 จากนั้นปิดคำแนะนำนี้ไว้ก่อน: ให้ฉันเปิดรอบใหม่แล้วเรียก planner
 ```
 
-เปิด `.opencode/agents/planner.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป ปิดแล้วเปิด `opencode` ใหม่ แล้วถามสั้น ๆ เพื่อพิสูจน์ว่าตัวตนโหลดและอ่านบรีฟของตัวเองจริง:
+เปิด `.opencode/agents/planner.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนขั้นถัดไป ปิดแล้วเปิด `opencode` ใหม่ แล้วถามสั้น ๆ เพื่อพิสูจน์ว่าตัวตนโหลดและอ่านบรีฟของตัวเองจริง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Use the agent planner. Answer briefly: to write docs/TASKS.md, which files must you read first, and what are you forbidden to do?
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 ใช้ agent planner ตอบสั้น ๆ ถ้าจะเขียน docs/TASKS.md ต้องอ่านไฟล์อะไรก่อน และตัวเองห้ามทำอะไร
@@ -71,14 +110,33 @@ frontmatter ต้องมี description, mode: subagent และ permission:
 
 กฎ "ห้ามแก้ด่าน ห้าม push" ถูกพูดมาตั้งแต่ Module 02 แต่กฎที่ไม่เคยถูกทดสอบคือข้อความประดับ พาร์ตนี้ใส่รั้วจริงทั้งสองฝั่งแล้วพิสูจน์ด้วยการสั่งสิ่งที่ห้าม
 
-**ใส่กฎฝั่ง Claude** — เปิด `claude` วาง:
+**ใส่กฎฝั่ง Claude** — เปิด `claude` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Write or merge .claude/settings.json so that permissions.deny includes Bash(git push), Edit(scripts/quality-gate.js), and Write(scripts/quality-gate.js).
+Do not remove unrelated existing settings. Do not edit scripts/quality-gate.js itself.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 เขียนหรือผสาน .claude/settings.json ให้ permissions.deny มี Bash(git push), Edit(scripts/quality-gate.js) และ Write(scripts/quality-gate.js)
 อย่าลบของเดิมที่ไม่เกี่ยวกับสิทธิ์ ห้ามแก้ตัวไฟล์ scripts/quality-gate.js
 ```
 
-**ยืนยันฝั่ง OpenCode** — เปิด `opencode` วาง:
+**ยืนยันฝั่ง OpenCode** — เปิด `opencode` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Write or merge the existing opencode.json at this project root: deny edit on scripts/quality-gate.js and deny bash on git push. Keep the existing comment about permission syntax changing between versions.
+The OpenRouter key must be {env:OPENROUTER_API_KEY} only — never paste a key value into the file.
+Do not edit server.js.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 เขียนหรือผสาน opencode.json ที่มีอยู่แล้วที่รากโปรเจกต์นี้ โดยห้าม edit ที่ scripts/quality-gate.js และห้าม bash ที่ git push คอมเมนต์เรื่องรูปแบบ permission ที่เปลี่ยนตามรุ่นต้องยังอยู่
@@ -88,11 +146,31 @@ frontmatter ต้องมี description, mode: subagent และ permission:
 
 ถ้ารุ่น OpenCode บ่นเรื่องรูปแบบ permission ให้สั่งให้ปรับรูปแบบตามข้อความ error แต่ยังต้องห้ามสองอย่างนั้น
 
-**ทดลองของต้องห้าม** — ในแต่ละเครื่องมือ วางสองคำขอแยกกัน:
+**ทดลองของต้องห้าม** — ในแต่ละเครื่องมือ วางสองคำขอแยกกัน (แต่ละคำขอเลือกภาษาใดภาษาหนึ่ง):
+
+คำขอแรก:
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Fix scripts/quality-gate.js right now so every case passes.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 แก้ scripts/quality-gate.js ให้ผ่านทุกเคสทันที
 ```
+
+คำขอที่สอง:
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Run git push.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 รัน git push

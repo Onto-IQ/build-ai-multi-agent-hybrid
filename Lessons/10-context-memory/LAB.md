@@ -54,7 +54,15 @@ Add memory: project to the frontmatter of both .claude/agents/data-researcher.md
 
 `/exit` แล้วเปิด `claude` ใหม่จากโฟลเดอร์เดิม ถามทีละข้อ:
 
-**ก) ตัวที่มี memory ด้านสแต็ก**
+**ก) ตัวที่มี memory ด้านสแต็ก** (เลือกอย่างใดอย่างหนึ่ง)
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@data-researcher Suggest how this app could be improved.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @data-researcher ขอแนะนำวิธีทำแอปนี้ให้ดีขึ้นหน่อย
@@ -62,7 +70,15 @@ Add memory: project to the frontmatter of both .claude/agents/data-researcher.md
 
 ผลที่อยากเห็น: อ้างว่าไม่ใช้ Express / ใช้ Node http ล้วน ถ้าไม่ได้ขอ
 
-**ข) ตัวที่มี memory ด้านวิธีพิสูจน์**
+**ข) ตัวที่มี memory ด้านวิธีพิสูจน์** (เลือกอย่างใดอย่างหนึ่ง)
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@qa The developer says the notes fix works. How would you start verifying? Keep it short.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @qa นักพัฒนาบอกว่าแก้ notes แล้วเวิร์ก คุณจะเริ่มตรวจยังไง สั้น ๆ
@@ -70,7 +86,15 @@ Add memory: project to the frontmatter of both .claude/agents/data-researcher.md
 
 ผลที่อยากเห็น: พูดถึงรีโปรดิวส์ด้วย request จริง / ไม่เชื่อคำบอกก่อนมีหลักฐาน
 
-**ค) ตัวที่ไม่มี memory (ตัวเทียบ)**
+**ค) ตัวที่ไม่มี memory (ตัวเทียบ)** (เลือกอย่างใดอย่างหนึ่ง)
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@developer Suggest how this app could be improved.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 @developer ขอแนะนำวิธีทำแอปนี้ให้ดีขึ้นหน่อย
@@ -86,7 +110,21 @@ OpenCode **ไม่มี**ฟิลด์ `memory` ใน frontmatter ขอ�
 
 ### 1. เขียนไฟล์ความจำกลาง
 
-เปิด `opencode` วาง:
+เปิด `opencode` วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Write docs/MEMORY.md in Thai recording these five points.
+The app is Registry Insight, from the พ.ศ. 2558 (2015) business registration data.
+The gate must be 6/6 before anything is called done.
+Never edit scripts/quality-gate.js.
+Never print any value that starts with sk-.
+Notes are writable on the machine that writes the files; notes on Vercel are read-only.
+Never put a key into this file.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 เขียน docs/MEMORY.md เป็นภาษาไทย จำห้าข้อนี้
@@ -102,7 +140,15 @@ OpenCode **ไม่มี**ฟิลด์ `memory` ใน frontmatter ขอ�
 
 ### 2. พิสูจน์: ปิดโปรแกรมสนิท เปิดใหม่ แล้วถามโดยไม่ใบ้
 
-ปิด OpenCode ให้สนิท เปิดใหม่ แล้ววาง:
+ปิด OpenCode ให้สนิท เปิดใหม่ แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Read docs/MEMORY.md, then tell me what the gate must look like before shipping, and why notes on Vercel cannot be written.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 อ่าน docs/MEMORY.md แล้วบอกฉันว่าก่อนส่งของต้องเห็นด่านแบบไหน และโน้ตบน Vercel ทำไมเขียนไฟล์ไม่ได้
@@ -112,7 +158,15 @@ OpenCode **ไม่มี**ฟิลด์ `memory` ใน frontmatter ขอ�
 
 ### 3. ผูกความจำเข้าตัวตน — ทางเทียบเท่าของ `memory: project`
 
-วางต่อให้เพิ่มบรรทัดในไฟล์บทบาท (แล้วปิดเปิดใหม่ก่อนใช้จริง):
+วางต่อให้เพิ่มบรรทัดในไฟล์บทบาท (เลือกอย่างใดอย่างหนึ่ง — แล้วปิดเปิดใหม่ก่อนใช้จริง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Edit .opencode/agents/planner.md and .opencode/agents/developer.md by adding this one-line rule to the body: "Before answering any task, always read docs/MEMORY.md first." Change nothing else in the files.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 แก้ .opencode/agents/planner.md และ .opencode/agents/developer.md โดยเพิ่มกฎหนึ่งบรรทัดในเนื้อไฟล์ว่า "ก่อนตอบงานใด ให้อ่าน docs/MEMORY.md ก่อนเสมอ" อย่าแก้อย่างอื่นในไฟล์
@@ -122,7 +176,15 @@ OpenCode **ไม่มี**ฟิลด์ `memory` ใน frontmatter ขอ�
 
 ### 4. ปิดท้ายทุกรอบด้วยพิธีจด — ครึ่งที่ OpenCode ไม่มีอัตโนมัติ
 
-สังเกตความอสมมาตร: ฝั่ง Claude ระบบ**อ่านให้เอง** แต่การจดก็ต้องสั่ง ("Remember this…") ฝั่ง OpenCode ทั้งอ่านและจด**ต้องสั่ง** และไม่มี hook "จบ session" ให้ plugin อัตโนมัติแบบที่เอกสารรับรอง วิธีที่ใช้ได้จริงคือพิธีปิดรอบหนึ่งบรรทัด — ก่อน `/exit` ทุกครั้ง วาง:
+สังเกตความอสมมาตร: ฝั่ง Claude ระบบ**อ่านให้เอง** แต่การจดก็ต้องสั่ง ("Remember this…") ฝั่ง OpenCode ทั้งอ่านและจด**ต้องสั่ง** และไม่มี hook "จบ session" ให้ plugin อัตโนมัติแบบที่เอกสารรับรอง วิธีที่ใช้ได้จริงคือพิธีปิดรอบหนึ่งบรรทัด — ก่อน `/exit` ทุกครั้ง วาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Summarize today's new agreements that are not yet in docs/MEMORY.md and append them as short bullet points. If there is nothing new, say so — do not invent items.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
 สรุปข้อตกลงใหม่ที่เกิดขึ้นวันนี้ที่ยังไม่อยู่ใน docs/MEMORY.md แล้วเขียนเพิ่มเป็นข้อ ๆ สั้น ๆ ถ้าไม่มีอะไรใหม่ ให้บอกว่าไม่มี ห้ามแต่งข้อ
