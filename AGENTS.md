@@ -17,7 +17,7 @@
 | `developer` + teammates data/backend/frontend | Claude Code | 05 | `docs/DESIGN.md`, SQL, ส่วนสรุปใน `server.js`, หน้าเว็บ |
 | `qa` แล้วคนแก้ | Claude Code | 06 | รายงาน QA และจุดที่ด่านยังแดง จนครบ 6/6 |
 | `release-checklist` skill + `release-manager` | Claude Code | 07 | skill + เอเจนต์ที่ preload skill — ผล PASS/FAIL ส่งต่อ M13 |
-| สาธิต MCP | วิทยากร | 08 | ไม่ให้ผู้เรียนตั้งเอง |
+| MCP DuckDB อ่านอย่างเดียว | Claude Code | 08 | `.mcp.json` + `scripts/analysis.sql` + `docs/ANALYSIS.md` |
 | hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 09 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
 | ความจำข้ามรอบ | OpenCode | 10 | `docs/MEMORY.md` |
 | ฟีเจอร์ของตัวเอง | เลือกเอง | 11 ย่อได้ | ฟีเจอร์ 1 ชิ้น ด่านยังเขียว |

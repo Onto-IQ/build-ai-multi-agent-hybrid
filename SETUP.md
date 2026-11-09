@@ -184,7 +184,7 @@ DuckDB ใช้ตอนทำความสะอาดข้อมูลใ�
 - บัญชี Vercel แผน **Hobby** (ฟรี) สมัครที่ https://vercel.com/signup แนะนำสมัครด้วย GitHub อย่ากดแผน Pro
 - ยังไม่ต้อง deploy และไม่ต้องใส่คีย์อะไรบน Vercel
 
-`uv` ใช้เฉพาะตอนวิทยากรสาธิต MCP ผู้เรียนยังไม่ต้องติดตั้ง
+`uv` ใช้ใน Module 08 (ต่อ MCP DuckDB) ผู้เรียนต้องติดตั้งก่อนวันเรียน: Windows `winget install --id=astral-sh.uv -e` · Mac `curl -LsS https://astral.sh/uv/install.sh | sh` แล้ว `uv --version` ต้องใช้ได้
 
 ## 7. รันสคริปต์ตรวจความพร้อม
 

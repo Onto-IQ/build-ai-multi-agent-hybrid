@@ -49,7 +49,7 @@
 | ทบทวนของเมื่อวาน | 15 | — |
 | [Module 06 แก้ปมและมีคนตรวจ](Lessons/06-fix-and-qa/LAB.md) | 50 | Claude Code |
 | [Module 07 เช็กลิสต์ปล่อยของ](Lessons/07-skills/LAB.md) | 25 | Claude Code |
-| สาธิต MCP ([Module 08 วิทยากรเท่านั้น](Lessons/08-mcp/LAB.md)) | 15 | วิทยากร |
+| [Module 08 ต่อ MCP DuckDB อ่านอย่างเดียว](Lessons/08-mcp/LAB.md) | 20–30 | Claude Code + มือผู้เรียน |
 | [Module 09 กันความเสี่ยงและงบ](Lessons/09-guardrails-hooks/LAB.md) | 45 | ทั้งคู่ |
 | [Module 10 ความจำข้ามรอบ](Lessons/10-context-memory/LAB.md) | 20 | OpenCode |
 | [Module 11 ฟีเจอร์ของตัวเอง](Lessons/11-feature/LAB.md) **ย่อได้** | 60 | เลือกเอง |
