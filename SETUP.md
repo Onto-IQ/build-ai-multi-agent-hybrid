@@ -223,6 +223,8 @@ bash scripts/readiness-check.sh
 | OpenCode สร้างไฟล์ผู้ช่วยผิดที่หรือไม่มี frontmatter | เปิดไฟล์ด้วยตา ย้าย/แก้เองตามแล็บ แล้วเปิด `opencode` ใหม่ ผู้ช่วยถูกอ่านตอนเปิดรอบใหม่ |
 | OpenCode ค้างหรือทำงานแปลกหลังปิด TUI | ตรวจ session ค้างด้วย `opencode session list` แล้วลบด้วย `opencode session delete <id>` แล้วเริ่มรอบใหม่ |
 | `verify-setup` หาแอปไม่เจอ | โคลน workshop ตามข้อ 2 หรือตั้ง `WORKSHOP_DIR` |
+| `FAIL` บรรทัด `claude -p did not return CLAUDE-OK` | ยังไม่ล็อกอิน รัน `claude` แล้วสั่ง `/login` ด้วยบัญชีคลาส ถ้าเครื่องตั้ง `ANTHROPIC_API_KEY` ไว้ ให้เอาออกก่อน |
+| `FAIL` บรรทัด `opencode run did not return OC-OK` | คีย์ OpenRouter ยังไม่ถูกต้องหรือเทอร์มินัลเก่า ตั้งคีย์ตามข้อ 4 แล้วปิดเปิดเทอร์มินัลใหม่ |
 | พอร์ต 3000 ถูกใช้อยู่ | ปิด `npm start` เก่า หรือรัน `$env:PORT = 3001; npm start` (Mac: `PORT=3001 npm start`) |
 | gate ไม่ได้ exit 2 | ต้องรันในโฟลเดอร์แอป และปิดเซิร์ฟเวอร์ก่อน |
 | Wi-Fi องค์กรบล็อกหน้าล็อกอิน | ลองเน็ตโทรศัพท์ก่อนวันเรียน แล้วบอกวิทยากร |

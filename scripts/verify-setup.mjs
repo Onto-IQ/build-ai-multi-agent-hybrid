@@ -6,6 +6,7 @@
  *   node scripts/verify-setup.mjs --course-files  repo shape only (no tools)
  *
  * Flags: --skip-claude --skip-opencode --skip-openrouter --skip-workshop --course-files
+ *        --skip-claude-prompt --skip-opencode-prompt (skip the live login round trips)
  *
  * Never prints API key values.
  */
@@ -30,6 +31,8 @@ const skipClaude = courseFiles || args.has('--skip-claude');
 const skipOpencode = courseFiles || args.has('--skip-opencode');
 const skipOpenrouter = courseFiles || args.has('--skip-openrouter');
 const skipWorkshop = courseFiles || args.has('--skip-workshop');
+const skipClaudePrompt = args.has('--skip-claude-prompt');
+const skipOpencodePrompt = args.has('--skip-opencode-prompt');
 
 const problems = [];
 
@@ -236,6 +239,31 @@ async function commandVersion(bin, binArgs) {
   }
 }
 
+// Runs a live agent round trip (claude -p / opencode run) so the check proves
+// login works, not just that the binary is installed. 45s cap per call.
+function runProcess(bin, binArgs, cwd) {
+  return new Promise((resolve) => {
+    const child = spawn(bin, binArgs, { cwd: cwd || repo, windowsHide: true });
+    let stdout = '';
+    let stderr = '';
+    const timer = setTimeout(() => child.kill('SIGKILL'), 45000);
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk;
+    });
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk;
+    });
+    child.on('close', (code) => {
+      clearTimeout(timer);
+      resolve({ code, stdout, stderr });
+    });
+    child.on('error', (err) => {
+      clearTimeout(timer);
+      resolve({ code: 1, stdout, stderr: String(err) });
+    });
+  });
+}
+
 async function workshopChecks() {
   const { dir: workshop, source } = resolveWorkshopDir();
   if (!existsSync(path.join(workshop, 'server.js'))) {
@@ -307,20 +335,41 @@ async function main() {
   if (gitText) note(gitText);
   else bad('git is not on PATH');
 
+  // Round trips run inside the workshop project when it exists — the same
+  // context the labs use — so a passing login check means a passing lab login.
+  const workshopDir = resolveWorkshopDir().dir;
+  const promptCwd = existsSync(path.join(workshopDir, 'server.js')) ? workshopDir : repo;
+
   if (skipClaude) warn('skipped Claude Code checks');
   else {
     const claudeText = await commandVersion('claude', ['--version']);
     const claudeVersion = parseVersion(claudeText || '');
     if (!claudeText) bad('claude is not on PATH. Install @anthropic-ai/claude-code and log in with the class account.');
     else if (!atLeast(claudeVersion, [2, 1, 296])) bad(`${claudeText.split('\n')[0]} is below 2.1.296. Run: claude update`);
-    else note(claudeText.split('\n')[0]);
+    else {
+      note(claudeText.split('\n')[0]);
+      if (skipClaudePrompt) warn('skipped claude -p round trip (--skip-claude-prompt)');
+      else {
+        const prompt = await runProcess('claude', ['-p', 'Reply with exactly: CLAUDE-OK'], promptCwd);
+        if (prompt.code === 0 && prompt.stdout.includes('CLAUDE-OK')) note('claude -p returned CLAUDE-OK');
+        else bad('claude -p did not return CLAUDE-OK. Log in with claude, and unset ANTHROPIC_API_KEY if it overrides the class login.');
+      }
+    }
   }
 
   if (skipOpencode) warn('skipped OpenCode checks');
   else {
     const opencodeText = await commandVersion('opencode', ['--version']);
     if (!opencodeText) bad('opencode is not on PATH. See SETUP.md');
-    else note(opencodeText.split('\n')[0]);
+    else {
+      note(opencodeText.split('\n')[0]);
+      if (skipOpencodePrompt) warn('skipped opencode run round trip (--skip-opencode-prompt)');
+      else {
+        const prompt = await runProcess('opencode', ['run', 'Reply with exactly: OC-OK'], promptCwd);
+        if (prompt.code === 0 && prompt.stdout.includes('OC-OK')) note('opencode run returned OC-OK');
+        else bad('opencode run did not return OC-OK. Check the OpenRouter key and login steps in SETUP.md.');
+      }
+    }
   }
 
   const anthropic = (process.env.ANTHROPIC_API_KEY || '').trim();
