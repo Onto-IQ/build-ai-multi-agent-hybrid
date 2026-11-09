@@ -39,7 +39,27 @@ $proc = Start-Process node -ArgumentList ".claude/hooks/block-dangerous-bash.js"
 $proc.ExitCode
 ```
 
-ผลที่คาดหวัง: ข้อความบล็อกบน stderr และ exit `2` จากนั้นทดสอบในแชท — สร้างโฟลเดอร์ทิ้งไว้ก่อน (`New-Item -ItemType Directory -Force hook-test-dummy`) แล้วสั่ง "Run this exact bash command: rm -rf hook-test-dummy" กดอนุญาตในกล่องถ้ามี — ตัวที่บล็อกต่อจากนั้นต้องเป็น hook แล้วยืนยันด้วยมือว่า `Test-Path hook-test-dummy` เป็น `True`
+ผลที่คาดหวัง: ข้อความบล็อกบน stderr และ exit `2`
+
+จากนั้นทดสอบผ่านแชทจริง — ขั้นนี้พิสูจน์ว่า Claude เรียก hook เองก่อนคำสั่งรัน ไม่ใช่แค่สคริปต์ลอย ๆ สร้างโฟลเดอร์ทิ้งไว้ก่อน:
+
+```powershell
+New-Item -ItemType Directory -Force hook-test-dummy | Out-Null
+```
+
+แล้ววางในเซสชัน (เปิด `claude` ใหม่หลังแก้ settings.json เสร็จก็ได้):
+
+```text
+Run this exact bash command: rm -rf hook-test-dummy
+```
+
+ถ้ามีกล่องขออนุญาตรันคำสั่ง ให้กดอนุญาต — ตัวที่บล็อกต่อจากนั้นต้องเป็น hook ไม่ใช่คุณ ผลที่คาดหวัง: Claude รายงานว่าคำสั่งถูกบล็อกพร้อมเหตุผลที่อ่านได้ (`blocked dangerous command: rm -rf hook-test-dummy`) แล้วยืนยันด้วยมือ:
+
+```powershell
+Test-Path hook-test-dummy
+```
+
+ผลที่คาดหวัง: `True` — โฟลเดอร์ยังอยู่ แปลว่า hook บล็อกก่อนคำสั่งรันจริง
 
 > ⚠️ **อย่าทดสอบด้วย `rm -rf data` ตรง ๆ** — ถ้า hook ยังไม่ถูกผูกจริง ข้อมูลชุดสะอาดหายทั้งชุด ใช้โฟลเดอร์ทิ้งเสมอ
 
@@ -58,9 +78,22 @@ exit 0 ถ้าอยู่ในเพดาน พิมพ์ PASS หรื
 
 ทดลองกับไฟล์ที่ต่ำกว่างบ ต้อง exit 0 ไฟล์ที่เกินงบหรือเกินโทเคนต้อง exit 2 — ถ้าจะสร้าง `usage.json` ทดสอบเอง เขียนแบบไม่มี BOM ด้วย `UTF8Encoding($false)` เท่ากัน
 
-### 3. ฝั่ง OpenCode
+### 3. ฝั่ง OpenCode — รั้วคนละกลไก ไม่ใช่ hook แบบเดียวกัน
 
-เปิด `opencode` แล้วขอให้ยืนยันว่า `opencode.json` ยังห้าม `git push` และห้ามแก้ด่าน ถ้าเส้นสิทธิ์ใน Module 04 หลุด ให้ใส่กลับ ไม่ต้องสร้าง hook ซ้ำทั้งชุด
+**คำตอบก่อนลงมือ:** hook ใน `.claude/hooks/` เป็นกลไกเฉพาะของ Claude Code OpenCode **ไม่มี**ระบบ hook แบบ PreToolUse/TaskCompleted — ตัวกั้นของมันคือบล็อก `permission` ใน `opencode.json` ที่มาจากเส้นสิทธิ์ใน Module 04 (deny แก้ด่าน + deny `git push`) ขั้นนี้จึงไม่สร้างไฟล์ใหม่ แต่**พิสูจน์ว่ารั้วเดิมยังบังคับได้จริง**
+
+เปิด `opencode` วาง:
+
+```text
+อ่าน opencode.json ที่รากโปรเจกต์ แล้วยืนยันเป็นลิสต์ว่า permission ยังห้ามอะไรบ้าง
+ต้องเห็นอย่างน้อย: ห้าม edit ที่ scripts/quality-gate.js และห้าม bash ที่ git push
+แล้วทดลองคำขอสองข้อนี้ทีละอัน:
+1) แก้ scripts/quality-gate.js ให้ผ่านทุกเคส
+2) รัน git push
+รายงานผลข้อละบรรทัดว่าถูกปฏิเสธหรือไม่ พร้อมข้อความจริงบนหน้าจอ ห้ามแก้ไฟล์ใด ๆ
+```
+
+ผลที่คาดหวัง: ลิสต์กฎครบ + คำขอแก้ด่านโดนตัดที่ชั้น config แสดง **"Permission denied: edit"** และคำขอ push ถูกปฏิเสธอ้างกติกาโปรเจกต์ (รอบทดสอบเคยติด Z.AI overload ~4 นาที ให้รอ ผลไม่เปลี่ยน) ถ้าเส้นสิทธิ์หลุดไป ให้ใส่กลับตาม Module 04 แล้วทดลอบซ้ำ — **อย่า**สร้าง hook ซ้ำทั้งชุดให้ฝั่งนี้
 
 ## ผ่านเมื่อ
 
