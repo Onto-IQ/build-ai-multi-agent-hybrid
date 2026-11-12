@@ -51,13 +51,13 @@ description ภาษาอังกฤษ: Use before releasing the Registry In
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
-I want to release the Registry Insight app now. Walk me through it.
+@release-manager Help me release the Registry Insight app now. Walk me through it.
 ```
 
 **เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
-ฉันจะปล่อย Registry Insight ตอนนี้ พาฉันทำทีละขั้น
+@release-manager ช่วย Release "Registry Insight App" ตอนนี้ พาฉันทำทีละขั้น
 ```
 
 ผลที่คาดหวัง: คำตอบเดินครบสี่ขั้น ถ้าไม่ถูกหยิบเอง ดูสองจุด: คำใน `description` ตรงกับประโยคที่พิมพ์หรือไม่ หรือเอ่ยชื่อ `release-checklist` ตรง ๆ ก่อน แล้ว**จดว่ารอบของคุณถูกหยิบเองหรือต้องเอ่ยชื่อ** — นี่คือข้อมูลสดของห้อง
