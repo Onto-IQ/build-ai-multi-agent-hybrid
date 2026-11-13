@@ -20,7 +20,7 @@
 | MCP DuckDB อ่านอย่างเดียว | Claude Code | 08 | `.mcp.json` + `scripts/analysis.sql` + `docs/ANALYSIS.md` |
 | hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 09 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
 | ความจำข้ามรอบ | Claude (`memory: project` รายบทบาท) · OpenCode (ไฟล์กลาง) | 10 | โน้ตรายบทบาท + `docs/MEMORY.md` |
-| ฟีเจอร์ของตัวเอง | เลือกเอง | 11 ย่อได้ | ฟีเจอร์ 1 ชิ้น ด่านยังเขียว |
+| ฟีเจอร์ของตัวเอง | planner บน OpenCode · developer, qa บน Claude Code | 11 ย่อได้ | ฟีเจอร์ 1 ชิ้น ส่งต่อกันบนไฟล์แผน ด่านยังเขียว |
 | planner, data-researcher, developer, qa | Claude Code | 12 | ของปิดงาน |
 | `synthesizer` | OpenCode | 12 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ |
 | คนสั่ง Vercel CLI | เครื่องมือที่ถนัด | 13 | `vercel.json` และ `api/` ที่โน้ตอ่านอย่างเดียว |
