@@ -52,7 +52,7 @@
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
-Read docs/MY-FEATURE.md.
+@planner Read docs/MY-FEATURE.md.
 This round you may write only docs/MY-FEATURE-TASKS.md — a list of at most 5 items.
 Do not edit code in this round.
 ```
@@ -60,7 +60,7 @@ Do not edit code in this round.
 **เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
-อ่าน docs/MY-FEATURE.md
+@planner อ่าน docs/MY-FEATURE.md
 รอบนี้เขียนได้แค่ docs/MY-FEATURE-TASKS.md เป็นลิสต์ไม่เกิน 5 ข้อ
 ห้ามแก้โค้ดในรอบนี้
 ```
@@ -70,7 +70,7 @@ Do not edit code in this round.
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
-Follow docs/MY-FEATURE-TASKS.md only.
+@developer Follow docs/MY-FEATURE-TASKS.md only.
 Do not edit scripts/quality-gate.js.
 Never print any sk- value.
 When done, run npm run gate; if it fails, stop and report the real exit code.
@@ -79,7 +79,7 @@ When done, run npm run gate; if it fails, stop and report the real exit code.
 **เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
-ทำตาม docs/MY-FEATURE-TASKS.md เท่านั้น
+@developer ทำตาม docs/MY-FEATURE-TASKS.md เท่านั้น
 ห้ามแก้ scripts/quality-gate.js
 ห้ามพิมพ์ค่า sk-
 เสร็จแล้วรัน npm run gate ถ้าไม่ผ่านให้หยุด รายงาน exit code จริง
@@ -92,13 +92,13 @@ developer รายงานเสร็จพร้อม exit code จริ�
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
-Acceptance-check the new feature: <your feature sentence>. Verify the web page really works, the gate is still 6/6, and nothing prints sk-, then append the result to docs/QA-REPORT.md as a new section naming the feature code you chose.
+@qa Acceptance-check the new feature: <your feature sentence>. Verify the web page really works, the gate is still 6/6, and nothing prints sk-, then append the result to docs/QA-REPORT.md as a new section naming the feature code you chose.
 ```
 
 **เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
-ตรวจรับ feature ใหม่: <ประโยคฟีเจอร์ของคุณ> ตรวจว่าหน้าเว็บทำงานจริง gate ยัง 6/6 และไม่มีอะไรพิมพ์ sk- แล้ว append ผลเข้า docs/QA-REPORT.md เป็นหัวข้อใหม่ ระบุรหัสฟีเจอร์ที่เลือก
+@qa ตรวจรับ feature ใหม่: <ประโยคฟีเจอร์ของคุณ> ตรวจว่าหน้าเว็บทำงานจริง gate ยัง 6/6 และไม่มีอะไรพิมพ์ sk- แล้ว append ผลเข้า docs/QA-REPORT.md เป็นหัวข้อใหม่ ระบุรหัสฟีเจอร์ที่เลือก
 ```
 
 จากนั้น `npm start` แล้วคลิกดูว่าฟีเจอร์ปรากฏจริง ไม่ใช่แค่มีคำว่าเสร็จในแชท
