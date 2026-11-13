@@ -12,7 +12,7 @@
 |---|---|---|---|
 | explore (หลายคนพร้อมกัน) | Claude Code | 03 | `docs/EXPLORATION-REPORT.md` เท่านั้น |
 | `data-researcher` | Claude Code | 04 | ไม่เขียนไฟล์แอป อ้าง `ไฟล์:บรรทัด` |
-| `planner` | OpenCode | 04 สร้าง · 05 ใช้ | เขียนได้เฉพาะ `docs/TASKS.md` |
+| `planner` | OpenCode | 04 สร้าง · 05 ใช้ · 12 ขยายสิทธิ์ | เขียนได้เฉพาะ `docs/TASKS.md` (M12 เพิ่ม `docs/PRODUCT-SPEC.md`) |
 | เส้นสิทธิ์ | ทั้งคู่ | 04 (พาร์ตรั้วท้าย LAB.md) | ไฟล์ตั้งค่าที่ห้าม `git push` และห้ามแก้ด่าน |
 | `developer` + teammates data/backend/frontend | Claude Code | 05 | `docs/DESIGN.md`, SQL, ส่วนสรุปใน `server.js`, หน้าเว็บ |
 | `qa` แล้วคนแก้ | Claude Code | 06 | รายงาน QA และจุดที่ด่านยังแดง จนครบ 6/6 |
@@ -21,8 +21,8 @@
 | hook และงบ | Claude Code เป็นหลัก, OpenCode ใช้เส้นสิทธิ์ | 09 | hook, `cost-gate`, ไม่แก้ตัวด่าน |
 | ความจำข้ามรอบ | Claude (`memory: project` รายบทบาท) · OpenCode (ไฟล์กลาง) | 10 | โน้ตรายบทบาท + `docs/MEMORY.md` |
 | ฟีเจอร์ของตัวเอง | planner บน OpenCode · developer, qa บน Claude Code | 11 ย่อได้ | ฟีเจอร์ 1 ชิ้น ส่งต่อกันบนไฟล์แผน ด่านยังเขียว |
-| planner, data-researcher, developer, qa | Claude Code | 12 | ของปิดงาน |
-| `synthesizer` | OpenCode | 12 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ |
+| data-researcher, developer, qa | Claude Code | 12 | พรอมต์เดียวคุมทั้งกระบวนตามสัญญา `docs/TASKS.md` แล้วยิง `opencode run` ส่งงานต่อ |
+| `synthesizer` | OpenCode | 12 | สรุปผู้บริหารภาษาไทย ไม่เกิน 400 คำ ถูกเรียกแบบ headless จาก Claude |
 | คนสั่ง Vercel CLI | เครื่องมือที่ถนัด | 13 | `vercel.json` และ `api/` ที่โน้ตอ่านอย่างเดียว |
 
 ไม่มีบทบาท Flux และไม่มีใบคัมบัง

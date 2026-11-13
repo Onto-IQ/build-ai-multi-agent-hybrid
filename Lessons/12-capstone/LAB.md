@@ -4,7 +4,7 @@
 
 | เวลา | เครื่องมือ |
 |---|---|
-| **60 นาที** | Claude Code สี่บทบาท · OpenCode คนสรุป |
+| **60 นาที** | OpenCode: planner, synthesizer · Claude Code: คุมทีมและรันทั้งกระบวน |
 
 ทำในโฟลเดอร์แอป ด่านต้องเป็น 6/6 ก่อนเริ่มสรุป
 
@@ -18,37 +18,49 @@
 
 ## แบบฝึกหัด
 
-### 1. ให้ Claude จัดของให้ตรงกัน
+### 1. ให้ planner บน OpenCode วางสัญญาของทีม
 
-เปิด `claude` แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
+สัญญาสองไฟล์นี้คือสิ่งที่ทีมทั้งกระบวนอ้างถึง ผู้เขียนต้องเป็น `planner` ฝั่ง OpenCode (ตัวเดียวกับ Module 04–05) ไม่ใช่ Claude
+
+แต่ planner ที่สร้างตอน Module 04 ถูกปิดสิทธิ์ไว้ให้เขียนได้แค่ `docs/TASKS.md` ไฟล์เดียว — ต้องขยายสิทธิ์ให้เขียน `docs/PRODUCT-SPEC.md` ด้วยก่อน ไม่งั้นมันจะปฏิเสธงานตามนิยามของตัวเอง เปิด `opencode` แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
 
 **เวอร์ชันอังกฤษ (แนะนำ):**
 
 ```text
-Use the four roles in .claude/agents — if any file is missing, create it with the Write tool for real; do not reply with text only: planner, data-researcher, developer, qa.
-Follow this order only: a task that consumes another agent's output must not run before that agent finishes.
-planner writes docs/PRODUCT-SPEC.md and docs/TASKS.md to match the app as it is now, and if there is a Module 11 feature, records that it must survive the release.
-data-researcher is read-only and delivers its figures as a short shared file for the team.
-developer may edit only when the /api/summary figures do not match 16,772 and 45341868784.
-qa runs npm run gate and must never claim a pass unless it is exit 0.
-Do not create the executive summary. Do not edit scripts/quality-gate.js.
-Never put in a key.
+Update .opencode/agents/planner.md: the body must now say you may write only docs/TASKS.md and docs/PRODUCT-SPEC.md — still no code, no commands.
+Keep everything else (frontmatter, bash deny) unchanged.
 ```
 
 **เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
 
 ```text
-ใช้สี่บทบาทใน .claude/agents ถ้าไฟล์ไหนยังไม่มีให้สร้างด้วยเครื่องมือ Write จริง อย่าตอบเป็นข้อความอย่างเดียว: planner, data-researcher, developer, qa
-ทำตามลำดับนี้เท่านั้น งานที่ต้องใช้ผลของอีกตัวห้ามรันก่อนตัวนั้นเสร็จ
-planner เขียน docs/PRODUCT-SPEC.md กับ docs/TASKS.md ให้ตรงกับแอปตอนนี้ และถ้ามี feature จาก Module 11 ให้บันทึกว่าต้องรอดถึง release
-data-researcher อ่านอย่างเดียว ส่งยอดเป็นไฟล์สั้นให้ทีมใช้ร่วมกัน
-developer แก้ได้เฉพาะเมื่อยอด /api/summary ไม่ตรง 16,772 และ 45341868784
-qa รัน npm run gate และห้ามบอกผ่านถ้าไม่ใช่ exit 0
-ห้ามสร้างสรุปผู้บริหาร ห้ามแก้ scripts/quality-gate.js
-ห้ามใส่คีย์
+แก้ .opencode/agents/planner.md: เนื้อหาไฟล์ต้องบอกว่าเขียนได้แค่ docs/TASKS.md และ docs/PRODUCT-SPEC.md — ยังห้ามเขียนโค้ด ห้ามรันคำสั่ง
+เก็บส่วนอื่นไว้ครบ (frontmatter, bash deny ไม่เปลี่ยน)
 ```
 
-### 2. ให้ OpenCode เขียนสรุป
+เปิดไฟล์ด้วยตายืนยันว่าเห็นชื่อไฟล์ทั้งสอง แล้วสั่ง `@planner` (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+@planner Update docs/PRODUCT-SPEC.md and docs/TASKS.md to match the app as it is now.
+If there is a Module 11 feature, record that it must survive the release.
+TASKS must be an ordered list the Claude team can follow without chatting with you.
+Do not edit code in this round.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
+
+```text
+@planner อัปเดต docs/PRODUCT-SPEC.md กับ docs/TASKS.md ให้ตรงกับแอปตอนนี้
+ถ้ามี feature จาก Module 11 ให้บันทึกว่าต้องรอดถึง release
+TASKS ต้องเป็นลิสต์ที่เรียงลำดับแล้ว ทีม Claude ทำตามได้โดยไม่ต้องคุยกลับมา
+ห้ามแก้โค้ดในรอบนี้
+```
+
+เปิดทั้งสองไฟล์ด้วยตาก่อนไปขั้นถัดไป — ทีมจะทำตามสัญญานี้เป๊ะ ๆ ถ้าขาดอะไรให้สั่ง planner แก้ก่อน
+
+### 2. สร้างคนสรุปฝั่ง OpenCode
 
 เปิด `opencode` แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
 
@@ -58,7 +70,7 @@ qa รัน npm run gate และห้ามบอกผ่านถ้าไ
 Create .opencode/agents/synthesizer.md at exactly this path — not agents/ at the project root.
 The frontmatter must have description, mode: subagent, and permission: bash: deny.
 File body: you may write only docs/EXECUTIVE-SUMMARY.md — no code, no commands. Use only figures from the handoff files (docs/PRODUCT-SPEC.md · docs/QA-REPORT.md · docs/ANALYSIS.md and docs/region-capital.csv if present). Never guess a number.
-Then have synthesizer read those handoff files first, then write a Thai summary of at most 400 words for people who do not write code.
+The summary must be Thai, at most 400 words, for people who do not write code.
 It must contain the figures 16,772 and 45,341,868,784.
 It must name กรุงเทพมหานคร and the word กลาง.
 It must have the headings ## ภาพรวมทุนจดทะเบียน and ## ข้อเสนอแนะ.
@@ -71,16 +83,50 @@ Never invent new figures. Do not edit server.js.
 สร้าง .opencode/agents/synthesizer.md ที่พาธนี้เป๊ะ ๆ ไม่ใช่ agents/ ที่รากโปรเจกต์
 frontmatter ต้องมี description, mode: subagent และ permission: bash: deny
 เนื้อหาในไฟล์: เขียนได้เฉพาะ docs/EXECUTIVE-SUMMARY.md ไฟล์เดียว ห้ามเขียนโค้ด ห้ามรันคำสั่ง ยึดตัวเลขจากไฟล์ handoff เท่านั้น (docs/PRODUCT-SPEC.md · docs/QA-REPORT.md · docs/ANALYSIS.md และ docs/region-capital.csv ถ้ามี) ห้ามเดาตัวเลข
-จากนั้นให้ synthesizer อ่านไฟล์ handoff เหล่านั้นก่อน แล้วเขียนสรุปภาษาไทยไม่เกิน 400 คำ สำหรับคนที่ไม่เขียนโปรแกรม
+สรุปต้องเป็นภาษาไทย ไม่เกิน 400 คำ สำหรับคนที่ไม่เขียนโปรแกรม
 ต้องมียอด 16,772 และ 45,341,868,784
 ต้องมีชื่อกรุงเทพมหานครและคำว่ากลาง
 ต้องมีหัวข้อ ## ภาพรวมทุนจดทะเบียน และ ## ข้อเสนอแนะ
 ห้ามแต่งตัวเลขชุดใหม่ ห้ามแก้ server.js
 ```
 
-เปิด `.opencode/agents/synthesizer.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนเรียกใช้ แล้วเปิดไฟล์สรุปด้วยตา นับคร่าว ๆ ว่าไม่ยาวเกินหนึ่งหน้าจอ
+เปิด `.opencode/agents/synthesizer.md` ด้วยตา ต้องเห็น frontmatter ครบ ถ้าโมเดลสร้างผิดที่ ให้ย้ายไฟล์เองก่อนเรียกใช้ — ขั้นถัดไปจะเรียกตัวนี้แบบ headless
 
-### 3. ตรวจด่านอีกรอบ และเทียบเลขสรุปกับ API
+### 3. พรอมต์เดียวบน Claude รันทั้งกระบวน แล้วส่งงานให้ synthesizer แบบ headless
+
+เปิด `claude` แล้ววาง (เลือกอย่างใดอย่างหนึ่ง):
+
+**เวอร์ชันอังกฤษ (แนะนำ):**
+
+```text
+Run the whole closing pipeline using the roles in .claude/agents — if any file is missing, create it with the Write tool for real; do not reply with text only: data-researcher, developer, qa.
+The contract is docs/TASKS.md written by the OpenCode planner — follow it, do not rewrite it.
+Follow this order only: a task that consumes another agent's output must not run before that agent finishes.
+data-researcher is read-only and delivers its figures as a short shared file for the team.
+developer may edit only when the /api/summary figures do not match 16,772 and 45341868784.
+qa runs npm run gate and must never claim a pass unless it is exit 0.
+When qa reports exit 0, dispatch the summarizer on OpenCode headless with exactly:
+opencode run "@synthesizer Read docs/PRODUCT-SPEC.md, docs/QA-REPORT.md, docs/ANALYSIS.md and docs/region-capital.csv if present, then write docs/EXECUTIVE-SUMMARY.md per your instructions."
+Do not write docs/EXECUTIVE-SUMMARY.md yourself. Do not edit scripts/quality-gate.js. Never print any sk- value.
+```
+
+**เวอร์ชันไทย (ใช้ได้ผลเท่ากัน):**
+
+```text
+รันกระบวนปิดงานทั้งหมดด้วยบทบาทใน .claude/agents ถ้าไฟล์ไหนยังไม่มีให้สร้างด้วยเครื่องมือ Write จริง อย่าตอบเป็นข้อความอย่างเดียว: data-researcher, developer, qa
+สัญญาคือ docs/TASKS.md ที่ planner ฝั่ง OpenCode เขียนไว้ — ทำตาม ห้ามเขียนใหม่เอง
+ทำตามลำดับนี้เท่านั้น งานที่ต้องใช้ผลของอีกตัวห้ามรันก่อนตัวนั้นเสร็จ
+data-researcher อ่านอย่างเดียว ส่งยอดเป็นไฟล์สั้นให้ทีมใช้ร่วมกัน
+developer แก้ได้เฉพาะเมื่อยอด /api/summary ไม่ตรง 16,772 และ 45341868784
+qa รัน npm run gate และห้ามบอกผ่านถ้าไม่ใช่ exit 0
+พอ qa รายงาน exit 0 ให้ส่งงานให้คนสรุปบน OpenCode แบบ headless ด้วยคำสั่งนี้เป๊ะ ๆ:
+opencode run "@synthesizer อ่าน docs/PRODUCT-SPEC.md, docs/QA-REPORT.md, docs/ANALYSIS.md และ docs/region-capital.csv ถ้ามี แล้วเขียน docs/EXECUTIVE-SUMMARY.md ตามข้อกำหนดของเธอ"
+ห้ามเขียน docs/EXECUTIVE-SUMMARY.md เอง ห้ามแก้ scripts/quality-gate.js ห้ามพิมพ์ค่า sk-
+```
+
+หนึ่งพรอมต์จบทั้งกระบวน: ทีม Claude ทำตามสัญญาจนด่านเขียว แล้ว Claude เป็นคนยิง `opencode run` ส่งงานข้ามเครื่องมือให้ synthesizer — ฝั่ง OpenCode ไม่ต้องเปิดหน้าจอรอ
+
+### 4. ตรวจด่านอีกรอบ และเทียบเลขสรุปกับ API
 
 ปิด `npm start` ถ้าเปิดค้างอยู่ แล้ว:
 
